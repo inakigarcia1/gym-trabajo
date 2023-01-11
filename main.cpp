@@ -3,6 +3,8 @@
 #include <iostream>
 #include <string.h>
 
+using namespace std;
+
 struct fec{
 	int dia;
 	int mes;
@@ -20,16 +22,24 @@ struct Entrenador{
 	int dia[6];
 	int nroEntrenador;
 	char contrasena[10];
+	int horario[6];
+	int actividadd;
 };
 
 struct Socio{
 	char nombre[60];
+	char apellido[60];
 	char domicilio[60];
 	int dni;
-	fec nacimiento;
+	fec ingreso;
 	float altura;
 	float peso;
 	int nroSocio;
+	int edad;
+	int telefono;
+	int actividad[3];
+	int horario;
+	int entrenador[5];
 };
 
 struct Turno{
@@ -160,9 +170,9 @@ void registrarSocio(FILE *socios){
 	strcpy(socio.domicilio, adress);
 	socio.altura = 1.76;
 	socio.peso = 78.9;
-	socio.nacimiento.dia = 17;
-	socio.nacimiento.mes = 02;
-	socio.nacimiento.anio = 1980;
+	socio.ingreso.dia = 17;
+	socio.ingreso.mes = 02;
+	socio.ingreso.anio = 1980;
 	socio.nroSocio = 98765;
 	
 	fwrite(&socio, sizeof(Socio), 1, socios);
