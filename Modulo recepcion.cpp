@@ -35,9 +35,9 @@ struct Socio{
 	int nroSocio;
 	int edad;
 	int telefono;
-	int actividad[3];
+	int actividad;
 	int horario;
-	int entrenador[5];
+	int entrenador;
 };
 
 struct Turno{
@@ -51,6 +51,7 @@ void menu (int &opcion);
 void iniciarSesion(int &x);
 void registrarSocios();
 void registrarActividades();
+void listado();
 void fechaPagos();
 int main(){
 	int opcion,x;
@@ -59,21 +60,25 @@ int main(){
 	while(opcion!=5 && x==1){
 		if(opcion==1){registrarSocios();}
 		if(opcion==2){registrarSocios();}
-		if(opcion==3){registrarSocios();}
-		if(opcion==4){fechaPagos();
+		if(opcion==3){listado();}
+		if(opcion==4){fechaPagos();}
 		system("pause");
 		menu(opcion);}
-	}
+	
 	return 0;
 }
 void menu(int &opcion){
 system("cls");
-cout<<"1.- Registrar Socios.\n";
-cout<<"2.- Registrar Actividades de Socios.\n";
-cout<<"3.- Listados de Socios.\n";
-cout<<"4.- Listado de fechas de pagos.\n";
-cout<<"5.- Cerrar la aplicación\n";
-cout<<"Ingrese una opción: ";cin>>opcion;
+	cout<<"============================================================================\n";
+	cout<<"====================| ELIGE UNA OPERACION              |====================\n";
+	cout<<"====================|  1- REGISTRAR SOCIOS             |====================\n";
+	cout<<"====================|  2- REGISTRAR ACTIVIDAD DE SOCIO |====================\n";
+	cout<<"====================|  3- LISTADO DE SOCIOS            |====================\n";
+	cout<<"====================|  4- LISTADO DE FECHA DE PAGOS    |====================\n";
+	cout<<"====================|  5- Salir	                       |====================\n";
+	cout<<"============================================================================\n";
+	cout<<"==========================================================================> ";
+	cin>>opcion;
 if(opcion>5 || opcion<1){
 	cout<<"No ingreso un numero valido, intente nuevamente: ";cin>>opcion;
 }
@@ -163,7 +168,6 @@ void registrarActividades(){
 			while(actividad<0 || actividad >2){
 				cout<<"ERROR. no ingreso un numero valido, intente nuevamente: ";cin>>actividad;
 			}
-			reg.actividad[actividad]=1;
 			cout<<"ingrese el legajo del entrenador que desee contratar: ";cin>>legajoentrenador;
 			
 			
@@ -179,12 +183,74 @@ void registrarActividades(){
 	
 	fclose(arch);
 }
+//c) listado de participantes, de una actividad determinada, por horario y entrenador.
+void listado(){
+	int act,turno,trainer,existe=0,i=0;
+	FILE *arch;
+	FILE *arch2;
+	arch2=fopen("Entrenadores.dat","a+b");
+	arch=fopen("Socios.dat","a+b");
+	Entrenador reg2[6];
+	if(arch==NULL){exit(1);}
+	Socio reg;
+	system("cls");
+	cout<<"=================================================================\n";
+	cout<<"====================|  ELIGE UNA ACTIVIDAD |====================\n";
+	cout<<"====================| 1- ZUMBA             |====================\n";
+	cout<<"====================| 2- SPINNING          |====================\n";
+	cout<<"====================| 3- PILATES           |====================\n";
+	cout<<"================================================================\n";
+	cout<<"================================================================> ";
+	cin>>act;
+	while(act>3 || act<1){
+	cout<<"No eligio un numero valido, intente nuevamente: ";cin>>act;}
+	system("cls");
+	cout<<"==============================================================\n";
+	cout<<"====================|  ELIGE UN HORARIO  |====================\n";
+	cout<<"====================| 1- 8-16  hs        |====================\n";
+	cout<<"====================| 2- 16-00 hs        |====================\n";
+	cout<<"=============================================================\n";
+	cout<<"=============================================================> ";
+	cin>>turno;
+	while(turno>2 || turno<1){
+	cout<<"No eligio un numero valido, intente nuevamente: ";cin>>turno;}
+	system("cls");
+	cout<<"============================================================================\n";
+	cout<<"====================|           ELIGE UN ENTRENADOR       |==================\n";
+	cout<<"====================| 1-"<<printf("%s", reg2[1].nombre)<<"|====================\n";
+	cout<<"====================| 2-"<<printf("%s", reg2[2].nombre)<<"|====================\n";
+	cout<<"====================| 3-"<<printf("%s", reg2[3].nombre)<<"|====================\n";
+	cout<<"====================| 4-"<<printf("%s", reg2[4].nombre)<<"|====================\n";
+	cout<<"====================| 5-"<<printf("%s", reg2[5].nombre)<<"|====================\n";
+	cout<<"============================================================================\n";
+	cout<<"==========================================================================> ";
+	cin>>trainer;
+	while(trainer>5 || trainer<1){
+	cout<<"No eligio un numero valido, intente nuevamente: ";cin>>trainer;}
+	system("cls");
+	rewind(arch);
+	rewind(arch2);
+	while(!feof(arch)){
+		if(reg.actividad==act){
+			if(reg.horario==turno){
+				if(reg.entrenador==trainer){
+					i++;
+					existe=1;
+					printf("%s,%s,%d", reg.apellido,reg.nombre,reg.nroSocio);
+				}
+			}
+		}
+	}
+	cout<<"La cantidad de participantes que practican la actividad, en ese horario y con ese entrenador es de: "<<i;
+		
 	
 	
+fclose(arch);
+fclose(arch2);
 	
+}	
 	
-	
-	
+
 	
 	
 	
