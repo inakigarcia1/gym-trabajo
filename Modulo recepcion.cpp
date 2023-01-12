@@ -16,7 +16,7 @@ struct Usuario{
 };
 
 struct Entrenador{
-	char nombre[60];
+	char apeNom[60];
 	int dia[6];
 	int nroEntrenador;
 	char contrasena[10];
@@ -25,8 +25,7 @@ struct Entrenador{
 };
 
 struct Socio{
-	char nombre[60];
-	char apellido[60];
+	char apeNom[60];
 	char domicilio[60];
 	int dni;
 	fec ingreso;
@@ -128,8 +127,7 @@ actividad), Altura Peso, Dirección, Teléfono, Fecha de ingreso.
 	if(arch==NULL){exit(1);}
 cout<<"Digite el numero de socios que desea registrar";cin>>n;
 for(int i=0;i<n;i++){
-	cout<<"Digite el nombre del socio #"<<i<<": ";_flushall();cin.getline(reg.nombre,60,'\n');
-	cout<<"Digite el apellido del socio #"<<i<<": ";_flushall();cin.getline(reg.apellido,60,'\n');
+	cout<<"Digite el nombre del socio #"<<i<<": ";_flushall();cin.getline(reg.apeNom,60,'\n');
 	cout<<"\nDigite el domicilio del socio #"<<i<<": ";_flushall();cin.getline(reg.domicilio,60,'\n');
 	cout<<"\nDigite el dni del socio #"<<i<<": ";cin>>reg.dni;
 	cout<<"\nDigite la edad del socio #"<<i<<": ";cin>>reg.edad;
@@ -185,12 +183,14 @@ void registrarActividades(){
 }
 //c) listado de participantes, de una actividad determinada, por horario y entrenador.
 void listado(){
-	int act,turno,trainer,existe=0,i=0;
+	int act,turno,trainer,existe=0,i=0,x=0;
 	FILE *arch;
 	FILE *arch2;
 	arch2=fopen("Entrenadores.dat","a+b");
 	arch=fopen("Socios.dat","a+b");
-	Entrenador reg2[6];
+	Entrenador reg2;
+	rewind(arch);
+	rewind(arch2);
 	if(arch==NULL){exit(1);}
 	Socio reg;
 	system("cls");
@@ -216,32 +216,27 @@ void listado(){
 	cout<<"No eligio un numero valido, intente nuevamente: ";cin>>turno;}
 	system("cls");
 	cout<<"============================================================================\n";
-	cout<<"====================|           ELIGE UN ENTRENADOR       |==================\n";
-	cout<<"====================| 1-"<<printf("%s", reg2[1].nombre)<<"|====================\n";
-	cout<<"====================| 2-"<<printf("%s", reg2[2].nombre)<<"|====================\n";
-	cout<<"====================| 3-"<<printf("%s", reg2[3].nombre)<<"|====================\n";
-	cout<<"====================| 4-"<<printf("%s", reg2[4].nombre)<<"|====================\n";
-	cout<<"====================| 5-"<<printf("%s", reg2[5].nombre)<<"|====================\n";
-	cout<<"============================================================================\n";
+	cout<<"====================|     ELIGE UN ENTRENADOR   |==================\n";
+	fread(&reg2,sizeof(Entrenador),1,arch2);
+	while(!feof(arch2)){x++;cout<<"====================|"<<x<<"-"<<reg2.apeNom<<"       \t|====================\n";
+	fread(&reg2,sizeof(Entrenador),1,arch2);}
 	cout<<"==========================================================================> ";
 	cin>>trainer;
 	while(trainer>5 || trainer<1){
-	cout<<"No eligio un numero valido, intente nuevamente: ";cin>>trainer;}
-	system("cls");
-	rewind(arch);
-	rewind(arch2);
+	cout<<"\nNo eligio un numero valido, intente nuevamente: ";cin>>trainer;}
+	fread(&reg,sizeof(Socio),1,arch);
 	while(!feof(arch)){
 		if(reg.actividad==act){
 			if(reg.horario==turno){
 				if(reg.entrenador==trainer){
 					i++;
-					existe=1;
-					printf("%s,%s,%d", reg.apellido,reg.nombre,reg.nroSocio);
+					printf("%s,%d",reg.apeNom,reg.nroSocio);
 				}
 			}
 		}
+	fread(&reg,sizeof(Socio),1,arch);
 	}
-	cout<<"La cantidad de participantes que practican la actividad, en ese horario y con ese entrenador es de: "<<i;
+	cout<<"\nLa cantidad de participantes que practican la actividad, en ese horario y con ese entrenador es de: "<<i<<endl;
 		
 	
 	
