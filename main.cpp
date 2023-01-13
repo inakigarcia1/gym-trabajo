@@ -13,6 +13,7 @@ struct Usuario{
 	char nombreUsuario[10];
 	char contrasena[10];
 	char nombre[60];
+	int tipoDeUser;
 };
 
 struct Entrenador{
@@ -21,7 +22,6 @@ struct Entrenador{
 	int nroEntrenador;
 	char contrasena[10];
 	int horario[6];
-	int actividadd;
 };
 
 struct Socio{
@@ -34,16 +34,15 @@ struct Socio{
 	int nroSocio;
 	int edad;
 	int telefono;
-	int actividad;
-	int horario;
-	int entrenador;
+	int actividad[3];
 };
 
 struct Turno{
-	int nroEntrenador;
-	fec fechaTurno;
+	int entrenador;
+	int horario[2];
 	int nroSocio;
-	int diaTurno;
+	int diaTurno[6];
+	
 };
 
 
@@ -172,9 +171,7 @@ void registrarSocio(FILE *socios){
 	socio.ingreso.mes = 02;
 	socio.ingreso.anio = 1980;
 	socio.nroSocio = 98765;
-	socio.actividad = 2;
-	socio.horario = 1;
-	socio.entrenador = 3;
+	socio.actividad[1] = 1;
 	
 	
 	fwrite(&socio, sizeof(Socio), 1, socios);
@@ -183,12 +180,10 @@ void registrarSocio(FILE *socios){
 void registrarTurnos(FILE *turnos){
 	Turno turno;
 	
-	turno.nroEntrenador = 91218;
+	turno.entrenador = 1;
 	turno.nroSocio = 98765;
-	turno.diaTurno = 5;
-	turno.fechaTurno.dia = 20;
-	turno.fechaTurno.mes = 01;
-	turno.fechaTurno.anio = 2022;
+	turno.diaTurno[5] = 5;
+	turno.horario[1] = 1;
 	
 	fwrite(&turno, sizeof(Turno), 1, turnos);
 }
