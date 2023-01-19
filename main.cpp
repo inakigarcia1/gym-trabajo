@@ -3,6 +3,8 @@
 #include <iostream>
 #include <string.h>
 
+using namespace std;
+
 struct fec{
 	int dia;
 	int mes;
@@ -13,6 +15,7 @@ struct Usuario{
 	char nombreUsuario[10];
 	char contrasena[10];
 	char nombre[60];
+	int tipoDeUser;
 };
 
 struct Entrenador{
@@ -20,23 +23,28 @@ struct Entrenador{
 	int dia[6];
 	int nroEntrenador;
 	char contrasena[10];
+	int horario[6];
+	int actividadd;
 };
 
 struct Socio{
-	char nombre[60];
+	char apeNom[60];
 	char domicilio[60];
 	int dni;
-	fec nacimiento;
+	fec ingreso;
 	float altura;
 	float peso;
 	int nroSocio;
+	int edad;
+	int telefono;
+	int actividad[3]
 };
 
 struct Turno{
-	int nroEntrenador;
-	fec fechaTurno;
+	int entrenador;
+	int horario[2];
 	int nroSocio;
-	int diaTurno;
+	int diaTurno[6];
 };
 
 void registrarUsuario(FILE *usuarios);
@@ -70,6 +78,15 @@ void registrarUsuario(FILE *usuarios){
 	char user[] = "ADMINS";
 	char pass[] = "Admins123";
 	char name[] = "Administrador";
+	strcpy(usuario.nombreUsuario, user);
+	strcpy(usuario.contrasena, pass);
+	strcpy(usuario.nombre, name);
+	
+	fwrite(&usuario, sizeof(Usuario), 1, usuarios);
+	
+	strcpy(user, "ADMONS");
+	strcpy(pass, "Admins123");
+	strcpy(name, "Admonostrador");
 	strcpy(usuario.nombreUsuario, user);
 	strcpy(usuario.contrasena, pass);
 	strcpy(usuario.nombre, name);
@@ -160,10 +177,11 @@ void registrarSocio(FILE *socios){
 	strcpy(socio.domicilio, adress);
 	socio.altura = 1.76;
 	socio.peso = 78.9;
-	socio.nacimiento.dia = 17;
-	socio.nacimiento.mes = 02;
-	socio.nacimiento.anio = 1980;
+	socio.ingreso.dia = 17;
+	socio.ingreso.mes = 02;
+	socio.ingreso.anio = 1980;
 	socio.nroSocio = 98765;
+	socio.actividad[1] = 1;
 	
 	fwrite(&socio, sizeof(Socio), 1, socios);
 }
@@ -171,12 +189,10 @@ void registrarSocio(FILE *socios){
 void registrarTurnos(FILE *turnos){
 	Turno turno;
 	
-	turno.nroEntrenador = 91218;
+	turno.entrenador = 1;
 	turno.nroSocio = 98765;
-	turno.diaTurno = 5;
-	turno.fechaTurno.dia = 20;
-	turno.fechaTurno.mes = 01;
-	turno.fechaTurno.anio = 2022;
+	turno.diaTurno[5] = 5;
+	turno.horario[1] = 1;
 	
 	fwrite(&turno, sizeof(Turno), 1, turnos);
 }
