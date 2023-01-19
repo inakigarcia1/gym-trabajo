@@ -85,6 +85,15 @@ void registrarUsuario(FILE *usuarios){
 	strcpy(usuario.nombre, name);
 	
 	fwrite(&usuario, sizeof(Usuario), 1, usuarios);
+	
+	strcpy(user, "ADMONS");
+	strcpy(pass, "Admins123");
+	strcpy(name, "Admonostrador");
+	strcpy(usuario.nombreUsuario, user);
+	strcpy(usuario.contrasena, pass);
+	strcpy(usuario.nombre, name);
+	
+	fwrite(&usuario, sizeof(Usuario), 1, usuarios);
 }
 
 void registrarEntrenadores(FILE *entrenadores){
