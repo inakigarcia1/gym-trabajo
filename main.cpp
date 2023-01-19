@@ -2,50 +2,9 @@
 #include <stdlib.h>
 #include <iostream>
 #include <string.h>
+#include "datos.h"
 
 using namespace std;
-
-struct fec{
-	int dia;
-	int mes;
-	int anio;
-};
-
-struct Usuario{
-	char nombreUsuario[10];
-	char contrasena[10];
-	char nombre[60];
-	int tipoDeUser;
-};
-
-struct Entrenador{
-	char nombre[60];
-	int dia[6];
-	int nroEntrenador;
-	char contrasena[10];
-	int horario[6];
-	int actividad;
-};
-
-struct Socio{
-	char apeNom[60];
-	char domicilio[60];
-	int dni;
-	fec ingreso;
-	float altura;
-	float peso;
-	int nroSocio;
-	int edad;
-	int telefono;
-	int actividad[3];
-};
-
-struct Turno{
-	int entrenador;
-	int horario[2];
-	int nroSocio;
-	int diaTurno[6];
-};
 
 void registrarUsuario(FILE *usuarios);
 void registrarEntrenadores(FILE *entrenadores);
@@ -172,7 +131,7 @@ void registrarSocio(FILE *socios){
 	char name[] = "Juan Perez";
 	char adress[] = "Av. Belgrano 1200";
 	
-	strcpy(socio.nombre, name);
+	strcpy(socio.apeNom, name);
 	socio.dni = 25843567;
 	strcpy(socio.domicilio, adress);
 	socio.altura = 1.76;
