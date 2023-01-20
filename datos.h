@@ -38,6 +38,7 @@ struct Socio{
 	int edad;
 	int telefono;
 	int actividad[3];
+	char rutina[1000];
 };
 
 struct Turno{
