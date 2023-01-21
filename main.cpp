@@ -142,8 +142,10 @@ void registrarSocio(FILE *socios){
 	socio.nroSocio = 98765;
 	socio.edad = 30;
 	socio.telefono = 6721;
-	socio.actividad[1] = 1;
-	
+	socio.actividad[0] = 1;
+	socio.actividad[1] = 2;
+	socio.actividad[2] = 0;
+ 	
 	fwrite(&socio, sizeof(Socio), 1, socios);
 }
 
