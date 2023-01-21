@@ -24,7 +24,7 @@ struct Entrenador{
 	int nroEntrenador;
 	char contrasena[10];
 	int horario[6];
-	int actividad;
+	int actividad[3];
 };
 
 struct Socio{
