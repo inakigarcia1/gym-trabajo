@@ -168,6 +168,7 @@ void LoginEntrenador() {
 void Listado(){
 	Socio socio;
 	int c=1, op;
+	char act1[]="Zumba", act2[]="Pila", act3[]="Spinning";
 	FILE *arch = fopen("Socios.dat", "rb");
 	system("color 2");
 	cout<<"-------------Socios:-------------"<<endl;
@@ -178,7 +179,25 @@ void Listado(){
 		cout<<"Apellido y nombre:"<<socio.apeNom<<endl;
 		cout<<"Fecha de ingreso:"<<socio.ingreso.dia<<"/"<<socio.ingreso.mes<<"/"<<socio.ingreso.anio<<endl;
 		cout<<"Telefono de contacto:"<<socio.telefono<<endl;
-		cout<<"ACtividad:"<<socio.actividad<<endl;
+		cout<<"ACtividad:";
+		for(int i=0; i<3; i++){
+				cout<<"||";
+				if(socio.actividad[i]==1){
+					cout<<act1;
+					cout<<"|";
+				}
+				if(socio.actividad[i]==2){
+					cout<<act2;
+					cout<<"|";
+				}
+				if(socio.actividad[i]==3){
+					cout<<act3;
+					cout<<"|";
+				}
+		
+		}
+		
+		cout<<endl<<endl;
 		cout<<"---------------------------------"<<endl;
 		c++;
 		
