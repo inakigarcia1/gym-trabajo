@@ -181,16 +181,16 @@ void Listado(){
 		cout<<"Telefono de contacto:"<<socio.telefono<<endl;
 		cout<<"ACtividad:";
 		for(int i=0; i<3; i++){
-				cout<<"||";
-				if(socio.actividad[i]==1){
+				cout<<"||";	//Aqui realicé los cambios noma santino
+				if(socio.actividad[i]==0){
 					cout<<act1;
 					cout<<"|";
 				}
-				if(socio.actividad[i]==2){
+				if(socio.actividad[i]==1){
 					cout<<act2;
 					cout<<"|";
 				}
-				if(socio.actividad[i]==3){
+				if(socio.actividad[i]==2){
 					cout<<act3;
 					cout<<"|";
 				}
