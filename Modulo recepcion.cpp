@@ -1,49 +1,5 @@
-#include <stdio.h>
-#include <stdlib.h>
-#include <iostream>
-#include <string.h>
+#include "datos.h"
 using namespace std;
-struct fec{
-	int dia;
-	int mes;
-	int anio;
-};
-
-struct Usuario{
-	char nombreUsuario[10];
-	char contrasena[10];
-	char nombre[60];
-	int tipoDeUser;
-};
-
-struct Entrenador{
-	char apeNom[60];
-	int dia[6];
-	int nroEntrenador;
-	char contrasena[10];
-	int horario[6];
-};
-
-struct Socio{
-	char apeNom[60];
-	char domicilio[60];
-	int dni;
-	fec ingreso;
-	float altura;
-	float peso;
-	int nroSocio;
-	int edad;
-	int telefono;
-	int actividad[3];
-};
-
-struct Turno{
-	int entrenador;
-	int horario[2];
-	int nroSocio;
-	int diaTurno[6];
-	
-};
 
 void menu (int &opcion);
 void iniciarSesion(int &x);
@@ -116,7 +72,7 @@ void iniciarSesion(int &x){
 }
 void registrarSocios(){
 	Socio reg;
-	int n;
+	int n,restring = 0,cantidadRest;
 	/*Registro de socio. Para cada Socio se deberá registrar Nombre, Apellido DNI, Edad, peso,
 Indicaciones médicas (Donde es posible registrar si el socio esta restringido para alguna
 actividad), Altura Peso, Dirección, Teléfono, Fecha de ingreso.
@@ -146,6 +102,23 @@ for(int i=0;i<n;i++){
 	cout<<"\nDigite el peso del socio #"<<i<<": ";cin>>reg.peso;
 	cout<<"\nDigite el nroSocio del socio #"<<i<<": ";cin>>reg.nroSocio;
 	cout<<"\nDigite el telefono del socio #"<<i<<": ";cin>>reg.telefono;
+	cout<<"\nEsta restringido para alguna actividad ? (1 = SI;0 = NO)";cin>>restring;
+		while(restring > 1 || restring < 0){
+			cout<<"No ingreso una opcion valida, intente nuevamente: ";cin>>restring;
+		}
+		if(restring == 1){
+		cout<<"\nCuantas? (MAX 2.)";cin>>cantidadRest;
+		while(cantidadRest >2 || cantidadRest <1){
+			cout<<"\nERROR. No selecciono una opcion valida, intente nuevamente: ";cin>>cantidadRest;
+		}
+	if(restring == 1){
+		cout<<"Seleccion cuales: \n0) ZUMBA.\n1)SPINNING.\n2)PILATES.";
+		for(int i=0;i<cantidadRest;i++){
+			cout<<"\n-----> ";cin>>restring;
+			reg.restringido[restring]=5;
+		}
+	}
+	}
 	fwrite(&reg,sizeof(Socio),1,arch);
 }
 fclose(arch);
@@ -183,7 +156,11 @@ void registrarActividades(){//Registro de actividad. Una vez registrado el socio
 		cin>>act;
 			while(act>2 || act<0){
 				cout<<"No eligio un numero valido, intente nuevamente: ";cin>>act;}
+		while(reg.restringido[act] == 5){
+			cout<<"ERROR: El socio esta restringido medicamente para participar de esta actividad. \nSeleccione otra: ";cin>>act;
+		}
 				reg.actividad[act]=act;
+				
 				system("cls");
 		cout<<"==============================================================\n";
 		cout<<"====================|  ELIGE UN HORARIO  |====================\n";
@@ -199,14 +176,17 @@ void registrarActividades(){//Registro de actividad. Una vez registrado el socio
 		cout<<"============================================================================\n";
 		cout<<"====================|     ELIGE UN ENTRENADOR   |==================\n";
 		fread(&reg3,sizeof(Entrenador),1,arch3);
-			while(!feof(arch3)){x++;cout<<"====================|"<<x<<"-"<<reg3.apeNom<<"       \t|====================\n";
+			while(!feof(arch3)){x++;cout<<"====================|"<<x<<"-"<<reg3.nombre<<"       \t|====================\n";
 				fread(&reg3,sizeof(Entrenador),1,arch3);}
 				cout<<"==========================================================================> ";
 				cin>>trainer;
 			while(trainer>5 || trainer<1){
 				cout<<"\nNo eligio un numero valido, intente nuevamente: ";cin>>trainer;}
 				reg2.entrenador=trainer;
+				fseek(arch,-(int)sizeof(Socio),SEEK_CUR);
+				fwrite(&reg,sizeof(Socio),1,arch);
 				fwrite(&reg2,sizeof(Turno),1,arch2);
+				break;
 	}
 	fread(&reg,sizeof(Socio),1,arch);
 	}
@@ -256,7 +236,7 @@ void listado(){
 	cout<<"============================================================================\n";
 	cout<<"====================|     ELIGE UN ENTRENADOR   |==================\n";
 	fread(&reg3,sizeof(Entrenador),1,arch3);
-	while(!feof(arch3)){x++;cout<<"====================|"<<x<<"-"<<reg3.apeNom<<"       \t|====================\n";
+	while(!feof(arch3)){x++;cout<<"====================|"<<x<<"-"<<reg3.nombre<<"       \t|====================\n";
 	fread(&reg3,sizeof(Entrenador),1,arch3);}
 	cout<<"==========================================================================> ";
 	cin>>trainer;
