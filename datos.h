@@ -5,6 +5,15 @@
 
 using namespace std;
 
+typedef int semanal[2] = {0, 0};
+typedef int horarios[3];
+
+int marcelo = 91218;
+int ramon = 24514;
+int martin = 61122;
+int hernan = 26696;
+int pablo = 65723;
+
 struct fec{
 	int dia;
 	int mes;
@@ -37,13 +46,10 @@ struct Socio{
 	int nroSocio;
 	int edad;
 	int telefono;
-	int actividad[3];
+	semanal actividadYTurno[2][6];
 	char rutina[1000];
 };
 
 struct Turno{
-	int entrenador;
-	int horario[2];
-	int nroSocio;
-	int diaTurno[6];
+	horarios entrenadorYAct[2][6];
 };
