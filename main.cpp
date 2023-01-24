@@ -139,6 +139,14 @@ void registrarSocio(FILE *socios){
 	socio.edad = 30;
 	socio.telefono = 6721;
 
+	for(int i = 0; i < 2; i++){
+		for(int j = 0; j < 6; j++){
+			for(int k = 0; k < 2; k++){
+				socio.actividadYTurno[i][j][k] = 0;
+			}
+		}
+	}
+	
 	// POR DEFECTO, CADA NUEVO SOCIO TIENE TODO CERO (NO ASISTE). SOLO HACE FALTA MODIFICAR LOS DIAS QUE ASISTE.
 
 	// Lunes turno 1

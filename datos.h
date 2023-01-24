@@ -5,7 +5,7 @@
 
 using namespace std;
 
-typedef int semanal[2] = {0, 0};
+typedef int semanal[2];
 typedef int horarios[3];
 
 int marcelo = 91218;
