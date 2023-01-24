@@ -168,7 +168,7 @@ void LoginEntrenador() {
 void Listado(){
 	Socio socio;
 	int c=1, op;
-	char act1[]="Zumba", act2[]="Pila", act3[]="Spinning";
+	char act1[]="Zumba", act2[]="Spinnig", act3[]="Pilates";
 	FILE *arch = fopen("Socios.dat", "rb");
 	system("color 2");
 	cout<<"-------------Socios:-------------"<<endl;
