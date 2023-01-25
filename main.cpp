@@ -141,7 +141,7 @@ void registrarSocio(FILE *socios){
 
 	for(int i = 0; i < 2; i++){
 		for(int j = 0; j < 6; j++){
-			for(int k = 0; k < 2; k++){
+			for(int k = 0; k < 3; k++){
 				socio.actividadYTurno[i][j][k] = 0;
 			}
 		}
@@ -150,17 +150,13 @@ void registrarSocio(FILE *socios){
 	// POR DEFECTO, CADA NUEVO SOCIO TIENE TODO CERO (NO ASISTE). SOLO HACE FALTA MODIFICAR LOS DIAS QUE ASISTE.
 
 	// Lunes turno 1
-	socio.actividadYTurno[1][0][0] = 1; // Asiste lunes turno 1
-	socio.actividadYTurno[1][0][1] = 1; // Solo spinning
+	socio.actividadYTurno[1][0][1] = 1; // Asiste, solo spinning
 	
 	// Miercoles turno 0
-	socio.actividadYTurno[0][2][0] = 1; // Asiste miercoles turno 0
-	socio.actividadYTurno[0][2][1] = 2; // Solo pilates
+	socio.actividadYTurno[0][2][2] = 1; // Asiste, solo pilates
 	
 	// Viernes turno 0
-	socio.actividadYTurno[0][4][0] = 1; // Asiste viernes turno 0
-	socio.actividadYTurno[0][4][1] = 0; // Solo zumba
-	
+	socio.actividadYTurno[0][4][0] = 1; // Asiste, solo zumba
 	
 	
 	fwrite(&socio, sizeof(Socio), 1, socios);

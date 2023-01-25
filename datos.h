@@ -5,7 +5,6 @@
 
 using namespace std;
 
-typedef int semanal[2];
 typedef int horarios[3];
 
 int marcelo = 91218;
@@ -46,7 +45,7 @@ struct Socio{
 	int nroSocio;
 	int edad;
 	int telefono;
-	semanal actividadYTurno[2][6];
+	horarios actividadYTurno[2][6];
 	char rutina[1000];
 };
 
