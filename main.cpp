@@ -182,7 +182,7 @@ void registrarTurnos(FILE *turnos){
 	turno.entrenadorYAct[0][1][2] = martin; // Pilates
 	
 	// Martes turno 1
-	turno.entrenadorYAct[1][1][0] = pablo; // Zumba
+	turno.entrenadorYAct[1][1][0] = martin; // Zumba
 	turno.entrenadorYAct[1][1][1] = pablo; // Spinning
 	turno.entrenadorYAct[1][1][2] = hernan; // Pilates
 	
@@ -192,7 +192,7 @@ void registrarTurnos(FILE *turnos){
 	turno.entrenadorYAct[0][2][2] = marcelo; // Pilates
 	
 	// Miercoles turno 1
-	turno.entrenadorYAct[1][2][0] = hernan; // Zumba
+	turno.entrenadorYAct[1][2][0] = marcelo; // Zumba
 	turno.entrenadorYAct[1][2][1] = pablo; // Spinning
 	turno.entrenadorYAct[1][2][2] = hernan; // Pilates
 	
@@ -212,7 +212,7 @@ void registrarTurnos(FILE *turnos){
 	turno.entrenadorYAct[0][4][2] = martin; // Pilates
 	
 	// Viernes turno 1
-	turno.entrenadorYAct[1][4][0] = pablo; // Zumba
+	turno.entrenadorYAct[1][4][0] = marcelo; // Zumba
 	turno.entrenadorYAct[1][4][1] = pablo; // Spinning
 	turno.entrenadorYAct[1][4][2] = hernan; // Pilates
 	
