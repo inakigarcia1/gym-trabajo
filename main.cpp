@@ -2,49 +2,9 @@
 #include <stdlib.h>
 #include <iostream>
 #include <string.h>
+#include "datos.h"
+
 using namespace std;
-struct fec{
-	int dia;
-	int mes;
-	int anio;
-};
-
-struct Usuario{
-	char nombreUsuario[10];
-	char contrasena[10];
-	char nombre[60];
-	int tipoDeUser;
-};
-
-struct Entrenador{
-	char apeNom[60];
-	int dia[6];
-	int nroEntrenador;
-	char contrasena[10];
-	int horario[6];
-};
-
-struct Socio{
-	char apeNom[60];
-	char domicilio[60];
-	int dni;
-	fec ingreso;
-	float altura;
-	float peso;
-	int nroSocio;
-	int edad;
-	int telefono;
-	int actividad[3];
-};
-
-struct Turno{
-	int entrenador;
-	int horario[2];
-	int nroSocio;
-	int diaTurno[6];
-	
-};
-
 
 void registrarUsuario(FILE *usuarios);
 void registrarEntrenadores(FILE *entrenadores);
@@ -82,6 +42,15 @@ void registrarUsuario(FILE *usuarios){
 	strcpy(usuario.nombre, name);
 	
 	fwrite(&usuario, sizeof(Usuario), 1, usuarios);
+	
+	strcpy(user, "ADMONS");
+	strcpy(pass, "Admins123");
+	strcpy(name, "Admonostrador");
+	strcpy(usuario.nombreUsuario, user);
+	strcpy(usuario.contrasena, pass);
+	strcpy(usuario.nombre, name);
+	
+	fwrite(&usuario, sizeof(Usuario), 1, usuarios);
 }
 
 void registrarEntrenadores(FILE *entrenadores){
@@ -93,7 +62,7 @@ void registrarEntrenadores(FILE *entrenadores){
 	strcpy(name, "Marcelo Gallardo");
 	strcpy(pass, "Creer18");
 	int id = 91218;
-	strcpy(entrenador.apeNom, name);
+	strcpy(entrenador.nombre, name);
 	strcpy(entrenador.contrasena, pass);
 	entrenador.nroEntrenador = id;
 	entrenador.dia[0] = 1;
@@ -107,7 +76,7 @@ void registrarEntrenadores(FILE *entrenadores){
 	strcpy(name, "Ramon Diaz");
 	strcpy(pass, "Campeon14");
 	id = 24514;
-	strcpy(entrenador.apeNom, name);
+	strcpy(entrenador.nombre, name);
 	strcpy(entrenador.contrasena, pass);
 	entrenador.nroEntrenador = id;
 	entrenador.dia[0] = 2;
@@ -121,7 +90,7 @@ void registrarEntrenadores(FILE *entrenadores){
 	strcpy(name, "Martin Demichelis");
 	strcpy(pass, "Chaubay22");
 	id = 61122;
-	strcpy(entrenador.apeNom, name);
+	strcpy(entrenador.nombre, name);
 	strcpy(entrenador.contrasena, pass);
 	entrenador.nroEntrenador = id;
 	entrenador.dia[0] = 3;
@@ -133,7 +102,7 @@ void registrarEntrenadores(FILE *entrenadores){
 	strcpy(name, "Hernan Crespo");
 	strcpy(pass, "Liber96");
 	id = 26696;
-	strcpy(entrenador.apeNom, name);
+	strcpy(entrenador.nombre, name);
 	strcpy(entrenador.contrasena, pass);
 	entrenador.nroEntrenador = id;
 	entrenador.dia[0] = 2;
@@ -146,7 +115,7 @@ void registrarEntrenadores(FILE *entrenadores){
 	strcpy(name, "Pablo Aimar");
 	strcpy(pass, "Payazo10");
 	id = 65723;
-	strcpy(entrenador.apeNom, name);
+	strcpy(entrenador.nombre, name);
 	strcpy(entrenador.contrasena, pass);
 	entrenador.nroEntrenador = id;
 	entrenador.dia[0] = 1;
@@ -173,7 +142,6 @@ void registrarSocio(FILE *socios){
 	socio.nroSocio = 98765;
 	socio.actividad[1] = 1;
 	
-	
 	fwrite(&socio, sizeof(Socio), 1, socios);
 }
 
@@ -186,4 +154,4 @@ void registrarTurnos(FILE *turnos){
 	turno.horario[1] = 1;
 	
 	fwrite(&turno, sizeof(Turno), 1, turnos);
-}
+	}
