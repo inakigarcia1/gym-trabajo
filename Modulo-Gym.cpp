@@ -1,70 +1,99 @@
-#include<iostream>
-#include<stdlib.h>
-#include<stdio.h>
-#include"datos.h"
+#include "datos.h"
+
 using namespace std;
 
-void menu();
-void LoginEntrenador();
-void Listado();
-void Registrar();
+void menu(int legajo);
+void LoginEntrenador(int &legajo);
+void Listado(int legajo);
+void Registrar(int legajo);
 
-main(){
+main() {
+	corregirConsola();
+	int legajo = 0;
 	system("color 7");
-	cout<<"========================================="<<endl;
-	cout<<"=============>|Bienvenido:|<============="<<endl;
-	cout<<"========================================="<<endl;
-	cout<<"==>";
-	system("pause");
-	LoginEntrenador();
-	cout<<"====Accediendo al menu de operaciones===="<<endl<<endl;
-	system("pause");
-	menu();
-	
+	cout<<"\t\t\t    __  __   __      _       _          _______     ____  __ \n";
+	Sleep(100);
+	cout<<"\t\t\t   |  \\/  | /_/     | |     | |        / ____\\ \\   / /  \\/  |\n";
+	Sleep(100);
+	cout<<"\t\t\t   | \\  / | ___   __| |_   _| | ___   | |  __ \\ \\_/ /| \\  / |\n";
+	Sleep(100);
+	cout<<"\t\t\t   | |\\/| |/ _ \\ / _` | | | | |/ _ \\  | | |_ | \\   / | |\\/| |\n";
+	Sleep(100);
+	cout<<"\t\t\t   | |  | | (_) | (_| | |_| | | (_) | | |__| |  | |  | |  | |\n";
+	Sleep(100);
+	cout<<"\t\t\t   |_|  |_|\\___/ \\__,_|\\__,_|_|\\___/   \\_____|  |_|  |_|  |_|\n";
+	Sleep(100);
+	cout<<"\n\n\n";
+	Sleep(1500);
+	LoginEntrenador(legajo);
+	menu(legajo);
+
 }
 
-void menu(){
+void menu(int legajo) {
 	int ope=0;
-	while(ope!=1 and ope!=4){
+	while(ope!=1 and ope!=4) {
 		system("cls");
 		system("color 9");
-		cout<<"==============================================================="<<endl;
-		cout<<"==============================================================="<<endl;
-		cout<<"====================>|Elija una operacion|<===================="<<endl;
-		cout<<"==============================================================="<<endl;
-		cout<<"==============================================================="<<endl;
-		cout<<"===>|1 - Ver listado de Socios y actividades que realizan.|<==="<<endl;
-		cout<<"==============================================================="<<endl;
-		cout<<"============>|2 - Registrar Rutinas de Gimnasia.|<============="<<endl;
-		cout<<"==============================================================="<<endl;
-		cout<<"=================>|3 - Cerrar la aplicacion.|<================="<<endl;
-		cout<<"==============================================================="<<endl;
-		cout<<"==>";
+		cout<<"\t\t\t    __  __   __      _       _          _______     ____  __ \n";
+		Sleep(100);
+		cout<<"\t\t\t   |  \\/  | /_/     | |     | |        / ____\\ \\   / /  \\/  |\n";
+		Sleep(100);
+		cout<<"\t\t\t   | \\  / | ___   __| |_   _| | ___   | |  __ \\ \\_/ /| \\  / |\n";
+		Sleep(100);
+		cout<<"\t\t\t   | |\\/| |/ _ \\ / _` | | | | |/ _ \\  | | |_ | \\   / | |\\/| |\n";
+		Sleep(100);
+		cout<<"\t\t\t   | |  | | (_) | (_| | |_| | | (_) | | |__| |  | |  | |  | |\n";
+		Sleep(100);
+		cout<<"\t\t\t   |_|  |_|\\___/ \\__,_|\\__,_|_|\\___/   \\_____|  |_|  |_|  |_|\n";
+		Sleep(100);
+		cout<<"\n\n\n";
+		if(legajo == 91218) cout<<setw(62)<<"MARCELO GALLARDO";
+		if(legajo == 24514) cout<<setw(62)<<"RAMON DIAZ";
+		if(legajo == 61122) cout<<setw(62)<<"MARTIN DEMICHELIS";
+		if(legajo == 26696) cout<<setw(62)<<"HERNAN CRESPO";
+		if(legajo == 65723) cout<<setw(62)<<"PABLO AIMAR";
+		Sleep(100);
+		cout<<"\n\n\n";
+		cout<<"\tElija una operacion"<<endl<<endl;
+		Sleep(100);
+		cout<<"\t\t1 - Ver listado de Socios y actividades que realizan."<<endl;
+		Sleep(100);
+		cout<<"\t\t2 - Registrar Rutinas."<<endl;
+		Sleep(100);
+		cout<<"\t\t3 - Cerrar la aplicacion."<<endl<<endl;
+		Sleep(100);
+		cout<<"==> ";
+		Sleep(100);
 		cin>>ope;
-		while(ope!=4 and ope!=0){
-			switch(ope){
+		printf("\n");
+		while(ope!=4 and ope!=0) {
+			switch(ope) {
 				case 1:
-					cout<<"Escogiste ===>Listado de socios y actividades.<==="<<endl;
+					cout<<"Escogiste: Listado de socios y actividades. ";
 					system("pause");
 					system("cls");
-					Listado();
-				break;
+					Listado(legajo);
+					break;
 				case 2:
-					cout<<"Escogiste ==========>Registrar rutina.<==========="<<endl;
+					cout<<"Escogiste: Registrar rutinas. ";
 					system("pause");
 					system("cls");
-					Registrar();
-				break;
+					Registrar(legajo);
+					break;
 				case 3:
 					ope=3;
-					system("color 4");
-					cout<<"============>Finalizando actividades.<============"<<endl;
-					cout<<endl<<"Cerrando aplicacion...";
-					system("pause");
-					system("cls");
-					cout<<"Gracias."<<endl;;
+					cout<<"Escogiste: Cerrar aplicacion. "<<endl;
+					cout<<endl<<"Cerrando aplicacion";
+					Sleep(800);
+					printf(".");
+					Sleep(800);
+					printf(".");
+					Sleep(800);
+					printf(".");
+					Sleep(800);
 					exit(0);
-				break;
+					break;
 				default:
 					break;
 			}
@@ -72,298 +101,277 @@ void menu(){
 	}
 }
 
-void LoginEntrenador() {
-	//variables
-	system("color 6");
-	Entrenador coach;
-	int a=0, b=0,c=1, t;	//1==> para cuando encuentre el dato
-	Entrenador ver;
+void LoginEntrenador(int &legajo) {
+	// Variables
+	Entrenador entrenador;
+
+	int ch;
+	legajo = 0;
+	string contrasena;
+
+	bool correctUser = false;
+	bool correctPass = false;
+
 	FILE *arch = fopen("Entrenadores.dat","rb"); //abro el archivo
 
 	//EN PANTALLA//
-	system("cls");
-	cout<<"========>|INICIO DE SESION|<========"<<endl<<endl;
-	
-	while(b==0){	
-		cout<<"<> Legajo de entrenador ==> ";
-		cin>>coach.nroEntrenador;
-		//Leo del archivo y guardo en ver(verificar)
-		fread(&ver, sizeof(Entrenador), 1, arch);
-		//Verifico legajo:
-		while(!feof(arch) and a!=1) {
-			if(coach.nroEntrenador==ver.nroEntrenador) {
-				a=1;
-			} else {
-				fread(&ver, sizeof(Entrenador), 1, arch);
-			}
+	cout<<setw(62)<<"INICIO DE SESION"<<endl<<endl;
+
+	while(!correctUser or !correctPass) {
+
+		cout<<" - Legajo de entrenador: ";
+		cin>>legajo;
+
+		cout<<" - Contrasena: ";
+
+		ch = getch();
+
+		while(ch != 13) {
+			contrasena.push_back(ch);
+			cout<<'*';
+			ch = getch();
 		}
-		if(a==1) {
-			cout<<"El legajo fue encontrado con exito."<<endl;
-			b=1;
-		} else {
-			cout<<"El legajo ingresado es incorrecto."<<endl;
-			system("pause");
-			system("cls");
-			cout<<"===================================="<<endl;
-			cout<<"====>|0-Salir de la aplicacion|<===="<<endl<<"===================================="<<endl<<"=====>|1-Intentar nuevamente.|<====="<<endl;
-			cout<<"===================================="<<endl;
-			cout<<"==>";
-			cin>>t;
-			if(t==1){
-				LoginEntrenador();
+
+		//Leo del archivo y guardo en entrenador
+		fread(&entrenador, sizeof(Entrenador), 1, arch);
+
+		//Verifico:
+		while(!feof(arch)) {
+
+			correctUser = false;
+			correctPass = false;
+
+			if(legajo==entrenador.nroEntrenador) {
+				correctUser = true;
+
+				if(contrasena == entrenador.contrasena) {
+					correctPass = true;
+					break;
+				}
+
 			}
-			else{
-				system("cls");
-				system("color 4");
-				cout<<"Finalizando operaciones...";
-				exit(0);
-			}
+
+			fread(&entrenador, sizeof(Entrenador), 1, arch);
+
 		}
+
+		if(!correctUser or !correctPass) {
+			printf("\n\n\tUsuario o contrasena incorrectos. Por favor, reintente.\n\n");
+			system("color 4");
+			Sleep(500);
+			system("color 7");
+			Sleep(500);
+			system("color 4");
+			Sleep(500);
+			system("color 7");
+			contrasena = "";
+		}
+
+		rewind(arch);
 	}
 
-	while(c==1){
-		a=1;
-		cout<<"Contrasenia ==> ";
-		_flushall();
-		gets(coach.contrasena);
-		fread(&ver, sizeof(Entrenador), 1, arch);
-		
-		fseek(arch,0*sizeof(Entrenador), SEEK_SET);
-		
-		while(!feof(arch) and c==1) {
-			a=strcmp(coach.contrasena,ver.contrasena);
-			if(a==0) {
-				system("color E");
-				cout<<"Contrasenia correcta"<<endl;
-				c=0;
-			} else {
-				fread(&ver, sizeof(Entrenador), 1, arch);
-			}
-		}
-		if(c==1){
-			system("color C");
-			cout<<"Contrasenia incorrecta"<<endl;
-			system("pause");
-			system("cls");
-			system("color 3");
-			cout<<"===================================="<<endl;
-			cout<<"====>|0-Salir de la aplicacion|<===="<<endl<<"===================================="<<endl<<"=====>|1-Intentar nuevamente.|<====="<<endl;
-			cout<<"===================================="<<endl;
-			cout<<"==>";
-			cin>>t;
-			if(t==1){
-				c=1;
-			}
-			else{
-				exit(0);
-			}	
-		}
-	}
-	
+	cout<<"\n\nUsuario encontrado.\n";
+
+	if(legajo == 91218) cout<<"Bienvenido, Marcelo. ";
+	if(legajo == 24514) cout<<"Bienvenido, Ramon. ";
+	if(legajo == 61122) cout<<"Bienvenido, Martin. ";
+	if(legajo == 26696) cout<<"Bienvenido, Hernan. ";
+	if(legajo == 65723) cout<<"Bienvenido, Pablo. ";
+
+	system("color 2");
+	Sleep(500);
+	system("color 7");
+	Sleep(500);
+	system("color 2");
+	Sleep(500);
+	system("color 7");
+
 	fclose(arch);
+	Sleep(1000);
 	system("pause");
-	system("cls");
 }
 
-void Listado(){
+void Listado(int legajo) {
 	Socio socio;
 	int c=1, op;
 	char act1[]="Zumba", act2[]="Pila", act3[]="Spinning";
 	FILE *arch = fopen("Socios.dat", "r+b");
-	system("color 2");
-	cout<<"-------------Socios:-------------"<<endl;
+	system("color 9");
+	cout<<"-------------Socios:-------------"<<endl<<endl;
 	fread(&socio, sizeof(Socio), 1, arch);
-	
-	while(!feof(arch)){
-		cout<<"Socio numero "<<c<<":"<<endl;
-		cout<<"Apellido y nombre:"<<socio.apeNom<<endl;
-		cout<<"Fecha de ingreso:"<<socio.ingreso.dia<<"/"<<socio.ingreso.mes<<"/"<<socio.ingreso.anio<<endl;
-		cout<<"Telefono de contacto:"<<socio.telefono<<endl;
-		cout<<"Actividades programadas:"<<endl;
-		for(int i=0;i<2;i++){
-			for(int j=0;j<6;j++){
-				for(int k=0;k<3;k++){
-					if(socio.actividadYTurno[i][j][k]==1){
-						cout<<"==>";
+
+	while(!feof(arch)) {
+		cout<<" Socio numero "<<c<<":"<<endl<<endl;
+		cout<<" - Apellido y nombre: "<<socio.apeNom<<endl;
+		cout<<" - Fecha de ingreso: "<<socio.ingreso.dia<<"/"<<socio.ingreso.mes<<"/"<<socio.ingreso.anio<<endl;
+		cout<<" - Telefono de contacto: "<<socio.telefono<<endl;
+		cout<<" - Actividades programadas: "<<endl<<endl;
+		for(int i=0; i<2; i++) {
+			for(int j=0; j<6; j++) {
+				for(int k=0; k<3; k++) {
+					if(socio.actividadYTurno[i][j][k]==1) {
+						cout<<"\t* ";
 						//ACTIVIDAD
-						if(k==0){
+						if(k==0) {
 							cout<<"Zumba -";
 						}
-						if(k==1){
+						if(k==1) {
 							cout<<"Spinning -";
 						}
-						if(k==2){
+						if(k==2) {
 							cout<<"Pilates -";
 						}
 						//DIA
-						switch(j){
+						switch(j) {
 							case 0:
-								cout<<" Los Lunes";
-							break;
+								cout<<" Los lunes";
+								break;
 							case 1:
 								cout<<" Los martes";
-							break;
+								break;
 							case 2:
 								cout<<" Los miercoles";
-							break;
+								break;
 							case 3:
 								cout<<" Los jueves";
-							break;
+								break;
 							case 4:
 								cout<<" Los viernes";
-							break;
+								break;
 							case 5:
 								cout<<" Los sabados";
-							break;
+								break;
 							default:
-							break;
+								break;
 						}
 						//HORARIO
-						if(i==0){
-							cout<<" - Primer turno.";
+						if(i==0) {
+							cout<<" - 1er turno (8hs - 16hs).";
+						} else {
+							cout<<" - 2do turno (16hs - 00hs).";
 						}
-						else{
-							cout<<" - Segundo turno.";
-						}
-						cout<<endl;
+						cout<<endl<<endl;
 					}
 				}
 			}
 		}
-		cout<<endl<<endl;
-		cout<<"---------------------------------"<<endl;
+		cout<<endl;
+		cout<<"---------------------------------"<<endl<<endl;
 		c++;
-		
+
 		fread(&socio, sizeof(Socio), 1, arch);
 	}
-	system("pause");
-	system("cls");
-	system("color 3");
-	cout<<"0-Volver al menu."<<endl<<"1-Ver lista nuevamente."<<endl<<"==>";
-	cin>>op;
-	if(op==1){
-		Listado();
-	}
-	else{
-		menu();
-		fclose(arch);
-	}
-}	
+	cout<<"Presione una tecla para volver al menu...";
+	getch();
+	fclose(arch);
+	menu(legajo);
+}
 
-void Registrar(){
-	system("color 2");
-	
+void Registrar(int legajo) {
+	system("color 9");
+
 	FILE *arch = fopen("Socios.dat", "rb");
-	int numsocio, b, ans=1, sp=32, words;
-	char rutina[1001];
+	int numsocio, sp=32, words;
+	char rutina[10000];
 	Socio socio;
+	int letra = 0;
+	bool encontrado = false;
 
-	while(ans==1){	
-		b=0;			
-		cout<<"Numero de Socio:"<<endl<<"==>";
-		scanf("%d", &numsocio);	
-		fseek(arch,0*sizeof(Socio), SEEK_SET);
-	
-		fread(&socio, sizeof(Socio), 1, arch);
-	
-		while(!feof(arch) and b!=1){
-			
-			if(numsocio==socio.nroSocio){
-				system("color E");
-				cout<<"Socio encontrado."<<endl;
-				b=1;
-				ans=0;
-			}
-			else{
-				fread(&socio, sizeof(Socio), 1, arch);
-			}
-		}
-		if(b==0){
-			system("color C");
-			cout<<"Datos de socio incorrectos."<<endl;
-			system("pause");
-			system("cls");
-			system("color 3");
-			cout<<"¿Que desea hacer?"<<endl;
-			cout<<"0-Regresar al menu."<<endl<<"1-Ingresar datos nuevamente."<<endl<<"==>";
-			cin>>ans;
-			system("cls");
-			if(ans==0){
-				system("pause");
-				system("cls");
-				menu();
-			}
-		}
+
+	cout<<" - Numero de Socio a buscar: ";
+	cin>>numsocio;
+	printf("\n");
+
+	fseek(arch,0*sizeof(Socio), SEEK_SET);
+
+	fread(&socio, sizeof(Socio), 1, arch);
+
+	while(!feof(arch)) {
+
+		if(numsocio==socio.nroSocio) {
+			system("color 9");
+			cout<<"\tSocio encontrado."<<endl;
+			system("color 2");
+			Sleep(500);
+			system("color 9");
+			Sleep(500);
+			system("color 2");
+			Sleep(500);
+			system("color 9");
+			encontrado = true;
+			break;
+		} else fread(&socio, sizeof(Socio), 1, arch);
+
 	}
-	if(b==1){
-	
-		system("color D");
-		cout<<"Ingresar por teclado una rutina de gimnasia."<<endl;
-		cout<<"Recordar que la misma no debe superar las 380 palabras."<<endl;
-		cout<<"                           ||                          "<<endl;
-		cout<<"                           ||                          "<<endl;
-		cout<<"                          \\  /                         "<<endl;
-		cout<<"                           \\/                          "<<endl;
-		cout<<"-------------------------------------------------------"<<endl;
-		cout<<"-------------------------Rutina:-----------------------"<<endl;
-		cout<<"==>";
-		ans=1;
-		
+	rewind(arch);
+
+	if(!encontrado) {
+		system("color 9");
+		cout<<"Datos de socio incorrectos. ";
+		error();
+		cout<<"Presione una tecla para volver al menu...";
+		getch();
+		menu(legajo);
+	}
+
+	system("color 9");
+	cout<<"\n\tPor favor, ingresar por teclado una rutina de gimnasia, recordar que la misma no debe superar las 380 palabras."<<endl<<endl;
+	cout<<"\tRutina: ";
+	_flushall();
+	gets(rutina);
+	printf("\n\n");
+
+	words=0;
+	system("color 9");
+	cout<<"\tVerificando";
+	Sleep(800);
+	printf(".");
+	Sleep(800);
+	printf(".");
+	Sleep(800);
+	printf(".");
+	Sleep(800);
+	printf("\n\n");
+
+	for(int i = 0; i < strlen(rutina); i++) {
+
+		letra = rutina[i];
+
+		if(letra == sp) words++;
+	}
+
+	if(words<=380) {
+		system("color 9");
+		cout<<"\tLa rutina ingresada cumple con las restricciones."<<endl;
+		correct();
+		cout<<"\t* Subiendo a la base de datos";
+		Sleep(800);
+		printf(".");
+		Sleep(800);
+		printf(".");
+		Sleep(800);
+		printf(".");
+		Sleep(800);
+
+		//Subiendo al archivo
+		strcpy(socio.rutina, rutina);
+		fwrite(&socio, sizeof(Socio), 1, arch);
+
+		printf("\n\n");
+		cout<<"Datos subidos correctamente. Presione una tecla para volver al menu...";
+		getch();
+	}
+	else {
+		system("color 9");
+		cout<<"\tLa rutina detallada no cumple con los requisitos de extension. Por favor, ingrese una rutina valida."<<endl<<endl;
+		error();
+		cout<<"\tRutina: ";
 		_flushall();
 		gets(rutina);
-		
-		while(ans!=0){
-			words=0;
-			system("cls");
-			system("color D");
-			cout<<"Verificando..."<<endl;
-			
-			for(int i=0;i<1001;i++){
-				
-				if(rutina[i]!='\0'){
-					if(rutina[i]==sp){
-						words++;
-					}
-				}
-				else{
-					i=1000;
-				}
-			//	cout<<i<<"-"<<words<<endl;
-			}
-			
-			if(words<3){
-				system("color E");
-				cout<<"La rutina ingresada cumple con las restricciones."<<endl;
-				ans=0;
-				cout<<"---------Subiendo a la base de datos---------"<<endl<<endl;
-				system("pause");
-				system("cls");
-				//Subiendo al archivo
-				strcpy(socio.rutina,rutina);
-				system("color 6");
-				cout<<"===>DATOS SUBIDOS CORRECTAMENTE.<==="<<endl<<endl<<endl;
-				system("pause");
-			}
-			else{
-				system("color C");
-				cout<<"La rutina detallada no cumple con los requisitos de extension."<<endl;
-				cout<<"Favor de ingresar una rutina valida."<<endl;
-				cout<<"==>";
-				_flushall();
-				scanf("%s", rutina);
-			}
-		}
-		system("color 3");
-		cout<<"0-Volver al menu."<<endl<<"1-Registrar otra rutina."<<endl<<"==>";
-		cin>>ans;
-		if(ans==0){
-			menu();
-		}
-		else{
-		 	menu();
-		 	fclose(arch);
-		}
+		printf("\n\n");
 	}
+	fclose(arch);
+	menu(legajo);
 }
 
 
