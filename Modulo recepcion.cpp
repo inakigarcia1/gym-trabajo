@@ -180,7 +180,7 @@ void registrarActividades(){//Registro de actividad. Una vez registrado el socio
 				posi3++;
 				fread(&reg3,sizeof(Entrenador),1,arch3);
 			}
-			int contadorcito=0,entren[posi3],l=0;
+			int contadorcito=0,entren[posi3],l=0,CMin=0;
 			
 			rewind(arch2);
 			fread(&reg2,sizeof(Turno),1,arch2);
@@ -188,6 +188,7 @@ void registrarActividades(){//Registro de actividad. Una vez registrado el socio
 			for(int i=0;i<posi3;i++){
 				for(x=0;x<6;x++){
 				if(reg2.entrenadorYAct[turno][x][act] == copia3[i].nroEntrenador){
+					CMin=1;
 				if(contadorcito==0){
 					l++;
 				cout<<endl<<l<<"-"<<copia3[i].nombre<<" \t   ";entren[l]=copia3[i].nroEntrenador;}
@@ -207,7 +208,7 @@ void registrarActividades(){//Registro de actividad. Una vez registrado el socio
 				}
 				cout<<"\n------> ";
 				cin>>trainer;
-			while(trainer>posi3 || trainer<0){
+			while(trainer>l || trainer<CMin){
 				cout<<"\nNo eligio un numero valido, intente nuevamente: ";cin>>trainer;}
 				for(int i=0;i<6;i++){
 					if(entren[trainer] == reg2.entrenadorYAct[turno][i][act]){
@@ -273,7 +274,7 @@ void listado(){
 				posi3++;
 				fread(&reg3,sizeof(Entrenador),1,arch3);
 			}
-		int entren[posi3];
+		int entren[posi3],CMIN=0;
 		
 		
 		rewind(arch2);
@@ -300,7 +301,7 @@ void listado(){
 				cin>>trainer;
 			
 				z=0;
-			while(trainer>posi3 || trainer<0){
+			while(trainer>l || trainer<CMIN){
 				cout<<"\nNo eligio un numero valido, intente nuevamente: ";cin>>trainer;}
 				system("cls");
 				rewind(arch);
