@@ -168,35 +168,68 @@ void LoginEntrenador() {
 void Listado(){
 	Socio socio;
 	int c=1, op;
-	char act1[]="Zumba", act2[]="Spinnig", act3[]="Pilates";
-	FILE *arch = fopen("Socios.dat", "rb");
+	char act1[]="Zumba", act2[]="Pila", act3[]="Spinning";
+	FILE *arch = fopen("Socios.dat", "r+b");
 	system("color 2");
 	cout<<"-------------Socios:-------------"<<endl;
-	
 	fread(&socio, sizeof(Socio), 1, arch);
+	
 	while(!feof(arch)){
 		cout<<"Socio numero "<<c<<":"<<endl;
 		cout<<"Apellido y nombre:"<<socio.apeNom<<endl;
 		cout<<"Fecha de ingreso:"<<socio.ingreso.dia<<"/"<<socio.ingreso.mes<<"/"<<socio.ingreso.anio<<endl;
 		cout<<"Telefono de contacto:"<<socio.telefono<<endl;
-		cout<<"ACtividad:";
-		for(int i=0; i<3; i++){
-				cout<<"||";	//Aqui realicé los cambios noma santino
-				if(socio.actividad[i]==0){
-					cout<<act1;
-					cout<<"|";
+		cout<<"Actividades programadas:"<<endl;
+		for(int i=0;i<2;i++){
+			for(int j=0;j<6;j++){
+				for(int k=0;k<3;k++){
+					if(socio.actividadYTurno[i][j][k]==1){
+						cout<<"==>";
+						//ACTIVIDAD
+						if(k==0){
+							cout<<"Zumba -";
+						}
+						if(k==1){
+							cout<<"Spinning -";
+						}
+						if(k==2){
+							cout<<"Pilates -";
+						}
+						//DIA
+						switch(j){
+							case 0:
+								cout<<" Los Lunes";
+							break;
+							case 1:
+								cout<<" Los martes";
+							break;
+							case 2:
+								cout<<" Los miercoles";
+							break;
+							case 3:
+								cout<<" Los jueves";
+							break;
+							case 4:
+								cout<<" Los viernes";
+							break;
+							case 5:
+								cout<<" Los sabados";
+							break;
+							default:
+							break;
+						}
+						//HORARIO
+						if(i==0){
+							cout<<" - Primer turno.";
+						}
+						else{
+							cout<<" - Segundo turno.";
+						}
+						cout<<endl;
+					}
 				}
-				if(socio.actividad[i]==1){
-					cout<<act2;
-					cout<<"|";
-				}
-				if(socio.actividad[i]==2){
-					cout<<act3;
-					cout<<"|";
-				}
-		
+			}
 		}
-		
 		cout<<endl<<endl;
 		cout<<"---------------------------------"<<endl;
 		c++;
