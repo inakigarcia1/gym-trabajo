@@ -13,6 +13,7 @@
 #include <termios.h>
 #include <unistd.h>
 #endif
+#include <locale.h>
 
 using namespace std;
 
