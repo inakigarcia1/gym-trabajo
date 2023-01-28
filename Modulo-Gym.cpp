@@ -24,7 +24,6 @@ main() {
 	cout<<"\t\t\t   |_|  |_|\\___/ \\__,_|\\__,_|_|\\___/   \\_____|  |_|  |_|  |_|\n";
 	Sleep(100);
 	cout<<"\n\n\n";
-	Sleep(1500);
 	LoginEntrenador(legajo);
 	menu(legajo);
 
@@ -105,7 +104,7 @@ void LoginEntrenador(int &legajo) {
 	// Variables
 	Entrenador entrenador;
 
-	int ch;
+//	int ch;
 	legajo = 0;
 	string contrasena;
 
@@ -115,7 +114,8 @@ void LoginEntrenador(int &legajo) {
 	FILE *arch = fopen("Entrenadores.dat","rb"); //abro el archivo
 
 	//EN PANTALLA//
-	cout<<setw(62)<<"INICIO DE SESION"<<endl<<endl;
+	cout<<setw(62)<<"INICIO DE SESION"<<endl;Sleep(1500);
+	cout<<setw(62)<<"\nPor motivos de seguridad, su contrasena no sera mostrada mientras escribe.\n\n";
 
 	while(!correctUser or !correctPass) {
 
@@ -124,13 +124,11 @@ void LoginEntrenador(int &legajo) {
 
 		cout<<" - Contrasena: ";
 
-		ch = getch();
-
-		while(ch != 13) {
-			contrasena.push_back(ch);
-			cout<<'*';
-			ch = getch();
-		}
+		SetStdinEcho(false);
+		_flushall();
+		cin>>contrasena;
+		SetStdinEcho(true);
+		cout<<contrasena<<endl;
 
 		//Leo del archivo y guardo en entrenador
 		fread(&entrenador, sizeof(Entrenador), 1, arch);
