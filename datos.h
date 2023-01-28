@@ -7,6 +7,12 @@
 #include <conio.h>
 #define _WIN32_WINNT 0x0500
 #include <windows.h>
+#ifdef WIN32
+#include <windows.h>
+#else
+#include <termios.h>
+#include <unistd.h>
+#endif
 
 using namespace std;
 
@@ -33,11 +39,8 @@ struct Usuario{
 
 struct Entrenador{
 	char nombre[60];
-	int dia[6];
 	int nroEntrenador;
 	char contrasena[10];
-	int horario[6];
-	int actividad;
 };
 
 struct Socio{
@@ -52,6 +55,7 @@ struct Socio{
 	int telefono;
 	horarios actividadYTurno[2][6];
 	char rutina[10000];
+	int restringido[3];
 };
 
 struct Turno{
@@ -94,26 +98,6 @@ void corregirConsola(){
 
 }
 
-void login(){
-	int ch;
-	
-	string user, pass;
-	
-	printf(" - Usuario: ");
-	cin>>user;
-	printf(" - Contrasena: ");
-	
-	ch = getch();
-	
-	while(ch != 13){
-		pass.push_back(ch);
-		cout<<'*';
-		ch = getch();
-	}
-	
-	if(user == "hola" and pass == "hola1") printf("Entraste.");
-}
-
 void error(){
 	system("color 4");Sleep(500);
 	system("color 9");Sleep(500);
@@ -126,4 +110,29 @@ void correct(){
 	system("color 9");Sleep(500);
 	system("color 2");Sleep(500);
 	system("color 9");
+}
+
+void SetStdinEcho(bool enable = true){
+#ifdef WIN32
+    HANDLE hStdin = GetStdHandle(STD_INPUT_HANDLE); 
+    DWORD mode;
+    GetConsoleMode(hStdin, &mode);
+
+    if( !enable )
+        mode &= ~ENABLE_ECHO_INPUT;
+    else
+        mode |= ENABLE_ECHO_INPUT;
+
+    SetConsoleMode(hStdin, mode );
+
+#else
+    struct termios tty;
+    tcgetattr(STDIN_FILENO, &tty);
+    if( !enable )
+        tty.c_lflag &= ~ECHO;
+    else
+        tty.c_lflag |= ECHO;
+
+    (void) tcsetattr(STDIN_FILENO, TCSANOW, &tty);
+#endif
 }
