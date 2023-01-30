@@ -52,7 +52,7 @@ void iniciarSesion(int &x){
 	rewind(arch);
 	fread(&reg,sizeof(Usuario),1,arch);
 	while(!feof(arch)){
-		if(strcmp(nombre,reg.nombreUsuario)==0 && strcmp(contrasena,reg.contrasena)==0){
+		if(strcmp(nombre,reg.nombreUsuario)==0 && strcmp(contrasena,reg.contrasena)==0 && (reg.tipoDeUser==1 || reg.tipoDeUser==2)){
 			cout<<"Inicio de sesion exitoso";
 			exitoso=1;
 			x=1;
@@ -61,7 +61,7 @@ void iniciarSesion(int &x){
 		else(fread(&reg,sizeof(Usuario),1,arch));
 		
 	}
-	if(exitoso==0){cout<<"No se encontró dicho usuario. Desea reintentar el inicio de sesion? (1=si/0=no)";cin>>reintento;
+	if(exitoso==0){cout<<"No se encontr? dicho usuario. Desea reintentar el inicio de sesion? (1=si/0=no)";cin>>reintento;
 		while(reintento > 1 || reintento < 0){cout<<"ERROR: no ingreso ninguna de las opciones, digite nuevamente: ";cin>>reintento;
 		}
 		if(reintento == 1){iniciarSesion(x);}
@@ -73,9 +73,9 @@ void iniciarSesion(int &x){
 void registrarSocios(){
 	Socio reg;
 	int n,restring = 0,cantidadRest;
-	/*Registro de socio. Para cada Socio se deberá registrar Nombre, Apellido DNI, Edad, peso,
-Indicaciones médicas (Donde es posible registrar si el socio esta restringido para alguna
-actividad), Altura Peso, Dirección, Teléfono, Fecha de ingreso.
+	/*Registro de socio. Para cada Socio se deber? registrar Nombre, Apellido DNI, Edad, peso,
+Indicaciones m?dicas (Donde es posible registrar si el socio esta restringido para alguna
+actividad), Altura Peso, Direcci?n, Tel?fono, Fecha de ingreso.
 */	
 	FILE *arch;
 	arch=fopen("Socios.dat","a+b");
@@ -123,7 +123,7 @@ for(int i=0;i<n;i++){
 }
 fclose(arch);
 }
-void registrarActividades(){//Registro de actividad. Una vez registrado el socio, este podrá inscribirse en distintas actividades
+void registrarActividades(){//Registro de actividad. Una vez registrado el socio, este podr? inscribirse en distintas actividades
 							//pudiendo elegir el horario y entrenador.
 
 	FILE *arch;
@@ -134,18 +134,16 @@ void registrarActividades(){//Registro de actividad. Una vez registrado el socio
 	arch3=fopen("Entrenadores.dat","a+b");
 	Socio reg;
 	Turno reg2;
-	Entrenador reg3;
-	Entrenador copia3[100];
-	int act,turno,x=0,trainer,z=0,posi3=0;
+	Entrenador reg3,copia3[100];
+	int act,turno,x=0,trainer,socioEncontrado=0,cantPosicionesCopia3=0,numerosocio,actividad,legajoentrenador;
 	if(arch==NULL)exit(1);
-	int numerosocio,actividad,legajoentrenador;
 	cout<<"Digite el nroSocio del socio al cual desea inscribirlo a una actividad: ";cin>>numerosocio;
 	system("cls");
 	rewind(arch);
 	fread(&reg,sizeof(Socio),1,arch);
 	while(!feof(arch)){
 	if(numerosocio==reg.nroSocio){
-		z=1;
+		socioEncontrado=1;
 		cout<<"=================================================================\n";
 		cout<<"====================|  ELIGE UNA ACTIVIDAD |====================\n";
 		cout<<"====================| 0- ZUMBA             |====================\n";
@@ -176,39 +174,39 @@ void registrarActividades(){//Registro de actividad. Una vez registrado el socio
 		rewind(arch3);
 		fread(&reg3,sizeof(Entrenador),1,arch3);
 			while(!feof(arch3)){
-				copia3[posi3]=reg3;
-				posi3++;
+				copia3[cantPosicionesCopia3]=reg3;
+				cantPosicionesCopia3++;
 				fread(&reg3,sizeof(Entrenador),1,arch3);
 			}
-			int contadorcito=0,entren[posi3],l=0,CMin=0;
+			int evitarRepetirNombres=0,entren[cantPosicionesCopia3],contadorEntrenadores=0,eleccionMinima=0;
 			
 			rewind(arch2);
 			fread(&reg2,sizeof(Turno),1,arch2);
 			while(!feof(arch2)){ 
-			for(int i=0;i<posi3;i++){
+			for(int i=0;i<cantPosicionesCopia3;i++){
 				for(x=0;x<6;x++){
 				if(reg2.entrenadorYAct[turno][x][act] == copia3[i].nroEntrenador){
-					CMin=1;
-				if(contadorcito==0){
-					l++;
-				cout<<endl<<l<<"-"<<copia3[i].nombre<<" \t   ";entren[l]=copia3[i].nroEntrenador;}
+					eleccionMinima=1;
+				if(evitarRepetirNombres==0){
+					contadorEntrenadores++;
+				cout<<endl<<contadorEntrenadores<<"-"<<copia3[i].nombre<<" \t   ";entren[contadorEntrenadores]=copia3[i].nroEntrenador;}
 				if(x==0)cout<<"Lunes;";
 				if(x==1)cout<<"Martes;";
 				if(x==2)cout<<"Miercoles;";
 				if(x==3)cout<<"Jueves;";
 				if(x==4)cout<<"Viernes;";
 				if(x==5)cout<<"Sabado;";
-				contadorcito++;
+				evitarRepetirNombres++;
 				}
 				}
-				contadorcito=0;
+				evitarRepetirNombres=0;
 			}
 			
 				fread(&reg2,sizeof(Turno),1,arch2);
 				}
 				cout<<"\n------> ";
 				cin>>trainer;
-			while(trainer>l || trainer<CMin){
+			while(trainer>contadorEntrenadores || trainer<eleccionMinima){
 				cout<<"\nNo eligio un numero valido, intente nuevamente: ";cin>>trainer;}
 				for(int i=0;i<6;i++){
 					if(entren[trainer] == reg2.entrenadorYAct[turno][i][act]){
@@ -223,7 +221,7 @@ void registrarActividades(){//Registro de actividad. Una vez registrado el socio
 	}
 	else{fread(&reg,sizeof(Socio),1,arch);}
 	}
-	if(z==0){
+	if(socioEncontrado==0){
 	cout<<"No se encontro ningun socio con ese nroSocio.";}
 	fclose(arch3);
 	fclose(arch2);
@@ -231,7 +229,7 @@ void registrarActividades(){//Registro de actividad. Una vez registrado el socio
 }
 //c) listado de participantes, de una actividad determinada, por horario y entrenador.
 void listado(){
-	int act,turno,trainer,existe=0,i=0,x=0,z=0;
+	int act,turno,trainer,existe=0,i=0,x=0,z=0,evitarRepetirNombre=0,cantPosicionesCopia3=0,personas=0,posEntrenador=0;
 	FILE *arch;
 	FILE *arch2;
 	FILE *arch3;
@@ -268,31 +266,31 @@ void listado(){
 	cout<<" ELIGE UN ENTRENADOR\n";
 		rewind(arch3);
 		fread(&reg3,sizeof(Entrenador),1,arch3);
-		int contadorcito=0,posi3=0,personas=0;
 			while(!feof(arch3)){
-				copia3[posi3]=reg3;
-				posi3++;
+				copia3[cantPosicionesCopia3]=reg3;
+				cantPosicionesCopia3++;
 				fread(&reg3,sizeof(Entrenador),1,arch3);
 			}
-		int entren[posi3],CMIN=0;
+		int entren[cantPosicionesCopia3],eleccionMinima=0;
 		
 		
 		rewind(arch2);
-		int l=0;
+		
 		fread(&reg2,sizeof(Turno),1,arch2);
 			while(!feof(arch2)){ 
-			for(int i=0;i<posi3;i++){
+			for(int i=0;i<cantPosicionesCopia3;i++){
 				for(x=0;x<6;x++){
 				if(reg2.entrenadorYAct[turno][x][act] == copia3[i].nroEntrenador){
 					
-				if(contadorcito==0){
-					l++;
-					cout<<l<<"-"<<copia3[i].nombre<<"\n";entren[l]=copia3[i].nroEntrenador;
+				if(evitarRepetirNombre==0){
+					eleccionMinima=1;
+					posEntrenador++;
+					cout<<posEntrenador<<"-"<<copia3[i].nombre<<"\n";entren[posEntrenador]=copia3[i].nroEntrenador;
 				}
 				
-				contadorcito++;}	
+				evitarRepetirNombre++;}	
 				}
-				contadorcito=0;
+				evitarRepetirNombre=0;
 			}
 			
 				fread(&reg2,sizeof(Turno),1,arch2);
@@ -301,7 +299,7 @@ void listado(){
 				cin>>trainer;
 			
 				z=0;
-			while(trainer>l || trainer<CMIN){
+			while(trainer>posEntrenador || trainer<eleccionMinima){
 				cout<<"\nNo eligio un numero valido, intente nuevamente: ";cin>>trainer;}
 				system("cls");
 				rewind(arch);
@@ -311,16 +309,16 @@ void listado(){
 				z++;
 				fread(&reg,sizeof(Socio),1,arch);
 				}
-				contadorcito=0;
+				evitarRepetirNombre=0;
 				for(int a=0;a<6;a++){
-					for(int i=0;i<z;i++){
-						if(copia1[a].actividadYTurno[turno][i][act] == 1 && contadorcito==0){
+					for(int i=0;i<=z;i++){
+						if(copia1[a].actividadYTurno[turno][i][act] == 1 && evitarRepetirNombre==0){
 							personas++;
-							contadorcito++;
+							evitarRepetirNombre++;
 							cout<<personas<<"-"<<copia1[a].apeNom<<endl;
 						}
 					}
-					contadorcito=0;
+					evitarRepetirNombre=0;
 				}
 				
 	cout<<"La cantidad de socios es de: "<<personas<<endl;
