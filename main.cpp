@@ -156,65 +156,73 @@ void registrarTurnos(FILE *turnos){
 	
 	Turno turno;
 	
-	// Lunes turno 0
-	turno.entrenadorYAct[0][0][0] = marcelo; // Zumba
-	turno.entrenadorYAct[0][0][1] = martin; // Spinning
-	turno.entrenadorYAct[0][0][2] = ramon; // Pilates
+	for(int i = 0; i < 2; i++){
+		for (int j = 0; j < 6; j++){
+			for(int k = 0; k < 3; k++){
+				turno.entrenadorYAct[i][j][k] = 0;
+			}
+		}
+	}
 	
-	// Lunes turno 1
-	turno.entrenadorYAct[1][0][0] = pablo; // Zumba
-	turno.entrenadorYAct[1][0][1] = hernan; // Spinning
-	turno.entrenadorYAct[1][0][2] = marcelo; // Pilates
-	
-	// Martes turno 0
-	turno.entrenadorYAct[0][1][0] = ramon; // Zumba
-	turno.entrenadorYAct[0][1][1] = marcelo; // Spinning
-	turno.entrenadorYAct[0][1][2] = martin; // Pilates
-	
-	// Martes turno 1
-	turno.entrenadorYAct[1][1][0] = martin; // Zumba
-	turno.entrenadorYAct[1][1][1] = pablo; // Spinning
-	turno.entrenadorYAct[1][1][2] = hernan; // Pilates
-	
-	// Miercoles turno 0
-	turno.entrenadorYAct[0][2][0] = martin; // Zumba
-	turno.entrenadorYAct[0][2][1] = ramon; // Spinning
-	turno.entrenadorYAct[0][2][2] = marcelo; // Pilates
-	
-	// Miercoles turno 1
-	turno.entrenadorYAct[1][2][0] = marcelo; // Zumba
-	turno.entrenadorYAct[1][2][1] = pablo; // Spinning
-	turno.entrenadorYAct[1][2][2] = hernan; // Pilates
-	
-	// Jueves turno 0
-	turno.entrenadorYAct[0][3][0] = marcelo; // Zumba
-	turno.entrenadorYAct[0][3][1] = martin; // Spinning
-	turno.entrenadorYAct[0][3][2] = ramon; // Pilates
-	
-	// Jueves turno 1
-	turno.entrenadorYAct[1][3][0] = pablo; // Zumba
-	turno.entrenadorYAct[1][3][1] = hernan; // Spinning
-	turno.entrenadorYAct[1][3][2] = martin; // Pilates
-	
-	// Viernes turno 0
-	turno.entrenadorYAct[0][4][0] = ramon; // Zumba
-	turno.entrenadorYAct[0][4][1] = marcelo; // Spinning
-	turno.entrenadorYAct[0][4][2] = martin; // Pilates
-	
-	// Viernes turno 1
-	turno.entrenadorYAct[1][4][0] = marcelo; // Zumba
-	turno.entrenadorYAct[1][4][1] = pablo; // Spinning
-	turno.entrenadorYAct[1][4][2] = hernan; // Pilates
-	
-	// Sabado turno 0
-	turno.entrenadorYAct[0][5][0] = martin; // Zumba
-	turno.entrenadorYAct[0][5][1] = ramon; // Spinning
-	turno.entrenadorYAct[0][5][2] = marcelo; // Pilates
-	
-	// Sabado turno 1
-	turno.entrenadorYAct[1][5][0] = hernan; // Zumba
-	turno.entrenadorYAct[1][5][1] = pablo; // Spinning
-	turno.entrenadorYAct[1][5][2] = marcelo; // Pilates
+//	// Lunes turno 0
+//	turno.entrenadorYAct[0][0][0] = marcelo; // Zumba
+//	turno.entrenadorYAct[0][0][1] = martin; // Spinning
+//	turno.entrenadorYAct[0][0][2] = ramon; // Pilates
+//	
+//	// Lunes turno 1
+//	turno.entrenadorYAct[1][0][0] = pablo; // Zumba
+//	turno.entrenadorYAct[1][0][1] = hernan; // Spinning
+//	turno.entrenadorYAct[1][0][2] = marcelo; // Pilates
+//	
+//	// Martes turno 0
+//	turno.entrenadorYAct[0][1][0] = ramon; // Zumba
+//	turno.entrenadorYAct[0][1][1] = marcelo; // Spinning
+//	turno.entrenadorYAct[0][1][2] = martin; // Pilates
+//	
+//	// Martes turno 1
+//	turno.entrenadorYAct[1][1][0] = martin; // Zumba
+//	turno.entrenadorYAct[1][1][1] = pablo; // Spinning
+//	turno.entrenadorYAct[1][1][2] = hernan; // Pilates
+//	
+//	// Miercoles turno 0
+//	turno.entrenadorYAct[0][2][0] = martin; // Zumba
+//	turno.entrenadorYAct[0][2][1] = ramon; // Spinning
+//	turno.entrenadorYAct[0][2][2] = marcelo; // Pilates
+//	
+//	// Miercoles turno 1
+//	turno.entrenadorYAct[1][2][0] = marcelo; // Zumba
+//	turno.entrenadorYAct[1][2][1] = pablo; // Spinning
+//	turno.entrenadorYAct[1][2][2] = hernan; // Pilates
+//	
+//	// Jueves turno 0
+//	turno.entrenadorYAct[0][3][0] = marcelo; // Zumba
+//	turno.entrenadorYAct[0][3][1] = martin; // Spinning
+//	turno.entrenadorYAct[0][3][2] = ramon; // Pilates
+//	
+//	// Jueves turno 1
+//	turno.entrenadorYAct[1][3][0] = pablo; // Zumba
+//	turno.entrenadorYAct[1][3][1] = hernan; // Spinning
+//	turno.entrenadorYAct[1][3][2] = martin; // Pilates
+//	
+//	// Viernes turno 0
+//	turno.entrenadorYAct[0][4][0] = ramon; // Zumba
+//	turno.entrenadorYAct[0][4][1] = marcelo; // Spinning
+//	turno.entrenadorYAct[0][4][2] = martin; // Pilates
+//	
+//	// Viernes turno 1
+//	turno.entrenadorYAct[1][4][0] = marcelo; // Zumba
+//	turno.entrenadorYAct[1][4][1] = pablo; // Spinning
+//	turno.entrenadorYAct[1][4][2] = hernan; // Pilates
+//	
+//	// Sabado turno 0
+//	turno.entrenadorYAct[0][5][0] = martin; // Zumba
+//	turno.entrenadorYAct[0][5][1] = ramon; // Spinning
+//	turno.entrenadorYAct[0][5][2] = marcelo; // Pilates
+//	
+//	// Sabado turno 1
+//	turno.entrenadorYAct[1][5][0] = hernan; // Zumba
+//	turno.entrenadorYAct[1][5][1] = pablo; // Spinning
+//	turno.entrenadorYAct[1][5][2] = marcelo; // Pilates
 	
 	fwrite(&turno, sizeof(Turno), 1, turnos);
 }
