@@ -62,9 +62,6 @@ void registrarEntrenadores(FILE *entrenadores){
 	strcpy(entrenador.nombre, name);
 	strcpy(entrenador.contrasena, pass);
 	entrenador.nroEntrenador = id;
-	entrenador.dia[0] = 1;
-	entrenador.dia[1] = 5;
-	entrenador.dia[2] = 6;
 	
 	fwrite(&entrenador, sizeof(Entrenador), 1, entrenadores);
 	
@@ -76,9 +73,6 @@ void registrarEntrenadores(FILE *entrenadores){
 	strcpy(entrenador.nombre, name);
 	strcpy(entrenador.contrasena, pass);
 	entrenador.nroEntrenador = id;
-	entrenador.dia[0] = 2;
-	entrenador.dia[1] = 4;
-	entrenador.dia[2] = 6;
 	
 	fwrite(&entrenador, sizeof(Entrenador), 1, entrenadores);
 	
@@ -90,7 +84,6 @@ void registrarEntrenadores(FILE *entrenadores){
 	strcpy(entrenador.nombre, name);
 	strcpy(entrenador.contrasena, pass);
 	entrenador.nroEntrenador = id;
-	entrenador.dia[0] = 3;
 	
 	fwrite(&entrenador, sizeof(Entrenador), 1, entrenadores);
 	
@@ -102,8 +95,6 @@ void registrarEntrenadores(FILE *entrenadores){
 	strcpy(entrenador.nombre, name);
 	strcpy(entrenador.contrasena, pass);
 	entrenador.nroEntrenador = id;
-	entrenador.dia[0] = 2;
-	entrenador.dia[1] = 4;
 	
 	fwrite(&entrenador, sizeof(Entrenador), 1, entrenadores);
 	
@@ -115,8 +106,6 @@ void registrarEntrenadores(FILE *entrenadores){
 	strcpy(entrenador.nombre, name);
 	strcpy(entrenador.contrasena, pass);
 	entrenador.nroEntrenador = id;
-	entrenador.dia[0] = 1;
-	entrenador.dia[1] = 5;
 	
 	fwrite(&entrenador, sizeof(Entrenador), 1, entrenadores);
 	_flushall();
@@ -226,6 +215,16 @@ void registrarTurnos(FILE *turnos){
 	turno.entrenadorYAct[1][5][0] = hernan; // Zumba
 	turno.entrenadorYAct[1][5][1] = pablo; // Spinning
 	turno.entrenadorYAct[1][5][2] = hernan; // Pilates
+	
+	for(int i = 0; i < 2; i++){
+		for(int j = 0; j < 6; j++){
+			for(int k = 0; k < 3; k++){
+				turno.entrenadorYAct[i][j][k] = 0;
+			}
+
+		}
+
+	}
 	
 	fwrite(&turno, sizeof(Turno), 1, turnos);
 }
