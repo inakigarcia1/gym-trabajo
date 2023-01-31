@@ -411,7 +411,8 @@ void registrarActividades() { //Registro de actividad. Una vez registrado el soc
 		}
 	}
 	if(socioEncontrado==0) {
-		cout<<"\nNo se encontro ningun socio con ese nroSocio.";
+		cout<<"No se encontro ningun socio con ese nroSocio.";
+		system("pause");
 	}
 	fclose(arch3);
 	fclose(arch2);
