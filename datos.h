@@ -18,29 +18,26 @@ int martin = 61122;
 int hernan = 26696;
 int pablo = 65723;
 
-struct fec{
+struct fec {
 	int dia;
 	int mes;
 	int anio;
 };
 
-struct Usuario{
+struct Usuario {
 	char nombreUsuario[10];
 	char contrasena[10];
 	char nombre[60];
 	int tipoDeUser;
 };
 
-struct Entrenador{
+struct Entrenador {
 	char nombre[60];
-	int dia[6];
 	int nroEntrenador;
 	char contrasena[10];
-	int horario[6];
-	int actividad;
 };
 
-struct Socio{
+struct Socio {
 	char apeNom[60];
 	char domicilio[60];
 	int dni;
@@ -54,15 +51,15 @@ struct Socio{
 	char rutina[10000];
 };
 
-struct Turno{
+struct Turno {
 	horarios entrenadorYAct[2][6];
 };
 
-void corregirConsola(){
-	
+void corregirConsola() {
+
 	HWND consoleWindow = GetConsoleWindow();
 	SetWindowLong(consoleWindow, GWL_STYLE, GetWindowLong(consoleWindow, GWL_STYLE) & ~WS_MAXIMIZEBOX & ~WS_SIZEBOX);
-	
+
 //	 // get handle to the console window
 //    HANDLE hOut = GetStdHandle(STD_OUTPUT_HANDLE);
 //
@@ -76,7 +73,7 @@ void corregirConsola(){
 //
 //    // current screen buffer size
 //    short scrBufferWidth = scrBufferInfo.dwSize.X;
-//    short scrBufferHeight = scrBufferInfo.dwSize.Y;        
+//    short scrBufferHeight = scrBufferInfo.dwSize.Y;
 //
 //    // to remove the scrollbar, make sure the window height matches the screen buffer height
 //    COORD newSize;
@@ -89,58 +86,64 @@ void corregirConsola(){
 //    {
 //        exit(Status);
 //    }
-//	
+//
 //	ShowScrollBar(GetConsoleWindow(), SB_VERT, 0);
 
 }
 
-void login(char contrasena[32]){
-	
+void login(char contrasena[32]) {
+
 	char a;
-		
-		for(int i = 0;;){
-			
-			a = getch();
-			
-			if(isdigit(a) or isalpha(a)){
-	
-				contrasena[i] = a;
-				++i;
-				cout<<"*";
-				
-			}
-			
-			if(a == '\b' and i >= 1){
-				
-				cout<<"\b \b";
-				--i;
-				
-			}
-			
-			if(a == '\r') {
-				contrasena[i]='\0';
-				break;
-			}
-			
+
+	for(int i = 0;;) {
+
+		a = getch();
+
+		if(isdigit(a) or isalpha(a)) {
+
+			contrasena[i] = a;
+			++i;
+			cout<<"*";
+
 		}
+
+		if(a == '\b' and i >= 1) {
+
+			cout<<"\b \b";
+			--i;
+
+		}
+
+		if(a == '\r') {
+			contrasena[i]='\0';
+			break;
+		}
+
+	}
 }
 
-void error(){
-	system("color 4");Sleep(500);
-	system("color 9");Sleep(500);
-	system("color 4");Sleep(500);
+void error() {
+	system("color 4");
+	Sleep(500);
+	system("color 9");
+	Sleep(500);
+	system("color 4");
+	Sleep(500);
 	system("color 9");
 }
 
-void correct(){
-	system("color 2");Sleep(500);
-	system("color 9");Sleep(500);
-	system("color 2");Sleep(500);
+void correct() {
+	system("color 2");
+	Sleep(500);
+	system("color 9");
+	Sleep(500);
+	system("color 2");
+	Sleep(500);
 	system("color 9");
 }
 
 enum IN {
-    IN_BACK = 8,
-    IN_RET = 13
-  
+	IN_BACK = 8,
+	IN_RET = 13
+
 };
