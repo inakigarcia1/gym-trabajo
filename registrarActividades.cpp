@@ -10,7 +10,7 @@ int obtenerLegajo(int id);
 main() {
 
 	FILE *turnos = fopen("Turnos.dat", "r+b");
-	
+
 	registrarActividades(turnos);
 }
 
@@ -19,19 +19,19 @@ void registrarActividades(FILE *turnos) {
 	Turno turno;
 
 	fread(&turno, sizeof(Turno), 1, turnos);
-	
-		
-	for(int i = 0; i < 2; i++){
-		for(int j = 0; j < 6; j++){
-			for(int k = 0; k < 3; k++){
+
+
+	for(int i = 0; i < 2; i++) {
+		for(int j = 0; j < 6; j++) {
+			for(int k = 0; k < 3; k++) {
 				printf(" [%d] ", turno.entrenadorYAct[i][j][k]);
 			}
 			printf("\n");
 		}
 		printf("\n\n");
 	}
-	
-	
+
+
 	rewind(turnos);
 
 	int actividadElegida = 0;
@@ -53,7 +53,7 @@ void registrarActividades(FILE *turnos) {
 	cout<<"3) Pilates\n";
 	cout<<"- : ";
 	cin>>actividadElegida;
-	
+
 	actividadElegida -= 1;
 
 	printf("\n");
@@ -97,9 +97,13 @@ void registrarActividades(FILE *turnos) {
 		for (int j = 0; j < 6; j++) {
 			if(i == turnoElegido) {
 				if(turno.entrenadorYAct[i][j][actividadElegida] == 0) {
-					for(int k = 0; k < 3; k++)
-						if(turno.entrenadorYAct[i][j][k] == legajoElegido) turnoValido = false;
-						else turnoValido = true;
+					for(int k = 0; k < 3; k++) {
+						if(turno.entrenadorYAct[i][j][k] == legajoElegido) {
+							turnoValido = false;
+							break;
+						}
+						turnoValido = true;
+					}
 					if(turnoValido) {
 						cantidadDias++;
 						diaDisponible = dia(j);
@@ -172,7 +176,7 @@ void registrarActividades(FILE *turnos) {
 				}
 			}
 		}
-		
+
 		fwrite(&turno, sizeof(Turno), 1, turnos);
 		cout<<"\nTurno/s registrado/s correctamente.";
 
