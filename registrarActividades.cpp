@@ -53,10 +53,10 @@ void registrarActividades(FILE *turnos) {
 	cout<<"3) Pilates\n";
 	cout<<"- : ";
 	cin>>actividadElegida;
+	
+	actividadElegida -= 1;
 
 	printf("\n");
-
-	actividadElegida -= 1;
 
 	cout<<"Turnos disponibles:\n";
 	cout<<"1) 8hs - 16hs\n";
@@ -99,6 +99,7 @@ void registrarActividades(FILE *turnos) {
 				if(turno.entrenadorYAct[i][j][actividadElegida] == 0) {
 					for(int k = 0; k < 3; k++)
 						if(turno.entrenadorYAct[i][j][k] == legajoElegido) turnoValido = false;
+						else turnoValido = true;
 					if(turnoValido) {
 						cantidadDias++;
 						diaDisponible = dia(j);
