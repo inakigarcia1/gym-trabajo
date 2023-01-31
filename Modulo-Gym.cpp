@@ -3,52 +3,52 @@
 Algoritmos y Estructuras de Datos: TFI. Sistema de administración y gestión de gimnasio.
 
 
- ________  ________  _____ ______   ___  ________  ___  ________  ________            _____  ___  __    ________     
-|\   ____\|\   __  \|\   _ \  _   \|\  \|\   ____\|\  \|\   __  \|\   ___  \         / __  \|\  \|\  \ |\_____  \    
-\ \  \___|\ \  \|\  \ \  \\\__\ \  \ \  \ \  \___|\ \  \ \  \|\  \ \  \\ \  \       |\/_|\  \ \  \/  /|\|____|\ /_   
- \ \  \    \ \  \\\  \ \  \\|__| \  \ \  \ \_____  \ \  \ \  \\\  \ \  \\ \  \      \|/ \ \  \ \   ___  \    \|\  \  
-  \ \  \____\ \  \\\  \ \  \    \ \  \ \  \|____|\  \ \  \ \  \\\  \ \  \\ \  \          \ \  \ \  \\ \  \  __\_\  \ 
+ ________  ________  _____ ______   ___  ________  ___  ________  ________            _____  ___  __    ________
+|\   ____\|\   __  \|\   _ \  _   \|\  \|\   ____\|\  \|\   __  \|\   ___  \         / __  \|\  \|\  \ |\_____  \
+\ \  \___|\ \  \|\  \ \  \\\__\ \  \ \  \ \  \___|\ \  \ \  \|\  \ \  \\ \  \       |\/_|\  \ \  \/  /|\|____|\ /_
+ \ \  \    \ \  \\\  \ \  \\|__| \  \ \  \ \_____  \ \  \ \  \\\  \ \  \\ \  \      \|/ \ \  \ \   ___  \    \|\  \
+  \ \  \____\ \  \\\  \ \  \    \ \  \ \  \|____|\  \ \  \ \  \\\  \ \  \\ \  \          \ \  \ \  \\ \  \  __\_\  \
    \ \_______\ \_______\ \__\    \ \__\ \__\____\_\  \ \__\ \_______\ \__\\ \__\          \ \__\ \__\\ \__\|\_______\
     \|_______|\|_______|\|__|     \|__|\|__|\_________\|__|\|_______|\|__| \|__|           \|__|\|__| \|__|\|_______|
-                                           \|_________|   
-										   
-  ___     ___    ___    ____   
- |__ \   / _ \  |__ \  |___ \  
-   ) | | | | |    ) |   __) | 
-  / /  | | | |   / /   |__ <  
- / /_  | |_| |  / /_   ___) | 
-|____|  \___/  |____| |____/  
-                             							   										                                                                                                                                                                        
-   
-   POR:     
-		                                                                                                            
-    ______      __   /\//               __  ___      __  __          			
+                                           \|_________|
+
+  ___     ___    ___    ____
+ |__ \   / _ \  |__ \  |___ \
+   ) | | | | |    ) |   __) |
+  / /  | | | |   / /   |__ <
+ / /_  | |_| |  / /_   ___) |
+|____|  \___/  |____| |____/
+
+
+   POR:
+
+    ______      __   /\//               __  ___      __  __
    /  _/ /_  __/_/__//\/ ___  ____     /  |/  /___ _/ /_/_/___ ______
    / // __ \/ __ `/ __ \/ _ \/_  /    / /|_/ / __ `/ __/ / __ `/ ___/
- _/ // /_/ / /_/ / / / /  __/ / /_   / /  / / /_/ / /_/ / /_/ (__  ) 
-/___/_.___/\__,_/_/ /_/\___/ /___/  /_/  /_/\__,_/\__/_/\__,_/____/  
+ _/ // /_/ / /_/ / / / /  __/ / /_   / /  / / /_/ / /_/ / /_/ (__  )
+/___/_.___/\__,_/_/ /_/\___/ /___/  /_/  /_/\__,_/\__/_/\__,_/____/
 
 
-       __        __                     ______      __    __          
+       __        __                     ______      __    __
       / /_  ____/_/_________  ____     /_  __/___  / /_  /_/___ ______
  __  / / / / / __ `/ ___/ _ \/_  /      / / / __ \/ __ \/ / __ `/ ___/
-/ /_/ / /_/ / /_/ / /  /  __/ / /_     / / / /_/ / /_/ / / /_/ (__  ) 
-\____/\__,_/\__,_/_/   \___/ /___/    /_/  \____/_.___/_/\__,_/____/  
+/ /_/ / /_/ / /_/ / /  /  __/ / /_     / / / /_/ / /_/ / / /_/ (__  )
+\____/\__,_/\__,_/_/   \___/ /___/    /_/  \____/_.___/_/\__,_/____/
 
-    __  __                          __         _____             __  _           
-   / / / /___ _____ ___  ____ _____/ /___ _   / ___/____ _____  / /_(_)___  ____ 
+    __  __                          __         _____             __  _
+   / / / /___ _____ ___  ____ _____/ /___ _   / ___/____ _____  / /_(_)___  ____
   / /_/ / __ `/ __ `__ \/ __ `/ __  / __ `/   \__ \/ __ `/ __ \/ __/ / __ \/ __ \
  / __  / /_/ / / / / / / /_/ / /_/ / /_/ /   ___/ / /_/ / / / / /_/ / / / / /_/ /
-/_/ /_/\__,_/_/ /_/ /_/\__,_/\__,_/\__,_/   /____/\__,_/_/ /_/\__/_/_/ /_/\____/ 
-             
-			 
-   ______                __         ____ /\//       __   _ 
+/_/ /_/\__,_/_/ /_/ /_/\__,_/\__,_/\__,_/   /____/\__,_/_/ /_/\__/_/_/ /_/\____/
+
+
+   ______                __         ____ /\//       __   _
   / ____/___ ___________/_/___ _   /  _///\/ ____ _/ /__(_)
- / / __/ __ `/ ___/ ___/ / __ `/   / // __ \/ __ `/ //_/ / 
-/ /_/ / /_/ / /  / /__/ / /_/ /  _/ // / / / /_/ / ,< / /  
-\____/\__,_/_/   \___/_/\__,_/  /___/_/ /_/\__,_/_/|_/_/   
-                                                                                                                              
-                                                                                                                                     
+ / / __/ __ `/ ___/ ___/ / __ `/   / // __ \/ __ `/ //_/ /
+/ /_/ / /_/ / /  / /__/ / /_/ /  _/ // / / / /_/ / ,< / /
+\____/\__,_/_/   \___/_/\__,_/  /___/_/ /_/\__,_/_/|_/_/
+
+
 
 */
 
@@ -63,12 +63,12 @@ void Listado(int legajo);
 void Registrar(int legajo);
 
 main() {
-	
+
 	// Evitar estiramiento de la consola
 	corregirConsola();
-	
+
 	int legajo = 0;
-	
+
 	// Titulo
 	system("color 7");
 	cout<<"\t\t\t    __  __   __      _       _          _______     ____  __ \n";
@@ -84,7 +84,7 @@ main() {
 	cout<<"\t\t\t   |_|  |_|\\___/ \\__,_|\\__,_|_|\\___/   \\_____|  |_|  |_|  |_|\n";
 	Sleep(100);
 	cout<<"\n\n\n";
-	
+
 	// Se llama a login y despues al menu principal
 	LoginEntrenador(legajo);
 	menu(legajo);
@@ -96,10 +96,10 @@ void menu(int legajo) {
 	int ope=0;
 	while(ope!=1 and ope!=4) {
 		system("cls");
-		
+
 		// Color azul
 		system("color 9");
-		
+
 		// Mostrar titulo y opciones de a poco
 		cout<<"\t\t\t    __  __   __      _       _          _______     ____  __ \n";
 		Sleep(100);
@@ -114,14 +114,14 @@ void menu(int legajo) {
 		cout<<"\t\t\t   |_|  |_|\\___/ \\__,_|\\__,_|_|\\___/   \\_____|  |_|  |_|  |_|\n";
 		Sleep(100);
 		cout<<"\n\n\n";
-		
+
 		// Mostrar nombre del entrenador segun legajo
 		if(legajo == 91218) cout<<setw(62)<<"MARCELO GALLARDO";
 		if(legajo == 24514) cout<<setw(62)<<"RAMON DIAZ";
 		if(legajo == 61122) cout<<setw(62)<<"MARTIN DEMICHELIS";
 		if(legajo == 26696) cout<<setw(62)<<"HERNAN CRESPO";
 		if(legajo == 65723) cout<<setw(62)<<"PABLO AIMAR";
-		
+
 		// Opciones del menu
 		Sleep(100);
 		cout<<"\n\n\n";
@@ -137,7 +137,7 @@ void menu(int legajo) {
 		Sleep(100);
 		cin>>ope;
 		printf("\n");
-		
+
 		// Bucle para seleccionar la opcion correcta
 		while(ope!=4 and ope!=0) {
 			switch(ope) {
@@ -174,11 +174,11 @@ void menu(int legajo) {
 }
 
 void LoginEntrenador(int &legajo) {
-	
+
 	// Variables
 	Entrenador entrenador;
 	legajo = 0;
-	string contrasena;
+	char contrasena[32];
 
 	bool correctUser = false;
 	bool correctPass = false;
@@ -188,7 +188,7 @@ void LoginEntrenador(int &legajo) {
 	// Datos en pantalla
 	cout<<setw(62)<<"INICIO DE SESION"<<endl;
 	Sleep(1500);
-	cout<<setw(62)<<"\nPor motivos de seguridad, su contrasena no sera mostrada mientras escribe.\n\n";
+	printf("\n\n");
 
 	// Bucle para iniciar sesion
 	while(!correctUser or !correctPass) {
@@ -198,11 +198,8 @@ void LoginEntrenador(int &legajo) {
 
 		cout<<" - Contrasena: ";
 
-		SetStdinEcho(false);
-		_flushall();
-		cin>>contrasena;
-		SetStdinEcho(true);
-		cout<<contrasena<<endl;
+		// Funcion para ingresar contraseña oculta
+		login(contrasena);
 
 		//Leo del archivo y guardo en entrenador
 		fread(&entrenador, sizeof(Entrenador), 1, arch);
@@ -216,7 +213,7 @@ void LoginEntrenador(int &legajo) {
 			if(legajo==entrenador.nroEntrenador) { // Si el legajo coincide con uno del archivo, verifico su contraseña
 				correctUser = true;
 
-				if(contrasena == entrenador.contrasena) { // Si la contraseña también coresponde, se rompe el bucle
+				if(strcmp(contrasena, entrenador.contrasena) == 0) { // Si la contraseña también coresponde, se rompe el bucle
 					correctPass = true;
 					break;
 				}
@@ -237,7 +234,7 @@ void LoginEntrenador(int &legajo) {
 			system("color 4");
 			Sleep(500);
 			system("color 7");
-			contrasena = "";
+//			contrasena = "";
 		}
 
 		rewind(arch);
@@ -266,16 +263,16 @@ void LoginEntrenador(int &legajo) {
 }
 
 void Listado(int legajo) {
-	
+
 	// Varibales
 	Socio socio;
 	int c=1, op;
 	char act1[]="Zumba", act2[]="Pila", act3[]="Spinning";
-	
+
 	FILE *arch = fopen("Socios.dat", "r+b");
 	system("color 9");
 	cout<<"-------------Socios:-------------"<<endl<<endl;
-	
+
 	fread(&socio, sizeof(Socio), 1, arch);
 
 	// Se recorre el archivo para mostrar las actividades y sus horarios
@@ -350,7 +347,7 @@ void Registrar(int legajo) {
 	system("color 9");
 
 	FILE *arch = fopen("Socios.dat", "rb");
-	
+
 	// Variables
 	int numsocio = 0;
 	int sp = 32; // Codigo ASCII del caracter "espacio"
@@ -402,11 +399,11 @@ void Registrar(int legajo) {
 	system("color 9");
 	cout<<"\n\tPor favor, ingresar por teclado una rutina de gimnasia, recordar que la misma no debe superar las 380 palabras."<<endl<<endl;
 	cout<<"\tRutina: ";
-	
+
 	// Leer rutina
 	_flushall();
 	gets(rutina);
-	
+
 	printf("\n\n");
 
 	words=0;
@@ -450,8 +447,8 @@ void Registrar(int legajo) {
 		printf("\n\n");
 		cout<<"Datos subidos correctamente. Presione una tecla para volver al menu...";
 		getch();
-		
-	// Si no se cumple:
+
+		// Si no se cumple:
 	} else {
 		system("color 9");
 		cout<<"\tLa rutina detallada no cumple con los requisitos de extension. Por favor, ingrese una rutina valida."<<endl<<endl;
