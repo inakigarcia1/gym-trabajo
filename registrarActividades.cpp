@@ -44,11 +44,13 @@ void registrarActividades(FILE *turnos) {
 	int diasDisponibles[6];
 	int diasElegidos[6];
 	int listaDias[6];
+	int diasOcupados [6];
 
 	for(int i = 0; i < 6; i++) {
 		diasDisponibles[i] = 0;
 		diasElegidos[i] = 0;
 		listaDias[i] = 0;
+		diasOcupados[i] = 0;
 	}
 
 	cout<<"Elija la actividad a registrar:\n";
@@ -100,25 +102,28 @@ void registrarActividades(FILE *turnos) {
 	for(int i = 0; i < 2; i++) {
 		for (int j = 0; j < 6; j++) {
 			if(i == turnoElegido) {
-				if(turno.entrenadorYAct[i][j][actividadElegida] == 0) {
-					for(int k = 0; k < 3; k++) {
-						if(turno.entrenadorYAct[i][j][k] == legajoElegido) {
-							turnoValido = false;
-							break;
-						}
-						turnoValido = true;
+
+				if(turno.entrenadorYAct[i][j][actividadElegida] != 0) diasOcupados[j] = 1;
+
+				for(int k = 0; k < 3; k++) {
+					if(turno.entrenadorYAct[i][j][k] == legajoElegido) {
+						turnoValido = false;
+						break;
 					}
-					if(turnoValido) {
-						cantidadDias++;
-						diasDisponibles[j] = 1;
-					}
+					turnoValido = true;
 				}
+				if(turnoValido) {
+					cantidadDias++;
+					diasDisponibles[j] = 1;
+				}
+
 			}
 		}
 	}
 
 	int contador = 0;
 	int numDia = 0;
+	bool ocupado = false;
 
 	for(int i = 0; i < 6; i++) {
 		if(diasDisponibles[i] == 1) {
@@ -128,14 +133,24 @@ void registrarActividades(FILE *turnos) {
 	}
 
 	for(int i = 0; i < cantidadDias; i++) {
+
+		if(diasOcupados[listaDias[i]] == 1)
+			ocupado = true;
+
+		else ocupado = false;
+
 		diaDisponible = dia(listaDias[i]);
-		cout<<"\t"<< i + 1 <<") " << diaDisponible << endl;
+
+		if(!ocupado)
+			cout<<"\t"<< i + 1 <<") " << diaDisponible << endl;
+		else
+			cout<<"\t"<< i + 1 <<") " << diaDisponible << " (ocupado)" << endl;
 	}
 
 	int op = 0;
 	cantidadDias = 0;
 
-	cout<<"\n\nSelecione una opcion:\n";
+	cout<<"\n\nSelecione una opcion (Los dias ocupados por otro entrenador y/o actividad, seran reemplazados):\n";
 	cout<<"\t1) Registrar actividad con dicho entrenador en todos los dias disponibles\n";
 	cout<<"\t2) Seleccionar dia/s especificos\n";
 	cout<<"- : ";
@@ -147,13 +162,17 @@ void registrarActividades(FILE *turnos) {
 		for(int i = 0; i < 2; i++) {
 			for (int j = 0; j < 6; j++) {
 				if(i == turnoElegido) {
-					if(turno.entrenadorYAct[i][j][actividadElegida] == 0) {
-						for(int k = 0; k < 3; k++)
-							if(turno.entrenadorYAct[i][j][k] == legajoElegido) turnoValido = false;
-						if(turnoValido) {
-							turno.entrenadorYAct[i][j][actividadElegida] = legajoElegido;
+					for(int k = 0; k < 3; k++) {
+						if(turno.entrenadorYAct[i][j][k] == legajoElegido) {
+							turnoValido = false;
+							break;
 						}
+						turnoValido = true;
 					}
+					if(turnoValido) {
+						turno.entrenadorYAct[i][j][actividadElegida] = legajoElegido;
+					}
+
 				}
 			}
 		}
@@ -171,7 +190,7 @@ void registrarActividades(FILE *turnos) {
 			printf("Dia seleccionado (%d de %d): ", i + 1, cantidadDias);
 			cin>>diaElegido;
 			diaElegido -= 1;
-			
+
 			diaElegido = listaDias[diaElegido];
 
 			if(diasDisponibles[diaElegido] == 0) {
@@ -186,18 +205,17 @@ void registrarActividades(FILE *turnos) {
 			for (int j = 0; j < 6; j++) {
 				if(diasElegidos[j] == 0) continue;
 				if(i == turnoElegido) {
-					if(turno.entrenadorYAct[i][j][actividadElegida] == 0) {
-						for(int k = 0; k < 3; k++) {
-							if(turno.entrenadorYAct[i][j][k] == legajoElegido) {
-								turnoValido = false;
-								break;
-							}
-							turnoValido = true;
+					for(int k = 0; k < 3; k++) {
+						if(turno.entrenadorYAct[i][j][k] == legajoElegido) {
+							turnoValido = false;
+							break;
 						}
-						if(turnoValido) {
-							turno.entrenadorYAct[i][j][actividadElegida] = legajoElegido;
-						}
+						turnoValido = true;
 					}
+					if(turnoValido) {
+						turno.entrenadorYAct[i][j][actividadElegida] = legajoElegido;
+					}
+
 				}
 			}
 		}
