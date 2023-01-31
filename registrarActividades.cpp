@@ -43,9 +43,13 @@ void registrarActividades(FILE *turnos) {
 
 	int diasDisponibles[6];
 	int diasElegidos[6];
+	int listaDias[6];
 
-	for(int i = 0; i < 6; i++) diasDisponibles[i] = 0;
-	for(int i = 0; i < 6; i++) diasElegidos[i] = 0;
+	for(int i = 0; i < 6; i++) {
+		diasDisponibles[i] = 0;
+		diasElegidos[i] = 0;
+		listaDias[i] = 0;
+	}
 
 	cout<<"Elija la actividad a registrar:\n";
 	cout<<"1) Zumba\n";
@@ -106,13 +110,26 @@ void registrarActividades(FILE *turnos) {
 					}
 					if(turnoValido) {
 						cantidadDias++;
-						diaDisponible = dia(j);
-						cout<<"\t"<< cantidadDias <<") " << diaDisponible << endl;
 						diasDisponibles[j] = 1;
 					}
 				}
 			}
 		}
+	}
+
+	int contador = 0;
+	int numDia = 0;
+
+	for(int i = 0; i < 6; i++) {
+		if(diasDisponibles[i] == 1) {
+			listaDias[contador] = i;
+			contador++;
+		}
+	}
+
+	for(int i = 0; i < cantidadDias; i++) {
+		diaDisponible = dia(listaDias[i]);
+		cout<<"\t"<< i + 1 <<") " << diaDisponible << endl;
 	}
 
 	int op = 0;
@@ -154,11 +171,14 @@ void registrarActividades(FILE *turnos) {
 			printf("Dia seleccionado (%d de %d): ", i + 1, cantidadDias);
 			cin>>diaElegido;
 			diaElegido -= 1;
+			
+			diaElegido = listaDias[diaElegido];
 
 			if(diasDisponibles[diaElegido] == 0) {
 				cout<<"Error, ha seleccionado un dia no disponible. Presione una tecla para reintentar...";
 				getch();
 				cantidadDias++;
+				i--;
 			} else diasElegidos[diaElegido] = 1;
 		}
 
@@ -167,8 +187,13 @@ void registrarActividades(FILE *turnos) {
 				if(diasElegidos[j] == 0) continue;
 				if(i == turnoElegido) {
 					if(turno.entrenadorYAct[i][j][actividadElegida] == 0) {
-						for(int k = 0; k < 3; k++)
-							if(turno.entrenadorYAct[i][j][k] == legajoElegido) turnoValido = false;
+						for(int k = 0; k < 3; k++) {
+							if(turno.entrenadorYAct[i][j][k] == legajoElegido) {
+								turnoValido = false;
+								break;
+							}
+							turnoValido = true;
+						}
 						if(turnoValido) {
 							turno.entrenadorYAct[i][j][actividadElegida] = legajoElegido;
 						}
