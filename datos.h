@@ -49,6 +49,7 @@ struct Socio {
 	int telefono;
 	horarios actividadYTurno[2][6];
 	char rutina[10000];
+	int restringido[3];
 };
 
 struct Turno {
