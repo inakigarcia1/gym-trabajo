@@ -94,24 +94,35 @@ void corregirConsola(){
 
 }
 
-void login(){
-	int ch;
+void login(char contrasena[32]){
 	
-	string user, pass;
+	char a;
+		
+		for(int i = 0;;){
+			
+			a = getch();
+			
+			if(isdigit(a) or isalpha(a)){
 	
-	printf(" - Usuario: ");
-	cin>>user;
-	printf(" - Contrasena: ");
-	
-	ch = getch();
-	
-	while(ch != 13){
-		pass.push_back(ch);
-		cout<<'*';
-		ch = getch();
-	}
-	
-	if(user == "hola" and pass == "hola1") printf("Entraste.");
+				contrasena[i] = a;
+				++i;
+				cout<<"*";
+				
+			}
+			
+			if(a == '\b' and i >= 1){
+				
+				cout<<"\b \b";
+				--i;
+				
+			}
+			
+			if(a == '\r') {
+				contrasena[i]='\0';
+				break;
+			}
+			
+		}
 }
 
 void error(){
@@ -127,3 +138,9 @@ void correct(){
 	system("color 2");Sleep(500);
 	system("color 9");
 }
+
+enum IN {
+    IN_BACK = 8,
+    IN_RET = 13
+  
+};
