@@ -33,6 +33,8 @@ void registrarUsuario(FILE *usuarios){
 	char user[] = "ADMINS";
 	char pass[] = "Admins123";
 	char name[] = "Administrador";
+
+	
 	strcpy(usuario.nombreUsuario, user);
 	strcpy(usuario.contrasena, pass);
 	strcpy(usuario.nombre, name);
@@ -54,7 +56,7 @@ void registrarEntrenadores(FILE *entrenadores){
 	Entrenador entrenador;
 	
 	char name[60];
-	char pass[10];
+	char pass[1000];
 	
 	strcpy(name, "Marcelo Gallardo");
 	strcpy(pass, "Creer18");
@@ -216,15 +218,15 @@ void registrarTurnos(FILE *turnos){
 	turno.entrenadorYAct[1][5][1] = pablo; // Spinning
 	turno.entrenadorYAct[1][5][2] = hernan; // Pilates
 	
-	for(int i = 0; i < 2; i++){
-		for(int j = 0; j < 6; j++){
-			for(int k = 0; k < 3; k++){
-				turno.entrenadorYAct[i][j][k] = 0;
-			}
-
-		}
-
-	}
+//	for(int i = 0; i < 2; i++){
+//		for(int j = 0; j < 6; j++){
+//			for(int k = 0; k < 3; k++){
+//				turno.entrenadorYAct[i][j][k] = 0;
+//			}
+//
+//		}
+//
+//	}
 	
 	fwrite(&turno, sizeof(Turno), 1, turnos);
 }
