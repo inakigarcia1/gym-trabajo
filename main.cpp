@@ -1,4 +1,3 @@
-
 #include "datos.h"
 
 using namespace std;
@@ -34,9 +33,12 @@ void registrarUsuario(FILE *usuarios){
 	char user[] = "ADMINS";
 	char pass[] = "Admins123";
 	char name[] = "Administrador";
+
+	
 	strcpy(usuario.nombreUsuario, user);
 	strcpy(usuario.contrasena, pass);
 	strcpy(usuario.nombre, name);
+	usuario.tipoDeUser = 2;
 	
 	fwrite(&usuario, sizeof(Usuario), 1, usuarios);
 	
@@ -54,7 +56,7 @@ void registrarEntrenadores(FILE *entrenadores){
 	Entrenador entrenador;
 	
 	char name[60];
-	char pass[10];
+	char pass[1000];
 	
 	strcpy(name, "Marcelo Gallardo");
 	strcpy(pass, "Creer18");
@@ -62,7 +64,7 @@ void registrarEntrenadores(FILE *entrenadores){
 	strcpy(entrenador.nombre, name);
 	strcpy(entrenador.contrasena, pass);
 	entrenador.nroEntrenador = id;
-
+	
 	fwrite(&entrenador, sizeof(Entrenador), 1, entrenadores);
 	
 	_flushall();
@@ -128,7 +130,7 @@ void registrarSocio(FILE *socios){
 	socio.nroSocio = 98765;
 	socio.edad = 30;
 	socio.telefono = 6721;
-	
+
 	for(int i = 0; i < 2; i++){
 		for(int j = 0; j < 6; j++){
 			for(int k = 0; k < 3; k++){
@@ -214,7 +216,17 @@ void registrarTurnos(FILE *turnos){
 	// Sabado turno 1
 	turno.entrenadorYAct[1][5][0] = hernan; // Zumba
 	turno.entrenadorYAct[1][5][1] = pablo; // Spinning
-	turno.entrenadorYAct[1][5][2] = marcelo; // Pilates
+	turno.entrenadorYAct[1][5][2] = hernan; // Pilates
+	
+//	for(int i = 0; i < 2; i++){
+//		for(int j = 0; j < 6; j++){
+//			for(int k = 0; k < 3; k++){
+//				turno.entrenadorYAct[i][j][k] = 0;
+//			}
+//
+//		}
+//
+//	}
 	
 	fwrite(&turno, sizeof(Turno), 1, turnos);
 }

@@ -135,11 +135,11 @@ void menu(int legajo) {
 		Sleep(100);
 		cout<<"==> ";
 		Sleep(100);
-		cin>>ope;
+		leer(ope, 9999999);
 		printf("\n");
 
 		// Bucle para seleccionar la opcion correcta
-		while(ope!=4 and ope!=0) {
+		while(ope >= 1 and ope <= 3) {
 			switch(ope) {
 				case 1:
 					cout<<"Escogiste: Listado de socios y actividades. ";
@@ -194,8 +194,9 @@ void LoginEntrenador(int &legajo) {
 	while(!correctUser or !correctPass) {
 
 		cout<<" - Legajo de entrenador: ";
-		cin>>legajo;
-
+		
+		leer(legajo, 9999999999);
+		
 		cout<<" - Contrasena: ";
 
 		// Funcion para ingresar contraseña oculta
@@ -359,7 +360,7 @@ void Registrar(int legajo) {
 
 
 	cout<<" - Numero de Socio a buscar: ";
-	cin>>numsocio;
+	leer(numsocio, 999999999);
 	printf("\n");
 
 	fseek(arch,0*sizeof(Socio), SEEK_SET);
