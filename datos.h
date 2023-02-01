@@ -161,3 +161,33 @@ enum IN {
 	IN_RET = 13
 
 };
+
+string dia(int numDia) {
+	if(numDia == 0) return "Lunes";
+	if(numDia == 1) return "Martes";
+	if(numDia == 2) return "Miercoles";
+	if(numDia == 3) return "Jueves";
+	if(numDia == 4) return "Viernes";
+	if(numDia == 5) return "Sabado";
+}
+
+string obtenerNombre(int id) {
+	if(id == 0) return "Marcelo Gallardo";
+	if(id == 1) return "Ramon Diaz";
+	if(id == 2) return "Martin Demichelis";
+	if(id == 3) return "Hernan Crespo";
+	if(id == 4) return "Pablo Aimar";
+}
+
+int obtenerLegajo(int id) {
+	if(id == 0) return marcelo;
+	if(id == 1) return ramon;
+	if(id == 2) return martin;
+	if(id == 3) return hernan;
+	if(id == 4) return pablo;
+}
+
+void leer(int &op, int valor){
+	if(scanf("%d", &op) != 1) op = valor;
+	_flushall();
+}
