@@ -11,7 +11,7 @@ main() {
 
 	FILE *turnos = fopen("Turnos.dat", "r+b");
 
-	registrarActividades(turnos);
+	while(true) registrarActividades(turnos);
 }
 
 void registrarActividades(FILE *turnos) {
@@ -94,9 +94,6 @@ void registrarActividades(FILE *turnos) {
 	int legajoElegido = obtenerLegajo(entrenadorElegido);
 	string nombre = obtenerNombre(entrenadorElegido);
 
-	if(turnoElegido == 0) cout<<"Dias disponibles para "<< actividad <<" con " << nombre <<" de 8hs a 16hs:\n";
-	if(turnoElegido == 1) cout<<"Dias disponibles para "<< actividad <<" con " << nombre <<" de 16hs a 00hs:\n";
-
 	string diaDisponible = "";
 
 	for(int i = 0; i < 2; i++) {
@@ -120,6 +117,18 @@ void registrarActividades(FILE *turnos) {
 			}
 		}
 	}
+
+	if(cantidadDias == 0){
+		if(turnoElegido == 0) cout<<"No se encontraron dias disponibles para "<< actividad <<" con " << nombre <<" de 8hs a 16hs.\n\n";
+		if(turnoElegido == 1) cout<<"No se encontraron dias disponibles para "<< actividad <<" con " << nombre <<" de 16hs a 00hs.\n\n";
+		system("pause");
+		system("cls");
+		return;
+	}
+
+	if(turnoElegido == 0) cout<<"Dias disponibles para "<< actividad <<" con " << nombre <<" de 8hs a 16hs:\n";
+	if(turnoElegido == 1) cout<<"Dias disponibles para "<< actividad <<" con " << nombre <<" de 16hs a 00hs:\n";
+	
 
 	int contador = 0;
 	int numDia = 0;
@@ -225,29 +234,4 @@ void registrarActividades(FILE *turnos) {
 
 	}
 
-}
-
-string dia(int numDia) {
-	if(numDia == 0) return "Lunes";
-	if(numDia == 1) return "Martes";
-	if(numDia == 2) return "Miercoles";
-	if(numDia == 3) return "Jueves";
-	if(numDia == 4) return "Viernes";
-	if(numDia == 5) return "Sabado";
-}
-
-string obtenerNombre(int id) {
-	if(id == 0) return "Marcelo Gallardo";
-	if(id == 1) return "Ramon Diaz";
-	if(id == 2) return "Martin Demichelis";
-	if(id == 3) return "Hernan Crespo";
-	if(id == 4) return "Pablo Aimar";
-}
-
-int obtenerLegajo(int id) {
-	if(id == 0) return marcelo;
-	if(id == 1) return ramon;
-	if(id == 2) return martin;
-	if(id == 3) return hernan;
-	if(id == 4) return pablo;
 }
