@@ -3,12 +3,12 @@
 using namespace std;
 typedef char semana[10];
 
-void iniciarSesion(FILE *usuarios);
-void menu(FILE*usuarios,  Usuario usuario);
-bool checkUser(FILE*usuarios, char nombreUsuario[10]);
-bool checkPass(char contrasena[31]);
+bool iniciarSesion(FILE *usuarios, char user[10]);
+void menu(int &opcion, char user[10]);
+bool checkUser(FILE*usuarios, bool contrasenaValida);
+bool checkPass(char contrasena[32]);
 void registrarActividades(FILE *turnos);
-void pagoEntrenador(FILE *turnos);
+void pagoEntrenador(FILE *socios, FILE *turnos);
 void entrenadorMayorHs(FILE *turnos);
 string dia(int numDia);
 string obtenerNombre(int id);
@@ -16,139 +16,170 @@ int obtenerLegajo(int id);
 
 main(){
 	
+	setlocale(LC_CTYPE,"Spanish"); // Habilitar caracteres del español
+	corregirConsola(); // Evitar estiramiento de la consola
+	
 	FILE *usuarios;
+	FILE *socios;
 	FILE *turnos;
 	FILE *aux;
+	
 	Usuario usuario;
-	int opcion;
-	char nombreUsuario[10],contrasena[31];
+	
+	//Declaracion de variables
+	char user[10];// Almacena nombre de usuario
+	bool identificacion; // Identifica al usuario.
+	int opcion; //  Utilizado para registrar la opcion del menu;
+	int tipoDeUsuario;
 	bool usuarioValido,contrasenaValida;
 	
-	do{
-	system("cls");
-	cout << "- \nSeleccione una opcion:" << endl;
-    cout << "\n1. Iniciar Sesion" << endl;
-    cout << "\n2. Registrar usuario de Recepción" << endl;
-    cout << "\n3. Registrar Actividades del Gym" << endl;
-    cout << "\n4. Calcular pago al entrenador" << endl;
-    cout << "\n5. Entrenador con mayor carga horaria" << endl;
-    cin >> opcion;
-
-    switch (opcion) {
-    	
-        case 1: 
-	          system("cls");
-		      printf("\n\t -INICIAR SESION -\n\n");
-	          iniciarSesion(usuarios);
-              break;
-              
-        case 2: 
-	            system("cls");
-	            printf("\n SELECCIONE UNA OPCION: ");
-	            printf("\n1) ADMINISTRADOR");
-            	printf("\n2) SECRETARIO/A");
-	    printf("\n\n  ----> ");
-	    scanf("%d",&opcion);
+	//Inicio de sesion
+	identificacion = iniciarSesion(usuarios,user);
 	
-	while(opcion!=1 and opcion!=2){
+	if(identificacion) {
+		menu(opcion, user);
+	}
+	
+	// Opciones del menu
+	while(opcion!=5 && identificacion == true) {
+	if(opcion==1){
+	system("cls");
+	printf("\n Seleccione una opcion: ");
+    printf("\n1) Administrador");
+    printf("\n2) Secretario/a");
+	cout<<"==> ";
+	scanf("%d",&tipoDeUsuario);
+	
+	while(tipoDeUsuario!=1 and tipoDeUsuario!=2){
 		
-	printf("\n ERROR - INTENTELO DE NUEVO.\n");
+	cout<<"No ingreso un numero valido, intente nuevamente.\n";
 	system("pause");
 	system("cls");
 		
-	printf("\n SELECCIONE UNA OPCION: ");
-	printf("\n1) ADMINISTRADOR");
-	printf("\n2) SECRETARIO/A");
-	printf("\n\n  ----> ");
-	scanf("%d",&opcion);
+	printf("\n Seleccione una opcion: ");
+    printf("\n1) Administrador");
+    printf("\n2) Secretario/a");
+	cout<<"==> ";
+	scanf("%d",&tipoDeUsuario);
 			
 	}
-	
+		do{
+		usuarioValido = checkUser(usuarios,contrasenaValida);
+		}while(!usuarioValido);
+			
+		}
+		if(opcion==2) {
+			registrarActividades(turnos);
+		}
+		if(opcion==3) {
+		 pagoEntrenador(socios,turnos);;
+		}
+		if(opcion==4) {
+		 entrenadorMayorHs(turnos);;
+		}
+		menu(opcion, user);
+	}
+}
+
+
+
+ void menu(int &opcion, char user[10]){
+ 	
 	system("cls");
+	system("color 6");
+
+	// Titulo
+	cout<<"\t\t    __  __           _       _         _____                          _   __        \n";
+	Sleep(100);
+	cout<<"\t\t   |  \\/  |         | |     | |       |  __ \\                        (_) /_/        \n";
+	Sleep(100);
+	cout<<"\t\t   | \\  / | ___   __| |_   _| | ___   | |__) |___  ___ ___ _ __   ___ _  ___  _ __  \n";
+	Sleep(100);
+	cout<<"\t\t   | |\\/| |/ _ \\ / _` | | | | |/ _ \\  |  _  // _ \\/ __/ _ \\ '_ \\ / __| |/ _ \\| '_ \\ \n";
+	Sleep(100);
+	cout<<"\t\t   | |  | | (_) | (_| | |_| | | (_) | | | \\ \\  __/ (_|  __/ |_) | (__| | (_) | | | |\n";
+	Sleep(100);
+	cout<<"\t\t   |_|  |_|\\___/ \\__,_|\\__,_|_|\\___/  |_|  \\_\\___|\\___\\___| .__/ \\___|_|\\___/|_| |_|\n";
+	Sleep(100);
+	cout<<"\t\t                                                          | |                       \n";
+	Sleep(100);
+	cout<<"\n\n\n";
 	
-    do{
-    	
-    printf("\n INGRESAR NOMBRE DE USUARIO: ");
-    _flushall();gets(nombreUsuario);
+	cout<<setw(58)<<user;
+
+	Sleep(100);
+	cout<<"\n\n\n";
 	
-    usuarioValido = checkUser(usuarios,nombreUsuario);
-    
-	}while(!usuarioValido);
-    
-    if(usuarioValido){
-    	printf("\n\n");
-    	system("pause");
-    	system("cls");
-    	printf("\033[0;32m");
-    	printf("\n - Usuario valido.\n");
-    	printf("\033[0m");
+	// Opciones del menu
+	cout<<"\tElija una operacion"<<endl<<endl;
+	
+	Sleep(100);
+	cout<<"\t\t1 - Registrar usuario de recepcion."<<endl;
+	Sleep(100);
+	cout<<"\t\t2 - Registrar actividades del gym."<<endl;
+	Sleep(100);
+	cout<<"\t\t3 - Calcular pago al entrenador."<<endl;
+	Sleep(100);
+	cout<<"\t\t4 - Entrenador con mayor carga horaria."<<endl;
+	Sleep(100);
+	cout<<"\t\t5 - Cerrar la aplicacion."<<endl<<endl;
+	Sleep(100);
+	cout<<"==> ";
+	Sleep(100);
+	
+	cin>>opcion;
+	
+	// En caso de error:
+	if(opcion>5 || opcion<1) {
+		cout<<"No ingreso un numero valido, intente nuevamente.\n";
+		cout<<"==> ";
+		cin>>opcion;
 	}
-	    system("pause");
-	    system("cls");
-	
-	do{
-		
-	printf("\n Ingresar contrasena: ");
-    _flushall();gets(contrasena);
-    
-	contrasenaValida = checkPass(contrasena);
-	
-	}while(!contrasenaValida);
-	
-	if(contrasenaValida){
-	    printf("\n\n");
-    	system("pause");
-    	system("cls");
-    	printf("\033[0;32m");
-    	printf("\n - Contrasenia valida.\n");
-    	printf("\033[0m");
-	}
-        
-            
-		break;
-        case 3: registrarActividades(turnos);
-        	    break;
-        case 4:
-                pagoEntrenador(turnos);
-            break;
-        case 5:
-                entrenadorMayorHs(turnos);
-            break;
-        default:
-            cout << "Opcion no valida, intente de nuevo." << endl;
-    }
-	
-   }while(opcion!=6);
-
-	
- }
+}
 
 
-void iniciarSesion(FILE *usuarios){
+bool iniciarSesion(FILE *usuarios, char user[10]){
 	
+	//Declaracion de variables
 	Usuario usuario;
-
-	char user[10];
+    system("color 7");
 	char pass[10];
-	bool usuarioValido = false; //utilizado para mostrar el mensaje del inicio de sesion incorrecto (0 inicio de sesion correcto - 1 incorrecto).
+	bool usuarioValido = false; //Utilizado para mostrar el mensaje del inicio de sesion incorrecto (0 inicio de sesion correcto - 1 incorrecto).
 	
 	do{
 		
 		usuarios = fopen("Usuarios.dat", "rb");
-	
-		printf(" \n- NOMBRE DE USUARIO: ");
+	    
+	    // Obtener nombre de usuario
+		printf(" \n- Nombre de usuario: ");
 		_flushall();gets(user);
 		
-		printf(" \n- CONTRASENA: ");
-		_flushall();gets(pass);
+		// Obtener contrasena
+		printf(" \n- Contrasena: ");
+		
+		// Mostrar contraseña oculta
+		login(pass);
 	
 		fread(&usuario,sizeof(Usuario),1,usuarios);
 		
     	while (!feof(usuarios)){
     		
 			if((strcmp(user, usuario.nombreUsuario) == 0) and (strcmp(pass, usuario.contrasena) == 0)){
+		   		
+		   		// Si el usuario fue encontrado:
 		   		usuarioValido = true;
-		   		break;
+				cout<<"\n\nUsuario encontrado.\n";
+				printf("Bienvenido, %s. ", user);
+					
+				system("color 2");
+				Sleep(500);
+				system("color 7");
+				Sleep(500);
+				system("color 2");
+				Sleep(500);
+				system("color 7");
+				
+				return true;	
 			}
 		   
 			fread(&usuario,sizeof(Usuario),1,usuarios);
@@ -157,9 +188,14 @@ void iniciarSesion(FILE *usuarios){
 		rewind(usuarios);
 		
 		if(!usuarioValido){
-			printf( "\n EL NOMBRE DE USUARIO O CONTRASENA INGRESADOS SON INCORRECTOS, INTENTELO DE NUEVO.\n\n");
-			system("pause");
-			system("cls");
+			printf("\n\n\tUsuario o contrasena incorrectos. Por favor, reintente.\n\n");
+			system("color 4");
+			Sleep(500);
+			system("color 7");
+			Sleep(500);
+			system("color 4");
+			Sleep(500);
+			system("color 7");
 		}
 		
 	    fclose(usuarios);
@@ -168,9 +204,18 @@ void iniciarSesion(FILE *usuarios){
     
 }	
 
-bool checkUser(FILE* usuarios, char nombreUsuario[10]){
-	
+
+bool checkUser(FILE* usuarios,bool contrasenaValida){
+		
 	Usuario usuario;
+
+	char nombreUsuario[10];
+	char contrasena[32];
+	
+	
+	printf("\n Ingresar nombre de usuario: ");
+    _flushall();gets(nombreUsuario);
+	
 	
 	usuarios = fopen("Usuarios.dat", "rb"); //<--- Utilizado para controlar si el nombre de usuario se encuentra en uso.
     
@@ -193,7 +238,6 @@ bool checkUser(FILE* usuarios, char nombreUsuario[10]){
 	fread(&usuario,sizeof(Usuario),1,usuarios);
 	}
 	fclose(usuarios);
-	
 	
 	system("cls");
 	
@@ -310,13 +354,34 @@ bool checkUser(FILE* usuarios, char nombreUsuario[10]){
 	
 	}	
 	
-	return true;
-}
-   
-bool checkPass(char contrasena[32]){
-	
 	system("cls");
 	
+	do{
+	
+    printf("\n Ingresar contrasena: ");
+    _flushall();gets(contrasena);
+    
+    contrasenaValida = checkPass(contrasena); // invoca a la funcion "checkPass" para crear la contraseña.
+    
+	
+	}while(!contrasenaValida);
+	
+	if(contrasenaValida){
+		return true;
+	    printf("\n\n");
+    	system("pause");
+    	system("cls");
+    	printf("\033[0;32m");
+    	printf("\n - Contrasenia valida.\n");
+    	printf("\033[0m");
+	}
+    
+
+}
+   
+bool checkPass(char contrasena[31]){
+	 
+	 system("cls");
 	if(strlen(contrasena)<6 or strlen(contrasena)>32){
 		
 		printf("\033[0;31m");
@@ -656,17 +721,19 @@ void registrarActividades(FILE *turnos) {
      fclose(turnos);
 }
 
-void pagoEntrenador(FILE *turnos){
+void pagoEntrenador(FILE *socios,FILE *turnos){
+	
 	Turno turno;
+	Socio socio;
+	
 	float price = 0;
 	float finalPrice;
 	int entrenadorElegido = 0;
     int auxHs = 0;
     int auxDias = 0;
-   
+    int alumnos = 0;
     
-    
-	printf("Ingrese el monto por hora de trabajo: ");
+	printf("Ingrese el monto por alumno: ");
 	scanf("%f",&price);
 	
     cout<<"\n\nIngrese el entrenador para calcular el pago: \n";
@@ -685,37 +752,50 @@ void pagoEntrenador(FILE *turnos){
 	int legajoElegido = obtenerLegajo(entrenadorElegido);
 	string nombre = obtenerNombre(entrenadorElegido);
 	
-	turnos = fopen("Turnos.dat","r+b");
+	socios = fopen ("Socios.dat", "rb");
+	turnos = fopen ("Turnos.dat", "rb");
 	
-	fread(&turno, sizeof(Turno), 1, turnos);
-	while(!feof(turnos)){
-		for(int i=0;i<2;i++){
-			for(int j=0;j<6;j++){
-				for(int k=0;k<3;k++){
-					if(turno.entrenadorYAct[i][j][k] == legajoElegido){
-						auxHs++;
-						auxDias++;
-					}
-				}
-			}
-		}
+	fread(&socio, sizeof(Socio), 1, socios);
+	while(!feof(socios)){
+	
+		for(int i = 0; i < 2; i++){
+		    for(int j = 0; j < 6; j++){
+			for(int k = 0; k < 3; k++){
+			
+			if(socio.actividadYTurno[i][j][k]==1){
+			printf("mesi");
+			fread(&turno, sizeof(Turno), 1, turnos);
+		while(!feof(turnos)){
+		       
+				if(turno.entrenadorYAct[i][j][k] == legajoElegido){
+				   alumnos++;
+				
+			
+		
+	}
+
 		fread(&turno, sizeof(Turno), 1, turnos);
 	}
-	
+	rewind(turnos);
+}
+}
+}
+}
+
+fread(&socio, sizeof(Socio), 1, socios);
+}
+		
 	fclose(turnos);
-	
-	printf("%d", auxHs);
-	
-	auxHs=auxHs*8;
-	
-	finalPrice = (float)auxHs*price;
-	
-	printf("El monto a pagar es de $ %.2f",finalPrice);
+	fclose(socios);
+		finalPrice = (float)alumnos*price;
+		
+			printf("El monto a pagar es de $ %.2f",finalPrice);
 	
 	system("pause");
-	system("cls");
-	
+	system("cls");	
 }
+	
+
 
 void entrenadorMayorHs(FILE *turnos){
 	Turno turno;
@@ -774,30 +854,6 @@ void entrenadorMayorHs(FILE *turnos){
 	system("cls");
 }
 
-string dia(int numDia) {
-	if(numDia == 0) return "Lunes";
-	if(numDia == 1) return "Martes";
-	if(numDia == 2) return "Miercoles";
-	if(numDia == 3) return "Jueves";
-	if(numDia == 4) return "Viernes";
-	if(numDia == 5) return "Sabado";
-}
-
-string obtenerNombre(int id) {
-	if(id == 0) return "Marcelo Gallardo";
-	if(id == 1) return "Ramon Diaz";
-	if(id == 2) return "Martin Demichelis";
-	if(id == 3) return "Hernan Crespo";
-	if(id == 4) return "Pablo Aimar";
-}
-
-int obtenerLegajo(int id) {
-	if(id == 0) return marcelo;
-	if(id == 1) return ramon;
-	if(id == 2) return martin;
-	if(id == 3) return hernan;
-	if(id == 4) return pablo;
-}
 
 
 
