@@ -123,7 +123,7 @@ void registrarSocio(FILE *socios){
 	socio.dni = 25843567;
 	strcpy(socio.domicilio, adress);
 	socio.altura = 1.76;
-	socio.peso = 78.9;
+	socio.peso = 79;
 	socio.ingreso.dia = 17;
 	socio.ingreso.mes = 02;
 	socio.ingreso.anio = 1980;

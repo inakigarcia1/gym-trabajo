@@ -188,6 +188,17 @@ int obtenerLegajo(int id) {
 }
 
 void leer(int &op, int valor){
-	if(scanf("%d", &op) != 1) op = valor;
-	_flushall();
+	
+	if(scanf("%d", &op) != 1){
+		op = valor;
+		_flushall();
+	}
+}
+
+void leerF(float &op, float valor){
+	
+	if(scanf("%f", &op) != 1){
+		op = valor;
+		_flushall();
+	}
 }
