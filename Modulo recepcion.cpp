@@ -486,7 +486,7 @@ void registrarActividades() {
 				cantPosicionesCopia3++;
 				fread(&reg3,sizeof(Entrenador),1,arch3);
 			}
-			int evitarRepetirNombres=0,entren[cantPosicionesCopia3],contadorEntrenadores=0,eleccionMinima=0,UsuarioYaRegistradoParaTodo=0;
+			int evitarRepetirNombres=0,entren[cantPosicionesCopia3],contadorEntrenadores=0,eleccionMinima=0,UsuarioYaRegistradoParaTodo=1;
 
 			// Recorrer archivo para conocer los dias disponibles de los entrenadores
 			rewind(arch2);
@@ -494,13 +494,14 @@ void registrarActividades() {
 			while(!feof(arch2)) {
 				for(int i=0; i<=cantPosicionesCopia3; i++) {
 					for(x=0; x<6; x++) {
-						if(reg2.entrenadorYAct[turno][x][act] == copia3[i].nroEntrenador && reg2.entrenadorYAct[turno][x][act]!=0 &&reg.actividadYTurno[turno][i][act] != 1){
+						if(reg2.entrenadorYAct[turno][x][act] == copia3[i].nroEntrenador && reg2.entrenadorYAct[turno][x][act]!=0){
 							if(evitarRepetirNombres==0) {
-								UsuarioYaRegistradoParaTodo=1;
 								eleccionMinima=1;
+								if(reg.actividadYTurno[turno][i][act] != 1){
+								UsuarioYaRegistradoParaTodo=0;
 								contadorEntrenadores++;
 								cout<<endl<<"\t"<<contadorEntrenadores<<") "<<copia3[i].nombre<<": | ";
-								entren[contadorEntrenadores]=copia3[i].nroEntrenador;}
+								entren[contadorEntrenadores]=copia3[i].nroEntrenador;
 							
 							if(x==0)cout<<"Lunes | ";
 							if(x==1)cout<<"Martes | ";
@@ -509,7 +510,8 @@ void registrarActividades() {
 							if(x==4)cout<<"Viernes | ";
 							if(x==5)cout<<"Sabado | ";
 							evitarRepetirNombres++;
-							
+								}
+							}
 						}
 					}
 					evitarRepetirNombres=0;
@@ -517,14 +519,15 @@ void registrarActividades() {
 				fread(&reg2,sizeof(Turno),1,arch2);
 			}
 			// Solicitar entrenador
-			if(UsuarioYaRegistradoParaTodo == 0){
+			if(UsuarioYaRegistradoParaTodo == 1 && eleccionMinima ==1){
+			
 			system("cls");
 			cout<<"Este Socio ya se encuentra inscripto con todos los profesores de esta actividad.";
 			cout<<"\n\nPresione una tecla para volver al menu...";
 			getch();
 			break;}
 			
-			if(eleccionMinima ==0 && UsuarioYaRegistradoParaTodo != 0 ){
+			if(eleccionMinima == 0){
 			system("cls");
 			cout<<"No se ha registrado ningun entrenador.";
 			cout<<"\n\nPresione una tecla para volver al menu...";
