@@ -10,10 +10,6 @@ bool checkPass(char contrasena[1000]);
 void registrarActividades(FILE *turnos);
 void pagoEntrenador(FILE *socios, FILE *turnos);
 void entrenadorMayorHs(FILE *turnos);
-string dia(int numDia);
-string obtenerNombre(int id);
-int obtenerLegajo(int id);
-string showName(int id);
 
 main() {
 
@@ -516,6 +512,9 @@ void registrarActividades(FILE *turnos) {
 
 	fread(&turno, sizeof(Turno), 1, turnos);
 
+	cout<<"Actividades\n";
+	printf("------------------------------------------------------------------------");
+
 	for (int j = 0; j < 6; j++) {
 		cout << "\n\t" << dia(j) << ":\n" << endl;
 
@@ -539,7 +538,7 @@ void registrarActividades(FILE *turnos) {
 					}
 					if (k == 2) {
 						mostrarNom = showName(legajo);
-						cout << "\t\t\tSpinning: " << mostrarNom << endl;
+						cout << "\t\t\tPilates: " << mostrarNom << endl;
 					}
 				}
 			}
