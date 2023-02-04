@@ -7,19 +7,6 @@
 #include <conio.h>
 #define _WIN32_WINNT 0x0500
 #include <windows.h>
-#pragma once
-#include <string>
-
-// define fixed size integer types
-#ifdef _MSC_VER
-// Windows
-typedef unsigned __int8  uint8_t;
-typedef unsigned __int32 uint32_t;
-typedef unsigned __int64 uint64_t;
-#else
-// GCC
-#include <stdint.h>
-#endif
 
 using namespace std;
 
@@ -38,7 +25,7 @@ struct fec {
 };
 
 struct Usuario {
-	char nombreUsuario[10];
+	char nombreUsuario[1000];
 	char contrasena[1000];
 	char nombre[60];
 	int tipoDeUser;
@@ -185,6 +172,14 @@ int obtenerLegajo(int id) {
 	if(id == 2) return martin;
 	if(id == 3) return hernan;
 	if(id == 4) return pablo;
+}
+
+string showName(int id){
+	if(id == marcelo) return "Marcelo Gallardo";
+	if(id == ramon) return "Ramon Diaz";
+	if(id == martin) return "Martin Demichelis";
+	if(id == hernan) return "Hernan Crespo";
+	if(id == pablo) return "Pablo Aimar";
 }
 
 void leer(int &op, int valor){
