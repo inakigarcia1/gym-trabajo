@@ -13,7 +13,7 @@ void entrenadorMayorHs(FILE *turnos);
 
 main() {
 
-	setlocale(LC_CTYPE,"Spanish"); // Habilitar caracteres del espaÃ±ol
+	setlocale(LC_CTYPE,"Spanish"); // Habilitar caracteres del español
 	corregirConsola(); // Evitar estiramiento de la consola
 
 	FILE *usuarios;
@@ -176,7 +176,7 @@ bool iniciarSesion(FILE *usuarios, char user[1000]) {
 		// Obtener contrasena
 		printf(" \n- Contrasena: ");
 
-		// Mostrar contraseÃ±a oculta
+		// Mostrar contraseña oculta
 		login(pass);
 
 		fread(&usuario,sizeof(Usuario),1,usuarios);
@@ -342,7 +342,7 @@ bool checkUser(FILE* usuarios, char nombreUsuario[1000]) {
 								if(nombreUsuario[i] != '!') {
 									if(nombreUsuario[i] != b) {
 										printf("\033[0;31m");
-										printf("\n - Solo estan permitidos simbolos del conjunto (+, -, /,*,?,Â¿,!,i).\n");
+										printf("\n - Solo estan permitidos simbolos del conjunto (+, -, /,*,?,¿,!,i).\n");
 										printf("\033[0m");
 										return false;
 									}
@@ -356,7 +356,7 @@ bool checkUser(FILE* usuarios, char nombreUsuario[1000]) {
 
 	}
 	printf("\033[0;32m");
-	printf("\n - Solo estan permitidos simbolos del conjunto (+, -, /,*,?,Â¿,!,i).\n");
+	printf("\n - Solo estan permitidos simbolos del conjunto (+, -, /,*,?,¿,!,i).\n");
 	printf("\033[0m");
 
 	if(c < 2 or (strlen( nombreUsuario)<6 or strlen( nombreUsuario)>10) or isupper(nombreUsuario[0])==1 or a > 3) {
@@ -548,6 +548,52 @@ void registrarActividades(FILE *turnos) {
 	}
 	printf("\n\n");
 	rewind(turnos);
+	
+	int opcion = 0;
+	int deleteHs = 0;
+	int deleteDia = 0;
+	int deleteAct = 0;
+	
+	do{
+	printf("\n1) Borrar actividades.");
+	printf("\n2) Registrar actividades.");
+	cout<<"\n==> ";
+	scanf("%d",&opcion);
+    }while(opcion != 1 and opcion != 2);
+    
+    if(opcion == 1){
+    	do{
+    	printf("\nIngrese el turno:\n");
+    	cout<<"1) 8hs - 16hs\n";
+	    cout<<"2) 16hs - 00hs\n";
+	    cout<<"- : ";
+    	scanf("%d",&deleteHs);
+        }while(deleteHs != 1 and deleteHs != 2);
+        
+    	deleteHs -=  1;
+    	printf("\nIngrese el dia:\n");
+    	for(int i=0;i<6;i++){
+    	cout<<"\t"<< i + 1 <<") " << dia(i) << endl;
+		}
+		do{
+		cout<<"- : ";
+    	scanf("%d",&deleteDia);
+        }while(deleteDia > 6 or deleteDia < 1);      
+    	deleteDia -=  1;
+    	do{
+    	printf("\nIngrese la actividad:\n");
+    	cout<<"1) Zumba\n";
+	    cout<<"2) Spinning\n";
+	    cout<<"3) Pilates\n";
+	    cout<<"- : ";
+    	scanf("%d",&deleteAct);
+        }while(deleteAct != 1 and deleteAct != 1 and deleteAct != 1);
+        deleteAct -=  1;
+		turno.entrenadorYAct[deleteHs][deleteDia][deleteAct] = 0;
+    	fwrite(&turno, sizeof(Turno), 1, turnos);
+       _flushall();
+		
+	}else{
 
 	int actividadElegida = 0;
 	int turnoElegido = 0;
@@ -567,23 +613,26 @@ void registrarActividades(FILE *turnos) {
 		listaDias[i] = 0;
 		diasOcupados[i] = 0;
 	}
-
+    
+    do{
 	cout<<"Elija la actividad a registrar:\n";
 	cout<<"1) Zumba\n";
 	cout<<"2) Spinning\n";
 	cout<<"3) Pilates\n";
 	cout<<"- : ";
 	cin>>actividadElegida;
-
+    }while(actividadElegida != 1 and actividadElegida != 2 and actividadElegida != 3);
 	actividadElegida -= 1;
 
 	printf("\n");
-
+    
+    do{
 	cout<<"Turnos disponibles:\n";
 	cout<<"1) 8hs - 16hs\n";
 	cout<<"2) 16hs - 00hs\n";
 	cout<<"- : ";
 	cin>>turnoElegido;
+    }while(turnoElegido != 1 and turnoElegido != 2);
 
 	turnoElegido -= 1;
 
@@ -592,7 +641,8 @@ void registrarActividades(FILE *turnos) {
 	if(actividadElegida == 0) actividad = "Zumba";
 	if(actividadElegida == 1) actividad = "Spinning";
 	if(actividadElegida == 2) actividad = "Pilates";
-
+    
+    do{
 	cout<<"\n\nElija un entrenador para comprobar disponibilidad:\n";
 	cout<<"\t1) Marcelo Gallardo\n";
 	cout<<"\t2) Ramon Diaz\n";
@@ -601,7 +651,7 @@ void registrarActividades(FILE *turnos) {
 	cout<<"\t5) Pablo Aimar\n";
 	cout<<"- : ";
 	cin>>entrenadorElegido;
-
+    }while(entrenadorElegido != 1 and entrenadorElegido != 2 and entrenadorElegido != 3 and entrenadorElegido != 4 and entrenadorElegido != 5);
 	system("cls");
 
 	entrenadorElegido -= 1;
@@ -664,13 +714,15 @@ void registrarActividades(FILE *turnos) {
 
 	int op = 0;
 	cantidadDias = 0;
-
+    
+    do{
 	cout<<"\n\nSelecione una opcion (Los dias ocupados por otro entrenador y/o actividad, seran reemplazados):\n";
 	cout<<"\t1) Registrar actividad con dicho entrenador en todos los dias disponibles\n";
 	cout<<"\t2) Seleccionar dia/s especificos\n";
 	cout<<"- : ";
 	cin>>op;
-
+    }while(op != 1 and op != 2);
+    
 	op -= 1;
 
 	if(op == 0) {
@@ -699,6 +751,10 @@ void registrarActividades(FILE *turnos) {
 	if(op == 1) {
 		cout<<"\nCuantos dias desea elegir? --> ";
 		cin>>cantidadDias;
+		while(cantidadDias>6){
+		cout<<"\nCuantos dias desea elegir? --> ";
+		cin>>cantidadDias;
+		}
 		cout<<"En base a la lista mostrada previamente, seleccione el dia deseado segun su respectiva enumeracion.\n";
 
 		for(int i = 0; i < cantidadDias; i++) {
@@ -738,6 +794,7 @@ void registrarActividades(FILE *turnos) {
 		fwrite(&turno, sizeof(Turno), 1, turnos);
 		cout<<"\nTurno/s registrado/s correctamente.";
 	}
+   }
 	fclose(turnos);
 }
 
@@ -755,7 +812,8 @@ void pagoEntrenador(FILE *socios,FILE *turnos) {
 
 	printf("Ingrese el monto por alumno: ");
 	scanf("%f",&price);
-
+    
+    do{
 	cout<<"\nIngrese el entrenador para calcular el pago: \n";
 	cout<<"\t1) Marcelo Gallardo\n";
 	cout<<"\t2) Ramon Diaz\n";
@@ -764,6 +822,9 @@ void pagoEntrenador(FILE *socios,FILE *turnos) {
 	cout<<"\t5) Pablo Aimar\n";
 	cout<<"==> ";
 	cin>>entrenadorElegido;
+	system("cls");
+    }while(entrenadorElegido != 1 and entrenadorElegido != 2 and entrenadorElegido != 3 and entrenadorElegido != 4 and entrenadorElegido != 5);
+	
 
 	entrenadorElegido -= 1;
 
@@ -803,65 +864,64 @@ void pagoEntrenador(FILE *socios,FILE *turnos) {
 	system("cls");
 }
 
-
-
-void entrenadorMayorHs(FILE *turnos) {
+void entrenadorMayorHs(FILE *turnos){
 	Turno turno;
 	turnos = fopen ("Turnos.dat","rb");
-	int auxMarcelo = 0, auxPablo = 0, auxHernan = 0, auxRamon = 0, auxMartin = 0;
-
+	int auxMarcelo = 0 , auxPablo = 0, auxHernan = 0, auxRamon = 0, auxMartin = 0;
+	system("cls");
+	
 	fread(&turno, sizeof(Turno), 1, turnos);
-	while(!feof(turnos)) {
-		for(int i=0; i<2; i++) {
-			for(int j=0; j<6; j++) {
-				for(int k=0; k<3; k++) {
+	while(!feof(turnos)){
+		for(int i=0;i<2;i++){
+			for(int j=0;j<6;j++){
+				for(int k=0;k<3;k++){
 					if(turno.entrenadorYAct[i][j][k] == marcelo) auxMarcelo++;
 					if(turno.entrenadorYAct[i][j][k] == ramon) auxRamon++;
-					if(turno.entrenadorYAct[i][j][k] == martin) auxMartin++;
+					if(turno.entrenadorYAct[i][j][k] == martin) auxMartin++;	
 					if(turno.entrenadorYAct[i][j][k] == hernan) auxHernan++;
 					if(turno.entrenadorYAct[i][j][k] == pablo) auxPablo++;
 				}
 			}
 		}
-
-		fread(&turno, sizeof(Turno), 1, turnos);
+		
+	fread(&turno, sizeof(Turno), 1, turnos);
 	}
-
-	if(auxMarcelo == 0 and auxRamon == 0 and auxMartin == 0 and auxHernan == 0 and auxPablo == 0) {
-		printf(" 1111111 ");
-	} else {
-
-		if(auxMarcelo>=auxRamon and auxMarcelo>=auxMartin and auxMarcelo>=auxHernan and auxMarcelo>=auxPablo) {
-			printf(" Marcelo Gallardo ");
-			auxMarcelo++;
-		}
-
-		if(auxRamon>=auxMarcelo and auxRamon>=auxMartin and auxRamon>=auxHernan and auxRamon>=auxPablo) {
-			printf("Ramon ");
-			auxRamon++;
-		}
-
-		if(auxMartin>=auxMarcelo and auxMartin>=auxRamon and auxMartin>=auxHernan and auxMartin>=auxPablo) {
-			printf(" Martin  ");
-			auxMartin++;
-		}
-
-		if(auxHernan>=auxMarcelo and auxHernan>=auxMartin and auxHernan>=auxRamon and auxHernan>=auxPablo) {
-			printf(" Hernan ");
-			auxHernan++;
-		}
-
-		if(auxPablo>=auxMarcelo and auxPablo>=auxMartin and auxPablo>=auxHernan and auxPablo>=auxRamon) {
-			printf(" Pablo ");
-			auxPablo++;
-		}
+	
+	if(auxMarcelo == 0 and auxRamon == 0 and auxMartin == 0 and auxHernan == 0 and auxPablo == 0){
+	printf(" \nNo se registro ninguna actividad.");
+	}else{
+	printf("\nEl entrenador con mayor carga horaria es: ");
+	if(auxMarcelo>=auxRamon and auxMarcelo>=auxMartin and auxMarcelo>=auxHernan and auxMarcelo>=auxPablo){
+	printf(" Marcelo Gallardo ");
+	auxMarcelo++;
 	}
-
+	
+	if(auxRamon>=auxMarcelo and auxRamon>=auxMartin and auxRamon>=auxHernan and auxRamon>=auxPablo){
+	printf("Ramon Diaz ");
+	auxRamon++;
+	}
+	
+	if(auxMartin>=auxMarcelo and auxMartin>=auxRamon and auxMartin>=auxHernan and auxMartin>=auxPablo){
+	printf("Martin Demichelis ");
+	auxMartin++;
+	}
+	
+	if(auxHernan>=auxMarcelo and auxHernan>=auxMartin and auxHernan>=auxRamon and auxHernan>=auxPablo){
+	printf(" Hernan Crespo ");
+	auxHernan++;
+	}
+	
+	if(auxPablo>=auxMarcelo and auxPablo>=auxMartin and auxPablo>=auxHernan and auxPablo>=auxRamon){
+	printf(" Pablo Aimar ");
+	auxPablo++;
+	}
+    }
+    
 	fclose(turnos);
+	printf("\n");
 	system("pause");
 	system("cls");
 }
-
 
 
 
