@@ -3,10 +3,10 @@
 using namespace std;
 typedef char semana[10];
 
-bool iniciarSesion(FILE *usuarios, char user[10]);
-void menu(int &opcion, char user[10]);
-bool checkUser(FILE *usuarios, char nombreUsuario[10]);
-bool checkPass(char contrasena[31]);
+bool iniciarSesion(FILE *usuarios, char user[1000]);
+void menu(int &opcion, char user[1000]);
+bool checkUser(FILE *usuarios, char nombreUsuario[1000]);
+bool checkPass(char contrasena[1000]);
 void registrarActividades(FILE *turnos);
 void pagoEntrenador(FILE *socios, FILE *turnos);
 void entrenadorMayorHs(FILE *turnos);
@@ -15,87 +15,89 @@ string obtenerNombre(int id);
 int obtenerLegajo(int id);
 string showName(int id);
 
-main(){
-	
-	setlocale(LC_CTYPE,"Spanish"); // Habilitar caracteres del español
+main() {
+
+	setlocale(LC_CTYPE,"Spanish"); // Habilitar caracteres del espaÃ±ol
 	corregirConsola(); // Evitar estiramiento de la consola
-	
+
 	FILE *usuarios;
 	FILE *socios;
 	FILE *turnos;
-	
+
 	Usuario usuario;
-	
+
 	//Declaracion de variables
-	char user[10];// Almacena nombre de usuario
+	char user[1000];// Almacena nombre de usuario
 	bool identificacion; // Identifica al usuario.
 	int opcion; //  Utilizado para registrar la opcion del menu;
-	char nombreUsuario[10];
-	char contrasena[31];
+	char nombreUsuario[1000];
+	char contrasena[1000];
 	int tipoDeUsuario;
 	bool usuarioValido,contrasenaValida;
-	
+
 	//Inicio de sesion
 	identificacion = iniciarSesion(usuarios,user);
-	
+
 	if(identificacion) {
 		menu(opcion, user);
 	}
-	
+
 	// Opciones del menu
 	while(opcion!=5 && identificacion == true) {
-	if(opcion==1){
-	system("cls");
-	printf("\n Seleccione una opcion: ");
-    printf("\n1) Administrador");
-    printf("\n2) Secretario/a");
-	cout<<"\n==> ";
-	scanf("%d",&tipoDeUsuario);
-	tipoDeUsuario=tipoDeUsuario-1;
-	while(tipoDeUsuario!=0 and tipoDeUsuario!=1){
-		
-	cout<<"No ingreso un numero valido, intente nuevamente.\n";
-	system("pause");
-	system("cls");
-		
-	printf("\n Seleccione una opcion: ");
-    printf("\n1) Administrador");
-    printf("\n2) Secretario/a");
-	cout<<"\n==> ";
-	scanf("%d",&tipoDeUsuario);
-	tipoDeUsuario=tipoDeUsuario-1;
-			
-	}
-		do{
-		printf("\n Ingresar nombre de usuario: ");
-        _flushall();gets(nombreUsuario);
-		usuarioValido = checkUser(usuarios,nombreUsuario);
-		}while(!usuarioValido);
-		
-		do{
-		printf("\n Ingresar contrasena: ");
-        _flushall();gets(contrasena);
-		contrasenaValida = checkPass(contrasena);	
-		}while(!contrasenaValida);
-		
-		usuarios = fopen ("Usuarios.dat", "a+b");
-		strcpy(usuario.nombreUsuario, nombreUsuario);
-		strcpy(usuario.contrasena, contrasena);
-		usuario.tipoDeUser = tipoDeUsuario;
-		
-		_flushall();
-		fwrite(&usuario, sizeof(Usuario), 1, usuarios);
-		fclose(usuarios);
-			
+		if(opcion==1) {
+			system("cls");
+			printf("\n Seleccione una opcion: ");
+			printf("\n1) Administrador");
+			printf("\n2) Secretario/a");
+			cout<<"\n==> ";
+			scanf("%d",&tipoDeUsuario);
+			tipoDeUsuario=tipoDeUsuario-1;
+			while(tipoDeUsuario!=0 and tipoDeUsuario!=1) {
+
+				cout<<"No ingreso un numero valido, intente nuevamente.\n";
+				system("pause");
+				system("cls");
+
+				printf("\n Seleccione una opcion: ");
+				printf("\n1) Administrador");
+				printf("\n2) Secretario/a");
+				cout<<"\n==> ";
+				scanf("%d",&tipoDeUsuario);
+				tipoDeUsuario=tipoDeUsuario-1;
+
+			}
+			do {
+				printf("\n Ingresar nombre de usuario: ");
+				_flushall();
+				gets(nombreUsuario);
+				usuarioValido = checkUser(usuarios,nombreUsuario);
+			} while(!usuarioValido);
+
+			do {
+				printf("\n Ingresar contrasena: ");
+				_flushall();
+				gets(contrasena);
+				contrasenaValida = checkPass(contrasena);
+			} while(!contrasenaValida);
+
+			usuarios = fopen ("Usuarios.dat", "a+b");
+			strcpy(usuario.nombreUsuario, nombreUsuario);
+			strcpy(usuario.contrasena, contrasena);
+			usuario.tipoDeUser = tipoDeUsuario;
+
+			_flushall();
+			fwrite(&usuario, sizeof(Usuario), 1, usuarios);
+			fclose(usuarios);
+
 		}
 		if(opcion==2) {
 			registrarActividades(turnos);
 		}
 		if(opcion==3) {
-		 pagoEntrenador(socios,turnos);;
+			pagoEntrenador(socios,turnos);;
 		}
 		if(opcion==4) {
-		 entrenadorMayorHs(turnos);;
+			entrenadorMayorHs(turnos);;
 		}
 		menu(opcion, user);
 	}
@@ -103,8 +105,8 @@ main(){
 
 
 
- void menu(int &opcion, char user[10]){
- 	
+void menu(int &opcion, char user[1000]) {
+
 	system("cls");
 	system("color 6");
 
@@ -124,15 +126,15 @@ main(){
 	cout<<"\t\t                                                          | |                       \n";
 	Sleep(100);
 	cout<<"\n\n\n";
-	
+
 	cout<<setw(58)<<user;
 
 	Sleep(100);
 	cout<<"\n\n\n";
-	
+
 	// Opciones del menu
 	cout<<"\tElija una operacion"<<endl<<endl;
-	
+
 	Sleep(100);
 	cout<<"\t\t1 - Registrar usuario de recepcion."<<endl;
 	Sleep(100);
@@ -146,9 +148,9 @@ main(){
 	Sleep(100);
 	cout<<"==> ";
 	Sleep(100);
-	
+
 	cin>>opcion;
-	
+
 	// En caso de error:
 	if(opcion>5 || opcion<1) {
 		cout<<"No ingreso un numero valido, intente nuevamente.\n";
@@ -158,39 +160,40 @@ main(){
 }
 
 
-bool iniciarSesion(FILE *usuarios, char user[10]){
-	
+bool iniciarSesion(FILE *usuarios, char user[1000]) {
+
 	//Declaracion de variables
 	Usuario usuario;
-    system("color 7");
-	char pass[10];
+	system("color 7");
+	char pass[1000];
 	bool usuarioValido = false; //Utilizado para mostrar el mensaje del inicio de sesion incorrecto (0 inicio de sesion correcto - 1 incorrecto).
-	
-	do{
-		
+
+	do {
+
 		usuarios = fopen("Usuarios.dat", "rb");
-	    
-	    // Obtener nombre de usuario
+
+		// Obtener nombre de usuario
 		printf(" \n- Nombre de usuario: ");
-		_flushall();gets(user);
-		
+		_flushall();
+		gets(user);
+
 		// Obtener contrasena
 		printf(" \n- Contrasena: ");
-		
-		// Mostrar contraseña oculta
+
+		// Mostrar contraseÃ±a oculta
 		login(pass);
-	
+
 		fread(&usuario,sizeof(Usuario),1,usuarios);
-		
-    	while (!feof(usuarios)){
-    		
-			if((strcmp(user, usuario.nombreUsuario) == 0) and (strcmp(pass, usuario.contrasena) == 0)){
-		   		
-		   		// Si el usuario fue encontrado:
-		   		usuarioValido = true;
+
+		while (!feof(usuarios)) {
+
+			if((strcmp(user, usuario.nombreUsuario) == 0) and (strcmp(pass, usuario.contrasena) == 0)) {
+
+				// Si el usuario fue encontrado:
+				usuarioValido = true;
 				cout<<"\n\nUsuario encontrado.\n";
 				printf("Bienvenido, %s. ", user);
-					
+
 				system("color 2");
 				Sleep(500);
 				system("color 7");
@@ -198,16 +201,16 @@ bool iniciarSesion(FILE *usuarios, char user[10]){
 				system("color 2");
 				Sleep(500);
 				system("color 7");
-				
-				return true;	
+
+				return true;
 			}
-		   
+
 			fread(&usuario,sizeof(Usuario),1,usuarios);
 		}
-	
+
 		rewind(usuarios);
-		
-		if(!usuarioValido){
+
+		if(!usuarioValido) {
 			printf("\n\n\tUsuario o contrasena incorrectos. Por favor, reintente.\n\n");
 			system("color 4");
 			Sleep(500);
@@ -217,134 +220,134 @@ bool iniciarSesion(FILE *usuarios, char user[10]){
 			Sleep(500);
 			system("color 7");
 		}
-		
-	    fclose(usuarios);
-	    
+
+		fclose(usuarios);
+
 	} while(!usuarioValido);
-    
-}	
+
+}
 
 
-bool checkUser(FILE* usuarios, char nombreUsuario[10]){
-		
+bool checkUser(FILE* usuarios, char nombreUsuario[1000]) {
+
 	Usuario usuario;
-	
+
 	usuarios = fopen("Usuarios.dat", "rb"); //<--- Utilizado para controlar si el nombre de usuario se encuentra en uso.
-    
+
 	fread(&usuario,sizeof(Usuario),1,usuarios);
-			    
-    	while (!feof(usuarios)){
-		
-		if(strcmp(nombreUsuario,usuario.nombreUsuario)==0){
-			
-		system("cls");	
-	    printf("\033[0;31m");
-        printf("\n - Nombre de usuario no disponible. \n");
-        printf("\033[0m");
-	    fclose(usuarios);
-	    
-		return false;
-		
+
+	while (!feof(usuarios)) {
+
+		if(strcmp(nombreUsuario,usuario.nombreUsuario)==0) {
+
+			system("cls");
+			printf("\033[0;31m");
+			printf("\n - Nombre de usuario no disponible. \n");
+			printf("\033[0m");
+			fclose(usuarios);
+
+			return false;
+
 		}
-		   
-	fread(&usuario,sizeof(Usuario),1,usuarios);
+
+		fread(&usuario,sizeof(Usuario),1,usuarios);
 	}
 	fclose(usuarios);
-	
+
 	system("cls");
-	
+
 	printf("\n - ");
 	puts(nombreUsuario);
-	
-	if(strlen( nombreUsuario)<6 or strlen( nombreUsuario)>10){
-	    printf("\033[0;31m");
-        printf("\n - Debe tener una cantidad minima de 6 caracteres y maxima de 10.\n");
-        printf("\033[0m");
-        
-   }else{
-   	    printf("\033[0;32m");
-   	    printf("\n - Debe tener una cantidad minima de 6 caracteres y maxima de 10.\n");
-   	    printf("\033[0m");
-   }
-		
-		
-	if(isupper(nombreUsuario[0])==1){
-    	printf("\033[0;31m");
-    	printf("\n - Debe comenzar con una letra minuscula.\n");
-     	printf("\033[0m");
-      	
-   	}else{
-   	    printf("\033[0;32m");
-   	    printf("\n - Debe comenzar con una letra minuscula.\n");
-     	printf("\033[0m");	
-    }
+
+	if(strlen(nombreUsuario) < 6 or strlen(nombreUsuario) > 10) {
+		printf("\033[0;31m");
+		printf("\n - Debe tener una cantidad minima de 6 caracteres y maxima de 10.\n");
+		printf("\033[0m");
+
+	} else {
+		printf("\033[0;32m");
+		printf("\n - Debe tener una cantidad minima de 6 caracteres y maxima de 10.\n");
+		printf("\033[0m");
+	}
+
+
+	if(isupper(nombreUsuario[0])==1) {
+		printf("\033[0;31m");
+		printf("\n - Debe comenzar con una letra minuscula.\n");
+		printf("\033[0m");
+
+	} else {
+		printf("\033[0;32m");
+		printf("\n - Debe comenzar con una letra minuscula.\n");
+		printf("\033[0m");
+	}
 
 	int c = 0;
-	
-	for(int i = 0; i < strlen(nombreUsuario); i++){
-		
+
+	for(int i = 0; i < strlen(nombreUsuario); i++) {
+
 		if(isblank(nombreUsuario[i])) continue;
-		
+
 		if(isupper(nombreUsuario[i]))
 			c++;
-			
+
 		if(c >= 2) break;
 	}
-	
-	if(c < 2){
+
+	if(c < 2) {
 		printf("\033[0;31m");
-   	    printf("\n - Debe tener al menos 2 letras mayusculas.\n");
-   	    printf("\033[0m");
-	   
-	}else{
+		printf("\n - Debe tener al menos 2 letras mayusculas.\n");
+		printf("\033[0m");
+
+	} else {
 		printf("\033[0;32m");
-   	    printf("\n - Debe tener al menos 2 letras mayusculas.\n");
-   	    printf("\033[0m");
+		printf("\n - Debe tener al menos 2 letras mayusculas.\n");
+		printf("\033[0m");
 	}
 
 	int a = 0;
-	
-	for(int i = 0; i < strlen(nombreUsuario); i++){
-		
+
+	for(int i = 0; i < strlen(nombreUsuario); i++) {
+
 		if(isblank(nombreUsuario[i])) continue;
-		
+
 		if(isdigit(nombreUsuario[i]))
 			a++;
-			
+
 	}
-	
-	if(a > 3){
+
+	if(a > 3) {
 		printf("\033[0;31m");
-   	    printf("\n - Debe tener como maximo 3 digitos.\n");
-       	printf("\033[0m");	
-	
-	}else{
+		printf("\n - Debe tener como maximo 3 digitos.\n");
+		printf("\033[0m");
+
+	} else {
 		printf("\033[0;32m");
-   	    printf("\n - Debe tener como maximo 3 digitos.\n");
-   	    printf("\033[0m");	
-		}
-	
-			
-	for(int i = 0; i < strlen(nombreUsuario); i++){
-			
+		printf("\n - Debe tener como maximo 3 digitos.\n");
+		printf("\033[0m");
+	}
+
+
+	for(int i = 0; i < strlen(nombreUsuario); i++) {
+
 		if(isdigit(nombreUsuario[i])) continue;
-	
+
 		if(isalpha(nombreUsuario[i])) continue;
-		
+
 		char a = char(168);
 		char b = char(173);
-		
-		if(nombreUsuario[i] != '+'){
-			if(nombreUsuario[i] != '-'){
-				if(nombreUsuario[i] != '/'){
-					if(nombreUsuario[i] != '*'){
-						if(nombreUsuario[i] != '?'){
-							if(nombreUsuario[i] != a){
-								if(nombreUsuario[i] != '!'){
-									if(nombreUsuario[i] != b){
+
+		if(nombreUsuario[i] != '+') {
+			if(nombreUsuario[i] != '-') {
+				if(nombreUsuario[i] != '/') {
+					if(nombreUsuario[i] != '*') {
+						if(nombreUsuario[i] != '?') {
+							if(nombreUsuario[i] != a) {
+								if(nombreUsuario[i] != '!') {
+									if(nombreUsuario[i] != b) {
 										printf("\033[0;31m");
-										printf("\n - Solo estan permitidos simbolos del conjunto (+, -, /,*,?,¿,!,i).\n");
-										printf("\033[0m");	
+										printf("\n - Solo estan permitidos simbolos del conjunto (+, -, /,*,?,Â¿,!,i).\n");
+										printf("\033[0m");
 										return false;
 									}
 								}
@@ -353,199 +356,198 @@ bool checkUser(FILE* usuarios, char nombreUsuario[10]){
 					}
 				}
 			}
-		}	
-		
+		}
+
 	}
 	printf("\033[0;32m");
-	printf("\n - Solo estan permitidos simbolos del conjunto (+, -, /,*,?,¿,!,i).\n");
+	printf("\n - Solo estan permitidos simbolos del conjunto (+, -, /,*,?,Â¿,!,i).\n");
 	printf("\033[0m");
-	
-	if(c < 2 or (strlen( nombreUsuario)<6 or strlen( nombreUsuario)>10) or isupper(nombreUsuario[0])==1 or a > 3){
-		
-	return false;
-	
-	}	
-	
+
+	if(c < 2 or (strlen( nombreUsuario)<6 or strlen( nombreUsuario)>10) or isupper(nombreUsuario[0])==1 or a > 3) {
+
+		return false;
+
+	}
+
 	system("cls");
-		
+
 	return true;
-    
+
 
 }
-   
-bool checkPass(char contrasena[31]){
-	 
-	 system("cls");
-	if(strlen(contrasena)<6 or strlen(contrasena)>32){
-		
+
+bool checkPass(char contrasena[1000]) {
+
+	system("cls");
+	if(strlen(contrasena) < 6 or strlen(contrasena) > 32) {
+
 		printf("\033[0;31m");
-        printf("\n - Debe tener una cantidad minima de 6 caracteres y maxima de 32.\n");
-        printf("\033[0m");
-				
-	}else{
-		
-   	    printf("\033[0;32m");
-   	    printf("\n - Debe tener una cantidad minima de 6 caracteres y maxima de 32.\n");
-   	    printf("\033[0m");
-   }
+		printf("\n - Debe tener una cantidad minima de 6 caracteres y maxima de 32.\n");
+		printf("\033[0m");
+
+	} else {
+
+		printf("\033[0;32m");
+		printf("\n - Debe tener una cantidad minima de 6 caracteres y maxima de 32.\n");
+		printf("\033[0m");
+	}
 
 	int mayus = 0;
 	int minus = 0;
 	int nums = 0;
 	bool error;
 	error= true;
-	
-	for(int i = 0; i < strlen(contrasena); i++){
-		
+
+	for(int i = 0; i < strlen(contrasena); i++) {
+
 		if(isblank(contrasena[i])) error=false;
-	
+
 		if(isalpha(contrasena[i])) continue;
-		
+
 		if(isdigit(contrasena[i])) continue;
-		
-		error=false;	
-		
+
+		error=false;
+
 	}
-	
-	if(error==false){
+
+	if(error==false) {
 		printf("\033[0;31m");
-        printf("\n - Debe tener solamente caracteres alfanumericos.\n");
-        printf("\033[0m");
-	}else{
+		printf("\n - Debe tener solamente caracteres alfanumericos.\n");
+		printf("\033[0m");
+	} else {
 		printf("\033[0;32m");
-        printf("\n - Debe tener solamente caracteres alfanumericos.\n");
-        printf("\033[0m");
+		printf("\n - Debe tener solamente caracteres alfanumericos.\n");
+		printf("\033[0m");
 	}
-		
-	for(int i = 0; i < strlen(contrasena); i++){
-		
-		if(isalpha(contrasena[i])){
+
+	for(int i = 0; i < strlen(contrasena); i++) {
+
+		if(isalpha(contrasena[i])) {
 			if(isupper(contrasena[i]))
 				mayus++;
 			else
 				minus++;
 		}
-		
+
 		if(isdigit(contrasena[i])) nums++;
 	}
-	
-	if(mayus == 0 or minus == 0 or nums == 0){
-			printf("\033[0;31m");
-            printf("\n - Debe contener al menos una letra mayuscula, una letra minuscula y un numero.\n");
-            printf("\033[0m");
-	}else{
-		  printf("\033[0;32m");
-          printf("\n - Debe contener al menos una letra mayuscula, una letra minuscula y un numero.\n");
-          printf("\033[0m");
+
+	if(mayus == 0 or minus == 0 or nums == 0) {
+		printf("\033[0;31m");
+		printf("\n - Debe contener al menos una letra mayuscula, una letra minuscula y un numero.\n");
+		printf("\033[0m");
+	} else {
+		printf("\033[0;32m");
+		printf("\n - Debe contener al menos una letra mayuscula, una letra minuscula y un numero.\n");
+		printf("\033[0m");
 	}
-	
+
 	int c = 0;
-	
-	for(int i = 0; i < strlen(contrasena); i++){
-		
-		if(isdigit(contrasena[i])){
+
+	for(int i = 0; i < strlen(contrasena); i++) {
+
+		if(isdigit(contrasena[i])) {
 			c++;
-			if(c>3){
-			printf("\033[0;31m");
-            printf("\n - No debe tener mas de 3 caracteres numericos consecutivos.\n");
-            printf("\033[0m");
+			if(c>3) {
+				printf("\033[0;31m");
+				printf("\n - No debe tener mas de 3 caracteres numericos consecutivos.\n");
+				printf("\033[0m");
 			}
-		}
-		else
+		} else
 			c = 0;
 	}
-	 if(c<=3){
-		    printf("\033[0;32m");
-            printf("\n - No debe tener mas de 3 caracteres numericos consecutivos.\n");
-            printf("\033[0m");
+	if(c<=3) {
+		printf("\033[0;32m");
+		printf("\n - No debe tener mas de 3 caracteres numericos consecutivos.\n");
+		printf("\033[0m");
 	}
-	 
+
 	int posicion = 0;
 	int letraActual = 0;
 	int letraSgte = 0;
 	int pos1 = 0;
 	int pos2 = 0;
 	int aux=0;
-	
-	for(int i = 0; i < strlen(contrasena); i++){
-		
-		if(isalpha(contrasena[i])){
-			
+
+	for(int i = 0; i < strlen(contrasena); i++) {
+
+		if(isalpha(contrasena[i])) {
+
 			letraActual = tolower(contrasena[i]);
 			letraSgte = tolower(contrasena[i + 1]);
-			
+
 			pos1 = letraActual - 'a' + 1;
 			pos2 = letraSgte - 'a' + 1;
-				
-			if(pos2 == pos1 + 1){
-				
-			aux=1;
-			
-			}	
+
+			if(pos2 == pos1 + 1) {
+
+				aux=1;
+
+			}
 		}
 	}
-	
-	if(aux==1){
-			printf("\033[0;31m");
-            printf("\n - No debe tener 2 caracteres consecutivos que refieran a letras alfabeticamente consecutivas\n");
-            printf("\033[0m");		 
-	}else{
-		 printf("\033[0;32m");
-         printf("\n - No debe tener 2 caracteres consecutivos que refieran a letras alfabeticamente consecutivas\n");
-         printf("\033[0m");
+
+	if(aux==1) {
+		printf("\033[0;31m");
+		printf("\n - No debe tener 2 caracteres consecutivos que refieran a letras alfabeticamente consecutivas\n");
+		printf("\033[0m");
+	} else {
+		printf("\033[0;32m");
+		printf("\n - No debe tener 2 caracteres consecutivos que refieran a letras alfabeticamente consecutivas\n");
+		printf("\033[0m");
 	}
-	
-	if(strlen(contrasena)<6 or strlen(contrasena)>32 or mayus == 0 or minus == 0 or nums == 0 or error==false or c >3 or aux==1){
-	return false;
-    }
+
+	if(strlen(contrasena)<6 or strlen(contrasena)>32 or mayus == 0 or minus == 0 or nums == 0 or error==false or c >3 or aux==1) {
+		return false;
+	}
 	return true;
 }
 
 
 void registrarActividades(FILE *turnos) {
-	
+
 	system("cls");
-    turnos = fopen ("Turnos.dat", "r+b");
-   
+	turnos = fopen ("Turnos.dat", "r+b");
+
 	Turno turno;
-    string mostrarNom = "";
-    int legajo;
-    
-    
+	string mostrarNom = "";
+	int legajo;
+
+
 	fread(&turno, sizeof(Turno), 1, turnos);
 
-  for (int j = 0; j < 6; j++) {
-  cout << "\n\t" << dia(j) << ":\n" << endl;
-  
-  for (int i = 0; i < 2; i++) {
-    printf("\t\tTurno %d:\n", i + 1);
-    
-    if (turno.entrenadorYAct[i][j][0] == 0 and turno.entrenadorYAct[i][j][1] == 0 and turno.entrenadorYAct[i][j][2] == 0) {
-      printf("\t\t\tNo se registraron actividades.");
-    }
-    
-    for (int k = 0; k < 3; k++) {
-      if (turno.entrenadorYAct[i][j][k] != 0) {
-        legajo = turno.entrenadorYAct[i][j][k];
-        if (k == 0) {
-          mostrarNom = showName(legajo);
-          cout << "\t\t\tZumba: " << mostrarNom << endl;
-        }
-        if (k == 1) {
-          mostrarNom = showName(legajo);
-          cout << "\t\t\tSpinning: " << mostrarNom << endl;
-        }
-        if (k == 2) {
-          mostrarNom = showName(legajo);
-          cout << "\t\t\tSpinning: " << mostrarNom << endl;
-        }
-      }
-    }
-    printf("\n");
-  }
-  printf("------------------------------------------------------------------------");
-}
-    printf("\n\n");
+	for (int j = 0; j < 6; j++) {
+		cout << "\n\t" << dia(j) << ":\n" << endl;
+
+		for (int i = 0; i < 2; i++) {
+			printf("\t\tTurno %d:\n", i + 1);
+
+			if (turno.entrenadorYAct[i][j][0] == 0 and turno.entrenadorYAct[i][j][1] == 0 and turno.entrenadorYAct[i][j][2] == 0) {
+				printf("\t\t\tNo se registraron actividades.");
+			}
+
+			for (int k = 0; k < 3; k++) {
+				if (turno.entrenadorYAct[i][j][k] != 0) {
+					legajo = turno.entrenadorYAct[i][j][k];
+					if (k == 0) {
+						mostrarNom = showName(legajo);
+						cout << "\t\t\tZumba: " << mostrarNom << endl;
+					}
+					if (k == 1) {
+						mostrarNom = showName(legajo);
+						cout << "\t\t\tSpinning: " << mostrarNom << endl;
+					}
+					if (k == 2) {
+						mostrarNom = showName(legajo);
+						cout << "\t\t\tSpinning: " << mostrarNom << endl;
+					}
+				}
+			}
+			printf("\n");
+		}
+		printf("------------------------------------------------------------------------");
+	}
+	printf("\n\n");
 	rewind(turnos);
 
 	int actividadElegida = 0;
@@ -737,25 +739,25 @@ void registrarActividades(FILE *turnos) {
 		fwrite(&turno, sizeof(Turno), 1, turnos);
 		cout<<"\nTurno/s registrado/s correctamente.";
 	}
-     fclose(turnos);
+	fclose(turnos);
 }
 
-void pagoEntrenador(FILE *socios,FILE *turnos){
-	
+void pagoEntrenador(FILE *socios,FILE *turnos) {
+
 	system("cls");
-	
+
 	Turno turno;
 	Socio socio;
-	
+
 	float price = 0;
 	float finalPrice;
 	int entrenadorElegido = 0;
-    int alumnos = 0;
-    
+	int alumnos = 0;
+
 	printf("Ingrese el monto por alumno: ");
 	scanf("%f",&price);
-	
-    cout<<"\nIngrese el entrenador para calcular el pago: \n";
+
+	cout<<"\nIngrese el entrenador para calcular el pago: \n";
 	cout<<"\t1) Marcelo Gallardo\n";
 	cout<<"\t2) Ramon Diaz\n";
 	cout<<"\t3) Martin Demichelis\n";
@@ -765,97 +767,97 @@ void pagoEntrenador(FILE *socios,FILE *turnos){
 	cin>>entrenadorElegido;
 
 	entrenadorElegido -= 1;
-	
+
 	int legajoElegido = obtenerLegajo(entrenadorElegido);
 	string nombre = obtenerNombre(entrenadorElegido);
-	
+
 	socios = fopen ("Socios.dat", "rb");
 	turnos = fopen ("Turnos.dat", "rb");
-	
+
 	fread(&turno, sizeof(Turno), 1, turnos);
-	while(!feof(turnos)){
-	 for(int i = 0; i < 2; i++) {
-        for(int j = 0; j < 6; j++) {
-            for(int k = 0; k < 3; k++) {
-                if(turno.entrenadorYAct[i][j][k] == legajoElegido) {
-	            fread(&socio, sizeof(Socio), 1, socios);
-	            while(!feof(socios)){
-		           if(socio.actividadYTurno[i][j][k] == 1){
-			        alumnos++;
-	            }
-	            fread(&socio, sizeof(Socio), 1, socios);
-                }
-              }
-            }
-         }
-      }
-    fread(&turno, sizeof(Turno), 1, turnos);
-    }  
-		
+	while(!feof(turnos)) {
+		for(int i = 0; i < 2; i++) {
+			for(int j = 0; j < 6; j++) {
+				for(int k = 0; k < 3; k++) {
+					if(turno.entrenadorYAct[i][j][k] == legajoElegido) {
+						fread(&socio, sizeof(Socio), 1, socios);
+						while(!feof(socios)) {
+							if(socio.actividadYTurno[i][j][k] == 1) {
+								alumnos++;
+							}
+							fread(&socio, sizeof(Socio), 1, socios);
+						}
+					}
+				}
+			}
+		}
+		fread(&turno, sizeof(Turno), 1, turnos);
+	}
+
 	fclose(turnos);
 	fclose(socios);
-	
+
 	finalPrice = (float)alumnos*price; //calcula el precio a pagar.
-		
+
 	printf("\tEl monto a pagar es de: $ %.2f \n\n",finalPrice);
 	system("pause");
-	system("cls");	
+	system("cls");
 }
-	
 
 
-void entrenadorMayorHs(FILE *turnos){
+
+void entrenadorMayorHs(FILE *turnos) {
 	Turno turno;
 	turnos = fopen ("Turnos.dat","rb");
-	int auxMarcelo = 0 , auxPablo = 0, auxHernan = 0, auxRamon = 0, auxMartin = 0;
-	
+	int auxMarcelo = 0, auxPablo = 0, auxHernan = 0, auxRamon = 0, auxMartin = 0;
+
 	fread(&turno, sizeof(Turno), 1, turnos);
-	while(!feof(turnos)){
-		for(int i=0;i<2;i++){
-			for(int j=0;j<6;j++){
-				for(int k=0;k<3;k++){
+	while(!feof(turnos)) {
+		for(int i=0; i<2; i++) {
+			for(int j=0; j<6; j++) {
+				for(int k=0; k<3; k++) {
 					if(turno.entrenadorYAct[i][j][k] == marcelo) auxMarcelo++;
 					if(turno.entrenadorYAct[i][j][k] == ramon) auxRamon++;
-					if(turno.entrenadorYAct[i][j][k] == martin) auxMartin++;	
+					if(turno.entrenadorYAct[i][j][k] == martin) auxMartin++;
 					if(turno.entrenadorYAct[i][j][k] == hernan) auxHernan++;
 					if(turno.entrenadorYAct[i][j][k] == pablo) auxPablo++;
 				}
 			}
 		}
-		
-	fread(&turno, sizeof(Turno), 1, turnos);
+
+		fread(&turno, sizeof(Turno), 1, turnos);
 	}
-	
-	if(auxMarcelo == 0 and auxRamon == 0 and auxMartin == 0 and auxHernan == 0 and auxPablo == 0){
+
+	if(auxMarcelo == 0 and auxRamon == 0 and auxMartin == 0 and auxHernan == 0 and auxPablo == 0) {
 		printf(" 1111111 ");
-	}else{
-		
-	if(auxMarcelo>=auxRamon and auxMarcelo>=auxMartin and auxMarcelo>=auxHernan and auxMarcelo>=auxPablo){
-	printf(" Marcelo Gallardo ");
-	auxMarcelo++;
+	} else {
+
+		if(auxMarcelo>=auxRamon and auxMarcelo>=auxMartin and auxMarcelo>=auxHernan and auxMarcelo>=auxPablo) {
+			printf(" Marcelo Gallardo ");
+			auxMarcelo++;
+		}
+
+		if(auxRamon>=auxMarcelo and auxRamon>=auxMartin and auxRamon>=auxHernan and auxRamon>=auxPablo) {
+			printf("Ramon ");
+			auxRamon++;
+		}
+
+		if(auxMartin>=auxMarcelo and auxMartin>=auxRamon and auxMartin>=auxHernan and auxMartin>=auxPablo) {
+			printf(" Martin  ");
+			auxMartin++;
+		}
+
+		if(auxHernan>=auxMarcelo and auxHernan>=auxMartin and auxHernan>=auxRamon and auxHernan>=auxPablo) {
+			printf(" Hernan ");
+			auxHernan++;
+		}
+
+		if(auxPablo>=auxMarcelo and auxPablo>=auxMartin and auxPablo>=auxHernan and auxPablo>=auxRamon) {
+			printf(" Pablo ");
+			auxPablo++;
+		}
 	}
-	
-	if(auxRamon>=auxMarcelo and auxRamon>=auxMartin and auxRamon>=auxHernan and auxRamon>=auxPablo){
-	printf("Ramon ");
-	auxRamon++;
-	}
-	
-	if(auxMartin>=auxMarcelo and auxMartin>=auxRamon and auxMartin>=auxHernan and auxMartin>=auxPablo){
-	printf(" Martin  ");
-	auxMartin++;
-	}
-	
-	if(auxHernan>=auxMarcelo and auxHernan>=auxMartin and auxHernan>=auxRamon and auxHernan>=auxPablo){
-	printf(" Hernan ");
-	auxHernan++;
-	}
-	
-	if(auxPablo>=auxMarcelo and auxPablo>=auxMartin and auxPablo>=auxHernan and auxPablo>=auxRamon){
-	printf(" Pablo ");
-	auxPablo++;
-	}
-    }
-    
+
 	fclose(turnos);
 	system("pause");
 	system("cls");
@@ -864,9 +866,9 @@ void entrenadorMayorHs(FILE *turnos){
 
 
 
-	
-	
-	
-	
-	
-	
+
+
+
+
+
+

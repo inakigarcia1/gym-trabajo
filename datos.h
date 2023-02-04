@@ -38,7 +38,7 @@ struct fec {
 };
 
 struct Usuario {
-	char nombreUsuario[10];
+	char nombreUsuario[1000];
 	char contrasena[1000];
 	char nombre[60];
 	int tipoDeUser;
