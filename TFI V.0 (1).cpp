@@ -5,14 +5,15 @@ typedef char semana[10];
 
 bool iniciarSesion(FILE *usuarios, char user[10]);
 void menu(int &opcion, char user[10]);
-bool checkUser(FILE*usuarios, bool contrasenaValida);
-bool checkPass(char contrasena[32]);
+bool checkUser(FILE *usuarios, char nombreUsuario[10]);
+bool checkPass(char contrasena[31]);
 void registrarActividades(FILE *turnos);
 void pagoEntrenador(FILE *socios, FILE *turnos);
 void entrenadorMayorHs(FILE *turnos);
 string dia(int numDia);
 string obtenerNombre(int id);
 int obtenerLegajo(int id);
+string showName(int id);
 
 main(){
 	
@@ -22,7 +23,6 @@ main(){
 	FILE *usuarios;
 	FILE *socios;
 	FILE *turnos;
-	FILE *aux;
 	
 	Usuario usuario;
 	
@@ -30,6 +30,8 @@ main(){
 	char user[10];// Almacena nombre de usuario
 	bool identificacion; // Identifica al usuario.
 	int opcion; //  Utilizado para registrar la opcion del menu;
+	char nombreUsuario[10];
+	char contrasena[31];
 	int tipoDeUsuario;
 	bool usuarioValido,contrasenaValida;
 	
@@ -47,10 +49,10 @@ main(){
 	printf("\n Seleccione una opcion: ");
     printf("\n1) Administrador");
     printf("\n2) Secretario/a");
-	cout<<"==> ";
+	cout<<"\n==> ";
 	scanf("%d",&tipoDeUsuario);
-	
-	while(tipoDeUsuario!=1 and tipoDeUsuario!=2){
+	tipoDeUsuario=tipoDeUsuario-1;
+	while(tipoDeUsuario!=0 and tipoDeUsuario!=1){
 		
 	cout<<"No ingreso un numero valido, intente nuevamente.\n";
 	system("pause");
@@ -59,13 +61,31 @@ main(){
 	printf("\n Seleccione una opcion: ");
     printf("\n1) Administrador");
     printf("\n2) Secretario/a");
-	cout<<"==> ";
+	cout<<"\n==> ";
 	scanf("%d",&tipoDeUsuario);
+	tipoDeUsuario=tipoDeUsuario-1;
 			
 	}
 		do{
-		usuarioValido = checkUser(usuarios,contrasenaValida);
+		printf("\n Ingresar nombre de usuario: ");
+        _flushall();gets(nombreUsuario);
+		usuarioValido = checkUser(usuarios,nombreUsuario);
 		}while(!usuarioValido);
+		
+		do{
+		printf("\n Ingresar contrasena: ");
+        _flushall();gets(contrasena);
+		contrasenaValida = checkPass(contrasena);	
+		}while(!contrasenaValida);
+		
+		usuarios = fopen ("Usuarios.dat", "a+b");
+		strcpy(usuario.nombreUsuario, nombreUsuario);
+		strcpy(usuario.contrasena, contrasena);
+		usuario.tipoDeUser = tipoDeUsuario;
+		
+		_flushall();
+		fwrite(&usuario, sizeof(Usuario), 1, usuarios);
+		fclose(usuarios);
 			
 		}
 		if(opcion==2) {
@@ -205,17 +225,9 @@ bool iniciarSesion(FILE *usuarios, char user[10]){
 }	
 
 
-bool checkUser(FILE* usuarios,bool contrasenaValida){
+bool checkUser(FILE* usuarios, char nombreUsuario[10]){
 		
 	Usuario usuario;
-
-	char nombreUsuario[10];
-	char contrasena[32];
-	
-	
-	printf("\n Ingresar nombre de usuario: ");
-    _flushall();gets(nombreUsuario);
-	
 	
 	usuarios = fopen("Usuarios.dat", "rb"); //<--- Utilizado para controlar si el nombre de usuario se encuentra en uso.
     
@@ -355,26 +367,8 @@ bool checkUser(FILE* usuarios,bool contrasenaValida){
 	}	
 	
 	system("cls");
-	
-	do{
-	
-    printf("\n Ingresar contrasena: ");
-    _flushall();gets(contrasena);
-    
-    contrasenaValida = checkPass(contrasena); // invoca a la funcion "checkPass" para crear la contraseña.
-    
-	
-	}while(!contrasenaValida);
-	
-	if(contrasenaValida){
-		return true;
-	    printf("\n\n");
-    	system("pause");
-    	system("cls");
-    	printf("\033[0;32m");
-    	printf("\n - Contrasenia valida.\n");
-    	printf("\033[0m");
-	}
+		
+	return true;
     
 
 }
@@ -507,26 +501,51 @@ bool checkPass(char contrasena[31]){
 	return true;
 }
 
+
 void registrarActividades(FILE *turnos) {
 	
+	system("cls");
     turnos = fopen ("Turnos.dat", "r+b");
-
+   
 	Turno turno;
-
+    string mostrarNom = "";
+    int legajo;
+    
+    
 	fread(&turno, sizeof(Turno), 1, turnos);
 
-
-	for(int i = 0; i < 2; i++) {
-		for(int j = 0; j < 6; j++) {
-			for(int k = 0; k < 3; k++) {
-				printf(" [%d] ", turno.entrenadorYAct[i][j][k]);
-			}
-			printf("\n");
-		}
-		printf("\n\n");
-	}
-
-
+  for (int j = 0; j < 6; j++) {
+  cout << "\n\t" << dia(j) << ":\n" << endl;
+  
+  for (int i = 0; i < 2; i++) {
+    printf("\t\tTurno %d:\n", i + 1);
+    
+    if (turno.entrenadorYAct[i][j][0] == 0 and turno.entrenadorYAct[i][j][1] == 0 and turno.entrenadorYAct[i][j][2] == 0) {
+      printf("\t\t\tNo se registraron actividades.");
+    }
+    
+    for (int k = 0; k < 3; k++) {
+      if (turno.entrenadorYAct[i][j][k] != 0) {
+        legajo = turno.entrenadorYAct[i][j][k];
+        if (k == 0) {
+          mostrarNom = showName(legajo);
+          cout << "\t\t\tZumba: " << mostrarNom << endl;
+        }
+        if (k == 1) {
+          mostrarNom = showName(legajo);
+          cout << "\t\t\tSpinning: " << mostrarNom << endl;
+        }
+        if (k == 2) {
+          mostrarNom = showName(legajo);
+          cout << "\t\t\tSpinning: " << mostrarNom << endl;
+        }
+      }
+    }
+    printf("\n");
+  }
+  printf("------------------------------------------------------------------------");
+}
+    printf("\n\n");
 	rewind(turnos);
 
 	int actividadElegida = 0;
@@ -723,29 +742,27 @@ void registrarActividades(FILE *turnos) {
 
 void pagoEntrenador(FILE *socios,FILE *turnos){
 	
+	system("cls");
+	
 	Turno turno;
 	Socio socio;
 	
 	float price = 0;
 	float finalPrice;
 	int entrenadorElegido = 0;
-    int auxHs = 0;
-    int auxDias = 0;
     int alumnos = 0;
     
 	printf("Ingrese el monto por alumno: ");
 	scanf("%f",&price);
 	
-    cout<<"\n\nIngrese el entrenador para calcular el pago: \n";
+    cout<<"\nIngrese el entrenador para calcular el pago: \n";
 	cout<<"\t1) Marcelo Gallardo\n";
 	cout<<"\t2) Ramon Diaz\n";
 	cout<<"\t3) Martin Demichelis\n";
 	cout<<"\t4) Hernan Crespo\n";
 	cout<<"\t5) Pablo Aimar\n";
-	cout<<"- : ";
+	cout<<"==> ";
 	cin>>entrenadorElegido;
-
-	system("cls");
 
 	entrenadorElegido -= 1;
 	
@@ -755,42 +772,32 @@ void pagoEntrenador(FILE *socios,FILE *turnos){
 	socios = fopen ("Socios.dat", "rb");
 	turnos = fopen ("Turnos.dat", "rb");
 	
-	fread(&socio, sizeof(Socio), 1, socios);
-	while(!feof(socios)){
-	
-		for(int i = 0; i < 2; i++){
-		    for(int j = 0; j < 6; j++){
-			for(int k = 0; k < 3; k++){
-			
-			if(socio.actividadYTurno[i][j][k]==1){
-			printf("mesi");
-			fread(&turno, sizeof(Turno), 1, turnos);
-		while(!feof(turnos)){
-		       
-				if(turno.entrenadorYAct[i][j][k] == legajoElegido){
-				   alumnos++;
-				
-			
-		
-	}
-
-		fread(&turno, sizeof(Turno), 1, turnos);
-	}
-	rewind(turnos);
-}
-}
-}
-}
-
-fread(&socio, sizeof(Socio), 1, socios);
-}
+	fread(&turno, sizeof(Turno), 1, turnos);
+	while(!feof(turnos)){
+	 for(int i = 0; i < 2; i++) {
+        for(int j = 0; j < 6; j++) {
+            for(int k = 0; k < 3; k++) {
+                if(turno.entrenadorYAct[i][j][k] == legajoElegido) {
+	            fread(&socio, sizeof(Socio), 1, socios);
+	            while(!feof(socios)){
+		           if(socio.actividadYTurno[i][j][k] == 1){
+			        alumnos++;
+	            }
+	            fread(&socio, sizeof(Socio), 1, socios);
+                }
+              }
+            }
+         }
+      }
+    fread(&turno, sizeof(Turno), 1, turnos);
+    }  
 		
 	fclose(turnos);
 	fclose(socios);
-		finalPrice = (float)alumnos*price;
-		
-			printf("El monto a pagar es de $ %.2f",finalPrice);
 	
+	finalPrice = (float)alumnos*price; //calcula el precio a pagar.
+		
+	printf("\tEl monto a pagar es de: $ %.2f \n\n",finalPrice);
 	system("pause");
 	system("cls");	
 }
