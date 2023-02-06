@@ -677,7 +677,7 @@ void listado() {
 	while(!feof(arch)) {
 
 		for(int a=0; a<6; a++) {
-			if((copia1[i].actividadYTurno[turno][a][act] == 1) && (evitarRepetirNombre==0)) {
+			if((copia1[i].actividadYTurno[turno][a][act] == 1) && (evitarRepetirNombre==0)&& (copia1[i].restringido[act] !=5)) {
 				personas++;
 				evitarRepetirNombre++;
 				cout<<"\t"<<personas<<") "<<copia1[i].apeNom<<endl;
@@ -685,16 +685,18 @@ void listado() {
 
 		}
 		
-		if(personas == 0) cout<<"No se encontraron socios con las caracteristicas buscadas.";
-		else cout<<"\n";
-		
 		i++;
 		evitarRepetirNombre=0;
 		fread(&reg,sizeof(Socio),1,arch);
 	}
+	if(personas == 0) cout<<"No se encontraron socios con las caracteristicas buscadas.";
+	else{cout<<"\n";
+		
+	
+		
 	cout<<"\nLa cantidad de socios es de: "<<personas<<endl;
 	
-	cout<<"\nPresiona una tecla para volver al menu...";
+	cout<<"\nPresiona una tecla para volver al menu...";} 
 	getch();
 	}
 	fclose(arch2);
